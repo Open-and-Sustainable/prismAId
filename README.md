@@ -1,4 +1,17 @@
-# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> prism<span style="color:red">A</span><span style="color:blue">I</span>d 
+<style>
+blue {
+  color: lightblue;
+}
+
+red {
+  color: red;
+}
+
+green {
+  color: lightgreen;
+}
+</style>
+# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> prism<red>A</red><span style="color:blue">I</span>d 
 
 * * *
 
