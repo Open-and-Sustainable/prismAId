@@ -21,3 +21,5 @@
 Riccardo Boero - ribo@nilu.no
 
 ### License
+GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
+<img src="https://www.gnu.org/graphics/agplv3-155x51.png" alt="logo" width="155/>
