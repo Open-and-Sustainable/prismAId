@@ -1,6 +1,5 @@
-# prism<span style="color:red">A</span><span style="color:blue">I</span>d 
+# prism<span style="color:red">A</span><span style="color:blue">I</span>d <img src="figures/prismAId_logo.png" alt="logo" width="100"/>
 
-![smartAId_logo](figures/prismAId_logo.png)
 * * *
 
 ## Use
