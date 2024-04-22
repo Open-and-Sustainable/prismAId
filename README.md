@@ -1,6 +1,6 @@
-# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> prism<red>A</red><span style="color:blue">I</span>d 
+# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> prism${\color{red}A}$${\color{blue}I}$d 
 
-${\color{red}Some \space text \space here}$ <br>
+
 
 * * *
 
