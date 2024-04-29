@@ -9,6 +9,11 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [Unreleased] - 2024-04-29
+### Added
+- Directory structure
+- Test files structure
+
 ## [Unreleased] - 2024-04-22
 ### Added
 - Changelog
