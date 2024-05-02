@@ -1,1 +1,2 @@
 // Prompt generation
+package prompt

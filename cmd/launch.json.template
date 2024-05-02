@@ -1,0 +1,19 @@
+// put this in your .vscode folder, remove the .template extension, add the API key, and remove this line
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Program",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {
+                "OPENAI_API_KEY": "PUT_IT_HERE" 
+            },
+            "args": [],
+            "console": "integratedTerminal"
+        }
+    ]
+}
+}

@@ -1,0 +1,18 @@
+[project]
+name = "PDF Processor and LLM Interactor"
+author = "John Doe"
+version = "1.0"
+
+[inputs]
+txt_directory = "/path/to/txt/files"
+prompt_template = "What is the main topic of {{.Title}}?"
+
+[llm]
+provider = "OpenAI"
+api_key = "your-api-key-here"
+config_file = "/path/to/llm/config.json"
+endpoint = "https://api.openai.com/v1/engines"
+
+[output]
+results_directory = "/path/to/save/results"
+output_format = "text"  # Could be "text", "json", etc.
