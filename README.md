@@ -1,4 +1,5 @@
-# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> $$prism{\color{red}A}{\color{blue}I}d$$
+# ![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)$$prism{\color{red}A}{\color{blue}I}d$$
+
 
 
 
