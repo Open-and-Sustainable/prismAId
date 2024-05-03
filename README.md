@@ -7,8 +7,6 @@ Innovate and Accelerate Science with AI: Open and Replicable Tools for Systemati
 ## Purpose
 prismAId harnesses the power of AI to streamline the process of extracting and managing data from scientific literature. This tool is designed to support researchers by providing a systematic, replicable approach to literature reviews, significantly reducing the time and effort required to gather and analyze data. By automating the extraction of information using customized prompts, prismAId ensures high accuracy and efficiency, enabling users to focus more on analysis and less on data processing.
 
-
-
 * * *
 
 ## Getting Started
@@ -50,13 +48,12 @@ Follow instructions in the [user manual](user_manual/manual.md).
 
 * * *
 
-### Authors
-
-Riccardo Boero - ribo@nilu.no
-
 ## Contributing
 Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+### Authors
+
+Riccardo Boero - ribo@nilu.no
 
 ### License
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
