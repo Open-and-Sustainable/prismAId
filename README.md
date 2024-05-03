@@ -1,4 +1,5 @@
 # <p align="center"><img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png" alt="logo" width="50"/></p>$$prism{\color{red}A}{\color{blue}I}d$$
+# <p align="center">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</p>
 Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews.
 
 * * *
