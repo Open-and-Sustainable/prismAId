@@ -1,4 +1,4 @@
-# Contributing to prism**${\color{red}A}{\color{blue}I}$**d <img src="figures/prismAId_logo.png" alt="logo" width="50"/> 
+# Contributing to $$prism{\color{red}A}{\color{blue}I}d$$
 
 Thank you for your interest in contributing to prismAId! We welcome contributions from everyone and value your input and efforts to improve this project. Below, you will find guidelines and instructions on how to contribute effectively and ensure a smooth collaboration process.
 
