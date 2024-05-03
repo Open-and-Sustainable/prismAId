@@ -1,4 +1,5 @@
-# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> prism**${\color{red}A}{\color{blue}I}$**d 
+# <img src="figures/prismAId_logo.png" alt="logo" width="50"/> $$prism{\color{red}A}{\color{blue}I}d$$
+
 
 
 
