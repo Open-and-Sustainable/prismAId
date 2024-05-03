@@ -28,6 +28,10 @@ Simply download the executable for your OS, place it in a suitable directory, an
 ./prismAId_darwin_amd64 --project your_project.toml
 ```
 
+### Setting up a review project
+
+Follow instructions in the [user manual](user_manual/manual.md).
+
 * * *
 
 ## Specifications
