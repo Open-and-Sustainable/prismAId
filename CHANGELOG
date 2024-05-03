@@ -9,6 +9,12 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [Unreleased] - 2024-05-03
+### Added
+- User manual placeholder
+- Preliminary README
+- Inheritance of cost module from testing project
+
 ## [Unreleased] - 2024-04-29
 ### Added
 - Directory structure
