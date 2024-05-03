@@ -1,6 +1,5 @@
-# ![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)$$prism{\color{red}A}{\color{blue}I}d$$
-
-
+# <p align="center"><img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png" alt="logo" width="50"/></p>$$prism{\color{red}A}{\color{blue}I}d$$
+A Go command leveraging LLMs capabilities for systematic reviews of scientific literature following protocols such as Prisma 2020.
 
 
 
