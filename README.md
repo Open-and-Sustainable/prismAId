@@ -51,7 +51,7 @@ Simply download the executable for your OS, place it in a suitable directory, an
 Riccardo Boero - ribo@nilu.no
 
 ## Contributing
-Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in `CONTRIBUTING.md`.
+Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 
 ### License
