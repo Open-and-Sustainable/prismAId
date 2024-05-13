@@ -1,4 +1,4 @@
- 2. Materials and Methods
+2. Materials and Methods
 2.1. Data Sources and Scales
 The hazard data we use to develop our adaptation model refer spatially to 395,526 U.S. Census blocks that intersect the CRB (Figure 1). These blocks belong to seven different U.S. states and 89 counties, as presented in Figure 2. In comparison to larger administrative spatial units (i.e., counties), which are usually the ones referred to in the literature, Census blocks provide an increased level of precision for the identification and prediction of extremes and for the attribution of damage. Summary statistics for the different possible spatial scales of administrative units intersecting CRB are presented in Table 1. Census blocks considered have an average size of about 2 km2
 and a median area of only 0.04 km2

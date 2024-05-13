@@ -44,7 +44,7 @@ Follow instructions in the [user manual](user_manual/manual.md).
 
 ## Notes
 - Ensure that your input files are formatted correctly as per the guidelines to avoid common errors.
-- For troubleshooting and support, please refer to the wiki or submit an issue on GitHub.
+- For troubleshooting and support, please refer to the [User Manual](user_manual/manual.md) or submit an issue on GitHub.
 
 * * *
 

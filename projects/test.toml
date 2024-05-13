@@ -4,16 +4,15 @@ author = "Riccardo Boero"
 version = "0.1"
 
 [project.configuration]
-input_directory = "projects/input/test" # where the .txt files are
-results_directory = "projects/output/test" # where results will be saved, the path must exists
+input_directory = "../projects/input/test" # where the .txt files are
+results_directory = "../projects/output/test" # where results will be saved, the path must exists
 output_format = "csv"  # Could be "csv" [default], "json", etc. only CSV for now
-debugging_level = "low" # Could be "low" [default], "medium", "high" see docs for details
+log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 
 [project.llm]
 provider = "OpenAI" # Only OpenAI is supported so far
-api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs through project keys
-cost_optimization = "yes" # Could be "yes" [default] or "no". If yes it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
-model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default]. Leave empty string (or remove key) if cost_optimization is set to 'yes'.
+api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
+model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
 temperature = 0.2 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
 batch_execution = "no" # Coul be "yes" [default] or "no". If yes it will send the prompt as batch jobs executed in 24 hours and costing 50%. Not yet implemented!
 
@@ -21,32 +20,32 @@ batch_execution = "no" # Coul be "yes" [default] or "no". If yes it will send th
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 
 task = "You are asked to map the concepts discussed in a scientific paper attached here."
-expected_result = "You should output a JSON object with the following keys and values: "
-failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, leave the values empty."
-example = "For example, if a document states that the greenium is around -0.05 percentage points over the 2014-2019, the output should be: {\"date (years)\": \"2014-2019\", \"annual rate (basis points)\": \"-5\"}."
+expected_result = "You should output a JSON object with the following keys and possible values: "
+failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an 'unknown' value."
+example = ""
 
-[review] # Review items -- deifning the knowledge map that needs to be filled in
+[review] # Review items -- defining the knowledge map that needs to be filled in
 [review.1]
 key = "historical data analysis"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.2]
 key = "forecasting"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.3]
 key = "copulas"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.4]
 key = "regression models"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.5]
 key = "clustering"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.6]
 key = "frequentist approach"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.7]
 key = "bayesian approach"
-values = ["yes", "no"]
+values = ["yes", "no", "unknown"]
 [review.8]
 key = "geographical scale"
-values = ["world", "continent", "river basin"]
+values = ["world", "continent", "river basin", "unknown"]

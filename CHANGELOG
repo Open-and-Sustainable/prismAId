@@ -9,6 +9,13 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [Unreleased] - 2024-05-13
+### Added
+- Configuration loading
+- Cost assessement
+- OpenAI API calls
+- Output to CSV drafting
+
 ## [Unreleased] - 2024-05-03
 ### Added
 - User manual placeholder

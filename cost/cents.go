@@ -1,7 +1,7 @@
 package cost
 
 import (
-	"fmt"
+	"log"
 	"strings"
 
 	"github.com/shopspring/decimal"
@@ -17,7 +17,7 @@ var modelRates = map[string]decimal.Decimal{ // dollar prices per M token
 }
 
 // NormalizeModelName attempts to map various external model names to known keys in the modelRates map.
-func NormalizeModelName(model string) string {
+func normalizeModelName(model string) string {
 	model = strings.ToLower(model)
 	if strings.Contains(model, "gpt-3.5") && strings.Contains(model, "instruct") {
 		return "gpt-3.5-turbo-instruct" // Return a default or base model if specific one isn't known
@@ -34,12 +34,12 @@ func NormalizeModelName(model string) string {
 	return model
 }
 
-func NumCentsFromTokens(numTokens int, model string) decimal.Decimal {
-	normalizedModel := NormalizeModelName(model)
+func numCentsFromTokens(numTokens int, model string) decimal.Decimal {
+	normalizedModel := normalizeModelName(model)
 	rate, ok := modelRates[normalizedModel]
 	if !ok {
 		rate = decimal.Zero
-		fmt.Println("Cost estimation unavailable because model not found:", model)
+		log.Println("Cost estimation unavailable because model not found:", model)
 	}
 
 	// Calculate the total cost in cents

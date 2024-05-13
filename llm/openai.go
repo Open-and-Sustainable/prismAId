@@ -2,65 +2,52 @@ package llm
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
-	"os"
+	"log"
+	"prismAId/config"
 	"prismAId/cost"
 
 	openai "github.com/sashabaranov/go-openai"
 )
 
-func QueryOpenAI(prompt string) (string, error) {
+func QueryOpenAI(prompt string, config *config.Config) (string, error) {
 
-	//model := openai.GPT3Dot5Turbo // Adjust the model as necessary
-	model := openai.GPT4TurboPreview
+	model := cost.GetModel(prompt, config)
 
-	// Create a new OpenAI client, loading the key from local file.
-	apiKey := os.Getenv("OPENAI_API_KEY")
-	client := openai.NewClient(apiKey)
+	// Create a new OpenAI client
+	client := openai.NewClient(config.Project.LLM.ApiKey)
 
 	// Define your input data and create a prompt.
 	messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
-
-	numTokens := cost.NumTokensFromMessages(messages, model)
-	numCents := cost.NumCentsFromTokens(numTokens, model)
-
-	// Print computed values
-	fmt.Printf("Estimated Input Tokens: %d, Estimated Input Cost ($): %v\n", numTokens, numCents)
-
-	// As if continuing
-	check := cost.RunUserCheck()
-	if check != nil {
-		return "", nil
-	}
 
 	completionParams := openai.ChatCompletionRequest{
 		Model:    model,
 		Messages: messages,
 		ResponseFormat: &openai.ChatCompletionResponseFormat{
-			Type: openai.ChatCompletionResponseFormatTypeJSONObject, // Structured JSON response
+			Type: openai.ChatCompletionResponseFormatTypeJSONObject,
 		},
-		//MaxTokens:   100, // to constraint the number of tokens in response
-		Temperature: 0.5,
+		Temperature: float32(config.Project.LLM.Temperature),
 	}
 
 	// Make the API call
 	resp, err := client.CreateChatCompletion(context.Background(), completionParams)
 	if err != nil || len(resp.Choices) != 1 {
-		fmt.Printf("Completion error: err:%v len(choices):%v\n", err, len(resp.Choices))
+		log.Printf("Completion error: err:%v len(choices):%v\n", err, len(resp.Choices))
 		return "", fmt.Errorf("no response from OpenAI: %v", err)
 	}
 
-	// Print the entire response object
-	/*respJSON, err := json.MarshalIndent(resp, "", "  ")
+	// Print the entire response object on log
+	respJSON, err := json.MarshalIndent(resp, "", "  ")
 	if err != nil {
-		fmt.Println("Failed to marshal response:", err)
+		log.Println("Failed to marshal response:", err)
 		return "", err
 	}
-	fmt.Printf("Full OpenAI response: %s\n", string(respJSON))*/
+	log.Printf("Full OpenAI response: %s\n", string(respJSON))
 
 	// Assuming the content response is what you typically use:
 	if len(resp.Choices) == 0 || resp.Choices[0].Message.Content == "" {
-		fmt.Println("No content found in response")
+		log.Println("No content found in response")
 		return "", fmt.Errorf("no content in response")
 	}
 
