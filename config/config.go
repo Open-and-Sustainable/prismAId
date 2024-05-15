@@ -41,6 +41,7 @@ type PromptConfig struct {
 	Task           string `toml:"task"`
 	ExpectedResult string `toml:"expected_result"`
 	Failsafe       string `toml:"failsafe"`
+	Definitions    string `toml:"definitions"`
 	Example        string `toml:"example"`
 }
 

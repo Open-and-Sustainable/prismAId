@@ -1,4 +1,3 @@
-// put this in your .vscode folder, remove the .template extension, add the API key, and remove this line
 {
     "version": "0.2.0",
     "configurations": [
@@ -9,7 +8,7 @@
             "mode": "auto",
             "program": "${fileDirname}",
             "env": {
-                "OPENAI_API_KEY": "PUT_THE_API_KEY_HERE" 
+                "OPENAI_API_KEY": "sk-proj-Evn0LhDnNJPGl5anss6aT3BlbkFJRsf0faX5efrVFVfJ3e9h" 
             },
             "args": [],
             "console": "integratedTerminal"

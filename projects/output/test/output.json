@@ -1,0 +1,30 @@
+{
+    "bayesian approach": [
+        "no"
+    ],
+    "clustering": [
+        "no"
+    ],
+    "copulas": [
+        "yes"
+    ],
+    "forecasting": [
+        "yes"
+    ],
+    "frequentist approach": [
+        "no"
+    ],
+    "geographical scale": [
+        "river basin"
+    ],
+    "historical data analysis": [
+        "yes"
+    ],
+    "historical period studied": [
+        "1970–1999",
+        "2000–2017"
+    ],
+    "regression models": [
+        "yes"
+    ]
+}

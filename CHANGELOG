@@ -9,6 +9,12 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [Unreleased] - 2024-05-15
+### Fixed
+- Output to CSV
+### Added
+- Output to JSON
+
 ## [Unreleased] - 2024-05-13
 ### Added
 - Configuration loading

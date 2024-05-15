@@ -20,9 +20,9 @@ func ParsePrompts(config *config.Config) ([]string, []string) {
 
 	// The common part of prompts
 	expected_result := parseExpectedResults(config)
-	common_part := fmt.Sprintf("%s\n%s\n%s\n%s\n%s",
+	common_part := fmt.Sprintf("%s\n%s\n%s\n%s\n%s\n%s",
 		config.Prompt.Persona, config.Prompt.Task, expected_result,
-		config.Prompt.Failsafe, config.Prompt.Example)
+		config.Prompt.Failsafe, config.Prompt.Definitions, config.Prompt.Example)
 
 	// Load text files
 	files, err := os.ReadDir(config.Project.Configuration.InputDirectory)
@@ -56,7 +56,7 @@ func ParsePrompts(config *config.Config) ([]string, []string) {
 
 func parseExpectedResults(config *config.Config) string {
 	expectedResult := config.Prompt.ExpectedResult
-	keys := GetResultsKeys(config)
+	keys := GetResultsKeysOrdered(config)
 
 	// Build a map from sorted keys using descriptive keys
 	sortedReviewItems := make(map[string][]string)
@@ -76,12 +76,21 @@ func parseExpectedResults(config *config.Config) string {
 	return fullSummary
 }
 
-func GetResultsKeys(config *config.Config) []string {
+func GetResultsKeysOrdered(config *config.Config) []string {
 	// Collect keys for sorting based on numeric keys to maintain order
 	keys := make([]string, 0, len(config.Review))
 	for key := range config.Review {
 		keys = append(keys, key)
 	}
 	sort.Strings(keys) // Sort keys to ensure order
+	return keys
+}
+
+func GetResultsKeys(config *config.Config) []string {
+	var keys []string
+	for _, item := range config.Review {
+		keys = append(keys, item.Key)
+	}
+	sort.Strings(keys) // Optional: Sort keys alphabetically for consistent output
 	return keys
 }
