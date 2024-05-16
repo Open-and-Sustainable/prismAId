@@ -9,11 +9,16 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
-## [Unreleased] - 2024-05-16
+## [0.1.0] - 2024-05-16
 ### Added
 - Input configuration file on command line
 - Ouput file name form configuration file
-- Tasks for building commands
+- Tasks for building excutables
+- Compiled executables for each OS and platform
+### Fixed
+- User Manual
+- Moved log functions into main.go
+
 
 ## [Unreleased] - 2024-05-15
 ### Fixed

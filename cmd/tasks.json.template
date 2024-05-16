@@ -10,7 +10,7 @@
                 "build",
                 "-o",
                 "bin/prismAId_linux_amd64",
-                "main.go"
+                "./cmd/main.go"
             ],
             "env": {
                 "GOOS": "linux",
@@ -27,7 +27,7 @@
                 "build",
                 "-o",
                 "bin/prismAId_linux_arm64",
-                "main.go"
+                "./cmd/main.go"
             ],
             "env": {
                 "GOOS": "linux",
@@ -44,7 +44,7 @@
                 "build",
                 "-o",
                 "bin/prismAId_windows_amd64.exe",
-                "main.go"
+                "./cmd/main.go"
             ],
             "env": {
                 "GOOS": "windows",
@@ -61,7 +61,7 @@
                 "build",
                 "-o",
                 "bin/prismAId_darwin_amd64",
-                "main.go"
+                "./cmd/main.go"
             ],
             "env": {
                 "GOOS": "darwin",
@@ -78,7 +78,7 @@
                 "build",
                 "-o",
                 "bin/prismAId_darwin_arm64",
-                "main.go"
+                "./cmd/main.go"
             ],
             "env": {
                 "GOOS": "darwin",
