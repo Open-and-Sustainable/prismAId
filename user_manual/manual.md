@@ -55,8 +55,55 @@
 - Prepare a project configuratio file in TOML following the sections and conventions presented in the [template.toml](../projects/template.toml) and here.
 - The first section of the toml
 ```toml
+[project]
+name = "Use of LLM for systematic review"
+author = "John Doe"
+version = "1.0"
+```
+- 
+
+```toml
+[project.configuration]
+input_directory = "/path/to/txt/files" # where the .txt files are
+results_file_name = "/path/to/save/results" # where results will be saved, the path must exists, file extension will be added
+output_format = "json"  # Could be "csv" [default] or "json"
+log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
+```
+
+```toml
+[project.llm]
+provider = "OpenAI" # Only OpenAI is supported so far, this option is actually ignored.
+api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
+model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
+temperature = 0.2 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
+batch_execution = "no" # Not yet implemented, this option is actually ignored.
 
 ```
+
+```toml
+[prompt]
+persona = "Some text telling the model what role should be played." # Personas help in setting the expectation on the model role
+task = "You are asked to map the concepts discussed in a scientific paper attached here." # This is the task that needs to be solved
+expected_result = "You should output a JSON object with the following keys and possible values: " # This introduces the structure of the output in JSON as specified below in the [review] section
+failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value." # This is the fail-safe option to ask the model to not force answers in categories provided. PArticularly useful if values to keys below are nto complete.
+definitions = "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually." # This is a chance to define the concepts we are asking to the model, to avoid misconceptions.
+example = "" # This is a chance to provide an example of the concepts we are asking to the model, to avoid misconceptions.
+```
+
+```toml
+[review] # Review items -- defining the knowledge map that needs to be filled in
+[review.1]
+key = "interest rate"
+values = [""]
+[review.2]
+key = "regression models"
+values = ["yes", "no"]
+[review.3]
+key = "geographical scale"
+values = ["world", "continent", "river basin"]
+```
+
+
 - Configuration settings.
 - Verifying the setup.
 
