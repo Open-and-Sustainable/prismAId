@@ -53,19 +53,19 @@
 ## 5. Project Configuration
 ## Project Configuration
 - Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](../projects/template.toml) and here.
-### Example Configuration
+### Project Section Details
+#### Project Information:
 ```toml
 [project]
 name = "Use of LLM for Systematic Review"
 author = "John Doe"
 version = "1.0"
 ```
-#### Section Details
-##### Project Information:
 - The first section [project] contains basic information about the project. This includes:
   - name: The name of the project.
   - author: The author of the project.
   - version: The version of the project configuration.
+#### Configuration Details:
 ```toml
 [project.configuration]
 input_directory = "/path/to/txt/files"  # Directory containing the .txt files.
@@ -73,7 +73,6 @@ results_file_name = "/path/to/save/results"  # Path to save the results. The pat
 output_format = "json"  # Output format: "csv" [default] or "json".
 log_level = "low"  # Log level: "low" [default], "medium" (stdout), or "high" (file).
 ```
-##### Configuration Details:
 - The subsection [project.configuration] contains settings related to the project's execution environment:
   - input_directory: The directory where the .txt files to be reviewed are located.
   - results_file_name: The path where the results will be saved. Ensure the path exists in the filesystem.
@@ -82,6 +81,7 @@ log_level = "low"  # Log level: "low" [default], "medium" (stdout), or "high" (f
     - low: Minimal logging, making debugging difficult.
     - medium: Logs entries to stdout.
     - high: Saves logs to a file.
+#### LLM Configuration:
 ```toml
 [project.llm]
 provider = "OpenAI"  # Only OpenAI is supported so far; this option is actually ignored.
@@ -90,7 +90,6 @@ model = ""  # Model selection: 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default] f
 temperature = 0.2  # Model temperature (0-1). Low value ensures replicability and accuracy.
 batch_execution = "no"  # Not yet implemented; this option is currently ignored.
 ```
-##### LLM Configuration:
 - The [project.llm] section includes parameters for managing the use of the LLM:
   - provider: Currently irrelevant as only OpenAI is supported.
   - api_key: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
@@ -100,40 +99,6 @@ batch_execution = "no"  # Not yet implemented; this option is currently ignored.
   - temperature: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
 
-- Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](../projects/template.toml) and here.
-```toml
-[project]
-name = "Use of LLM for systematic review"
-author = "John Doe"
-version = "1.0"
-```
-- The first section of the toml regards the '[project]' and is divided futher. The keys and values are for reference and to keep information about the project scope and author and to support versioning of the project configuration.
-```toml
-[project.configuration]
-input_directory = "/path/to/txt/files" # where the .txt files are
-results_file_name = "/path/to/save/results" # where results will be saved, the path must exists, file extension will be added
-output_format = "json"  # Could be "csv" [default] or "json"
-log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
-```
-- Second, the subsection '[project.configuration]' contains information about the path to reach all papers to be reviewed. Any .txt file contained in the directory specified will be automatically considered a paper to be analyzed.
-- This section of the configuration also contains the path to where to save the results of the anlaysis (and that path must exists in the fylesystem to actually save the results).
-- Then there is the choice of the output format, either CSV or JSON.
-- Finally, the re is the choice of the levle of logging requested. With low nothing will be logged, and debugging will be particularly difficult. With medium and high levels of logging the logs are either printed to the stdout or to a file respectively.   
-```toml
-[project.llm]
-provider = "OpenAI" # Only OpenAI is supported so far, this option is actually ignored.
-api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
-temperature = 0.2 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
-batch_execution = "no" # Not yet implemented, this option is actually ignored.
-```
-- third, in the '[project.llm]' part there are parameters to manage the use of the LLM.
-- The choice of the provider is at the moment irrelvant since only one provider is supported.
-- The api key can be specified here. This is useful for keeping track of project keys, but otherwise (if no key is provided) the software will look for it in the environment variables and use it if avaialble.
-- the model key can take three values. if left empty the system will optimize the model selection base don the number of tokens of the prompt, using the cheapest model supporting the number of tokens in the API call. Otherwise users can choose between ChaptGPT models 3.5 and 4 turbo.
--  The temprature of the model is a parameter. It should be kept low to ensure replicability and acurate answers.
--  the batch execution option is not yet supported but once implemented will allow running API calls with a delay of maximum 24 hours and with a 50% discount. In that case results will have to be retieved differentlhy and form the open ai platform.
-```toml
 [prompt]
 persona = "Some text telling the model what role should be played." # Personas help in setting the expectation on the model role
 task = "You are asked to map the concepts discussed in a scientific paper attached here." # This is the task that needs to be solved
