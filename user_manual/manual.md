@@ -46,8 +46,9 @@
 
 ## 4. Literature Review Requirements
 ### Literature Identification and Preparation
-- Follow protocols for literature identification, for instance as in [Prisma 2020](https://doi.org/10.1136/bmj.n71).
-- Remove uneccesary elements of the articles. For instance, the list of references usually does not provide any relevant information, but it creates noise and increase analysis costs. Similarly, the introduction part may (and should) often be removed.
+- Follow protocols for literature identification, for instance as outlined in [PRISMA 2020](https://doi.org/10.1136/bmj.n71).
+- Remove unnecessary elements from the articles. For example, the list of references usually does not provide relevant information. Similarly, the abstract and introductory parts often may (or should) be removed. Reviewing a review should be done with particular care and only if necessary.
+- Unnecessary parts of text waste resources and increase analysis costs without any additional value. Furthermore, noise can [negatively affect](https://arxiv.org/abs/2404.08865) model performance.
 
 ## 5. Project Configuration
 ### Way to Configure a Project, Step by Step
