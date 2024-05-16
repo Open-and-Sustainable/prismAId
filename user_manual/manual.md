@@ -7,6 +7,7 @@
 - It aims to make the systematic review process easy, requiring no coding.
 - PrismAId is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
 - It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
+- Though running reviews with PrismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
 
 ## 2. Project Overview
@@ -21,9 +22,9 @@
   - Prompt engineering involves crafting precise prompts to extract specific information from the AI model via the API.
   - PrismAId simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
   - The data flow of prismAId is embedded in protocol-based approaches to reviews:
-    - Initially, there is a selection of literature to be analyzed through detailed protocol steps.
+    - Initially, there is a selection of literature to be analyzed through detailed steps. These are defined by protocols and are easily replicable. 
     - Next, the content of these papers is classified, which is where prismAId comes into play.
-  - PrismAId allows for parsing the selected literature and extracting the information the researcher is interested in.
+  - PrismAId allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
 
 ## 3. Technical Requirements
 ### Hardware and Software Requirements
@@ -41,13 +42,12 @@
      - Download the appropriate executable for your operating system and platform.
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
-     - To convert PDFs to .txt, you can use packages such as pdfminer. Instructions for using pdfminer can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
-
+     - Papers in html can be saved as text, to convert PDFs to .txt, you can use packages such as pdfminer. Instructions for using pdfminer can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
 
 ## 4. Literature Review Requirements
-### Necessary Literature and References
-- Key papers and articles.
-- How to search for relevant literature.
+### Literature Identification and Preparation
+- Follow protocols for literature identification, for instance as in [Prisma 2020](https://doi.org/10.1136/bmj.n71).
+- Remove uneccesary elements of the articles. For instance, the list of references usually does not provide any relevant information, but it creates noise and increase analysis costs. Similarly, the introduction part may (and should) often be removed.
 
 ## 5. Project Configuration
 ### Way to Configure a Project, Step by Step
