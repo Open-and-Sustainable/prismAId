@@ -5,7 +5,7 @@ version = "0.1"
 
 [project.configuration]
 input_directory = "../projects/input/test" # where the .txt files are
-results_directory = "../projects/output/test" # where results will be saved, the path must exists
+results_file_name = "../projects/output/test/output" # where results will be saved, the path must exists, file extension will be added
 output_format = "csv"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 
@@ -22,7 +22,7 @@ persona = "You are an experienced scientist reviewing scientific literature to m
 task = "You are asked to map the concepts discussed in a scientific paper attached here."
 expected_result = "You should output a JSON object with the following keys and possible values: "
 failsafe = "For the key 'historical period studied', provide any relevant period or era mentioned in the document. If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
-definitions = "'Historical data analysis' refers to the examination and interpretation of past observed or modeled data to identify patterns, trends, and insights. 'Forecasting' refers to using models to predict future scenarios or variables of interest. 'Copulas' refer to statistical methods used to join multiple statistical distributions to model their dependencies. 'Regression models' refer to statistical models that utilize linear and nonlinear regression techniques to analyze relationships between variables. 'Clustering' refers to statistical methods for defining groups or patterns of similar data points based on similarities, distances, or multinomial characteristics. 'Frequentist approach' refers to a statistical approach that interprets probability as the long-run frequency of events, as in standard regression models. 'Bayesian approach' refers to a statistical method that incorporates prior knowledge or beliefs, updating them with new data to form posterior probabilities. 'Geographical scale' refers to the spatial level at which analysis is conducted. 'Historical period studied' refers to the time period of interest in historical data analysis."
+definitions = "'Historical data analysis' refers to the examination and interpretation of past observed or modeled data to identify patterns, trends, and insights. 'Forecasting' refers to using models to predict future scenarios or variables of interest. 'Copulas' refer to statistical methods used to join multiple statistical distributions to model their dependencies. 'Regression models' refer to statistical models that utilize linear and nonlinear regression techniques to analyze relationships between variables. 'Clustering' refers to statistical methods for defining groups or patterns of similar data points based on similarities, distances, or multinomial characteristics. 'Bayesian approach' refers to a statistical method that incorporates prior knowledge or beliefs, updating them with new data to form posterior probabilities. 'Geographical scale' refers to the spatial level at which analysis is conducted. 'Historical period studied' refers to the time period of interest in historical data analysis."
 example = ""
 
 [review] # Review items -- defining the knowledge map that needs to be filled in
@@ -42,14 +42,11 @@ values = ["yes", "no"]
 key = "clustering"
 values = ["yes", "no"]
 [review.6]
-key = "frequentist approach"
-values = ["yes", "no"]
-[review.7]
 key = "bayesian approach"
 values = ["yes", "no"]
-[review.8]
+[review.7]
 key = "geographical scale"
 values = ["world", "continent", "river basin"]
-[review.9]
+[review.8]
 key = "historical period studied"
 values = []

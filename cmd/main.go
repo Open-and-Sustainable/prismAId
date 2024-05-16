@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -13,8 +14,20 @@ import (
 )
 
 func main() {
+	// Define a flag for the project configuration file
+	projectConfigPath := flag.String("project", "", "Path to the project configuration file")
+
+	// Parse the flags
+	flag.Parse()
+
+	// Check if the project flag is provided
+	if *projectConfigPath == "" {
+		fmt.Println("Usage: ./prismAId_OS_CPU[.exe] --project <path-to-your-project-config.toml>")
+		os.Exit(1)
+	}
+
 	// load project configuration
-	config, err := config.LoadConfig("../projects/test.toml")
+	config, err := config.LoadConfig(*projectConfigPath)
 	if err != nil {
 		fmt.Println("Error loading project configuration:", err) // here the logging function is not implemented yet
 		return
@@ -42,10 +55,10 @@ func main() {
 	if config.Project.Configuration.OutputFormat == "json" {
 		output_format = "json"
 	}
-	// start writer for results
-	out_directory := "../projects/output/test"
-	outputFileName := "output" + "." + output_format
-	outputFilePath := filepath.Join(out_directory, outputFileName)
+
+	// start writer for results.. the file will be project_name[.csv or .json] in the path where the toml is
+	resultsFileName := config.Project.Configuration.ResultsFileName
+	outputFilePath := resultsFileName + "." + output_format
 	outputFile, err := os.Create(outputFilePath)
 	if err != nil {
 		log.Println("Error creating output file:", err)

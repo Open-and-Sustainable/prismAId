@@ -22,10 +22,10 @@ type ProjectConfig struct {
 }
 
 type ProjectConfiguration struct {
-	InputDirectory   string `toml:"input_directory"`
-	ResultsDirectory string `toml:"results_directory"`
-	OutputFormat     string `toml:"output_format"`
-	LogLevel         string `toml:"log_level"`
+	InputDirectory  string `toml:"input_directory"`
+	ResultsFileName string `toml:"results_file_name"`
+	OutputFormat    string `toml:"output_format"`
+	LogLevel        string `toml:"log_level"`
 }
 
 type LLMConfig struct {

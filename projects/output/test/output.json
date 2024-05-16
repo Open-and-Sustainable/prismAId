@@ -11,9 +11,6 @@
     "forecasting": [
         "yes"
     ],
-    "frequentist approach": [
-        "no"
-    ],
     "geographical scale": [
         "river basin"
     ],
@@ -21,8 +18,8 @@
         "yes"
     ],
     "historical period studied": [
-        "1970–1999",
-        "2000–2017"
+        "1970-1999",
+        "2000-2017"
     ],
     "regression models": [
         "yes"

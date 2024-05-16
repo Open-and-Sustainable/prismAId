@@ -11,7 +11,7 @@
             "env": {
                 "OPENAI_API_KEY": "PUT_THE_API_KEY_HERE" 
             },
-            "args": [],
+            "args": ["--project", "../projects/test.toml"], // Relative path to the project config
             "console": "integratedTerminal"
         }
     ]
