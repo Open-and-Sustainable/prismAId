@@ -9,6 +9,12 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [Unreleased] - 2024-05-16
+### Added
+- Input configuration file on command line
+- Ouput file name form configuration file
+- Tasks for building commands
+
 ## [Unreleased] - 2024-05-15
 ### Fixed
 - Output to CSV
