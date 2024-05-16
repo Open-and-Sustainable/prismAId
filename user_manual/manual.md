@@ -17,14 +17,13 @@
   
 - Data flow and processing steps:
   - Contemporary state-of-the-art LLMs offer subscription-based API access.
-  - While foundation models can be used in various ways, PrismAId focuses solely on prompt engineering or prompting.
+  - While foundation models can be used in various ways, prismAId focuses solely on prompt engineering or prompting.
   - Prompt engineering involves crafting precise prompts to extract specific information from the AI model via the API.
   - PrismAId simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
-  - The data flow of PrismAId is embedded in protocol-based approaches to reviews:
+  - The data flow of prismAId is embedded in protocol-based approaches to reviews:
     - Initially, there is a selection of literature to be analyzed through detailed protocol steps.
-    - Next, the content of these papers is classified, which is where PrismAId plays a crucial role.
-  - PrismAId allows for parsing the selected review and extracting the information the researcher is interested in.
-
+    - Next, the content of these papers is classified, which is where prismAId comes into play.
+  - PrismAId allows for parsing the selected literature and extracting the information the researcher is interested in.
 
 ## 3. Technical Requirements
 ### Hardware and Software Requirements
