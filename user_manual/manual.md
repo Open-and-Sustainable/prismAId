@@ -51,7 +51,6 @@
 - Unnecessary parts of text waste resources and increase analysis costs without any additional value. Actually, uneccessary parts could [negatively affect](https://arxiv.org/abs/2404.08865) model performance.
 
 ## 5. Project Configuration
-## Project Configuration
 - Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](../projects/template.toml) and here.
 ### Project Section Details
 #### Project Information:
