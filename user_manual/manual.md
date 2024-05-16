@@ -27,8 +27,22 @@
 
 ## 3. Technical Requirements
 ### Hardware and Software Requirements
-- Detailed specifications.
-- Installation steps for necessary software.
+- Detailed specifications:
+  - Users should have an OpenAI account and generate an API key to use the system. Cost management is explained below.
+  - Users need to download the executable for their OS and platform from the releases section of this project on GitHub.
+  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as pdfminer.
+  
+- Installation steps for necessary software:
+  1. **OpenAI Account and API Key:**
+     - Create an OpenAI account at [OpenAI](https://www.openai.com/).
+     - Generate an API key from the OpenAI dashboard.
+  2. **Download Executable:**
+     - Visit the releases section of the prismAId GitHub repository.
+     - Download the appropriate executable for your operating system and platform.
+  3. **Prepare Papers for Review:**
+     - Ensure that all papers to be reviewed are in .txt format.
+     - To convert PDFs to .txt, you can use packages such as pdfminer. Instructions for using pdfminer can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
+
 
 ## 4. Literature Review Requirements
 ### Necessary Literature and References
