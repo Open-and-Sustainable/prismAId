@@ -30,7 +30,7 @@ Simply download the executable for your OS and platform, place it in a suitable 
 # For macOS
 ./prismAId_darwin_amd64 --project your_project.toml
 ```
-After processing the project configuration, the system will present an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
+After processing the project configuration, prismAId will print on the terminal an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
 
 ```
