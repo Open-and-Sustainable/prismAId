@@ -98,6 +98,8 @@ batch_execution = "no"  # Not yet implemented; this option is currently ignored.
   - temperature: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
 
+### Prompt Section Details
+```toml
 [prompt]
 persona = "Some text telling the model what role should be played." # Personas help in setting the expectation on the model role
 task = "You are asked to map the concepts discussed in a scientific paper attached here." # This is the task that needs to be solved
@@ -107,6 +109,7 @@ definitions = "'Interest rate' is the percentage charged by a lender for borrowi
 example = "" # This is a chance to provide an example of the concepts we are asking to the model, to avoid misconceptions.
 ```
 
+### Review Section Details
 ```toml
 [review] # Review items -- defining the knowledge map that needs to be filled in
 [review.1]
