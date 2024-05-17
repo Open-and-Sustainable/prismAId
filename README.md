@@ -53,14 +53,14 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ## Contributing
 Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-### Authors
+## Authors
 
 Riccardo Boero - ribo@nilu.no
 
-### License
+## License
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 
 <img src="https://www.gnu.org/graphics/agplv3-155x51.png" alt="license" width="155"/>
 
-### Digital Object Identifier
+## Digital Object Identifier
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210797.svg)](https://doi.org/10.5281/zenodo.11210797)
