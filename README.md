@@ -61,3 +61,6 @@ Riccardo Boero - ribo@nilu.no
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 
 <img src="https://www.gnu.org/graphics/agplv3-155x51.png" alt="license" width="155"/>
+
+### Digital Object Identifier
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210797.svg)](https://doi.org/10.5281/zenodo.11210797)
