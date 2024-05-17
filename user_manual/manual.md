@@ -117,7 +117,7 @@ definitions = "'Interest rate' is the percentage charged by a lender for borrowi
 example = "" # This is a chance to provide an example of the concepts we are asking to the model, to avoid misconceptions.
 ```
 
-#### Explanation of Entries
+#### Examples and Explanation of Entries
 - persona:
   - "Some text telling the model what role should be played."
   - Personas help in setting the expectation on the model's role, providing context for the responses.
@@ -133,11 +133,18 @@ example = "" # This is a chance to provide an example of the concepts we are ask
 - definitions:
   - "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually."
   - This allows for defining specific concepts to avoid misconceptions, helping the model understand precisely what is being asked.
--example:
+- example:
   - ""
   - This is an opportunity to provide an example of the desired output, further reducing the risk of misinterpretation and guiding the model towards the correct response.
 
 ### Review Section Details
+The "review" section is focused on defining the information to be extracted from the text. It outlines the structure of the JSON file to be returned by the LLM, specifying the keys and possible values for the extracted information.
+
+#### Logic of the Review Section
+- The review section defines the knowledge map that the model needs to fill in, guiding the extraction process.
+- Each review item specifies a key, representing a concept or topic of interest, and possible values that the model can assign to that key.
+- This structured approach ensures that the extracted information is consistent and adheres to the predefined schema.
+
 ```toml
 [review] # Review items -- defining the knowledge map that needs to be filled in
 [review.1]
@@ -150,7 +157,27 @@ values = ["yes", "no"]
 key = "geographical scale"
 values = ["world", "continent", "river basin"]
 ```
-
+#### Examples and Explanation of Entries
+- [review]:
+  - This section header indicates the beginning of the review items configuration, which defines the structure of the knowledge map.
+- [review.1]:
+  - Defines the first item to be reviewed.
+  - key: "interest rate"
+    - The concept or topic to be extracted.
+  - values: [""]
+    - Possible values for this key. An empty string indicates that any value can be assigned.
+- [review.2]:
+  - Defines the second item to be reviewed.
+  - key: "regression models"
+    -The concept or topic to be extracted.
+  - values: ["yes", "no"]
+    - The key "regression models" can take either "yes" or "no" as its value, providing a clear binary choice.
+- [review.3]:
+  - Defines the third item to be reviewed.
+  - key: "geographical scale"
+    - The concept or topic to be extracted.
+  - values: ["world", "continent", "river basin"]
+    - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
 
 ## 6. Using the System
 ### Prompt Engineering and Examples
