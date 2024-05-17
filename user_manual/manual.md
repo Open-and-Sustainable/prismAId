@@ -169,7 +169,7 @@ values = ["world", "continent", "river basin"]
 - [review.2]:
   - Defines the second item to be reviewed.
   - key: "regression models"
-    -The concept or topic to be extracted.
+    - The concept or topic to be extracted.
   - values: ["yes", "no"]
     - The key "regression models" can take either "yes" or "no" as its value, providing a clear binary choice.
 - [review.3]:
