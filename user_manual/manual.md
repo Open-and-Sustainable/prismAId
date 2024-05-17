@@ -99,6 +99,14 @@ batch_execution = "no"  # Not yet implemented; this option is currently ignored.
   - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
 
 ### Prompt Section Details
+The "prompt" section is aimed at defining the building blocks of the prompt, ensuring high accuracy in information extraction and minimizing hallucinations and misinterpretations.
+
+#### Logic of the Prompt Section
+- The prompt section helps in setting the stage for the AI model by providing clear instructions and context.
+- It ensures that the model understands the role it needs to play, the task it needs to perform, and the format of the expected output.
+- By providing definitions and examples, it minimizes the risk of misinterpretation and improves the accuracy of the information extracted.
+- A failsafe mechanism is included to prevent the model from forcing answers when information is not available.
+
 ```toml
 [prompt]
 persona = "Some text telling the model what role should be played." # Personas help in setting the expectation on the model role
@@ -108,6 +116,26 @@ failsafe = "If the concepts neither are clearly discussed in the document nor th
 definitions = "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually." # This is a chance to define the concepts we are asking to the model, to avoid misconceptions.
 example = "" # This is a chance to provide an example of the concepts we are asking to the model, to avoid misconceptions.
 ```
+
+#### Explanation of Entries
+- persona:
+  - "Some text telling the model what role should be played."
+  - Personas help in setting the expectation on the model's role, providing context for the responses.
+- task:
+  - "You are asked to map the concepts discussed in a scientific paper attached here."
+  - This entry defines the specific task the model needs to accomplish.
+- expected_result:
+  - "You should output a JSON object with the following keys and possible values: "
+  - This introduces the expected output format, specifying that the result should be a JSON object with particular keys and values.
+- failsafe:
+  - "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
+  - This entry provides a fail-safe mechanism to avoid forcing answers when the required information is not present, ensuring accuracy and avoiding misinterpretation.
+- definitions:
+  - "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually."
+  - This allows for defining specific concepts to avoid misconceptions, helping the model understand precisely what is being asked.
+-example:
+  - ""
+  - This is an opportunity to provide an example of the desired output, further reducing the risk of misinterpretation and guiding the model towards the correct response.
 
 ### Review Section Details
 ```toml
@@ -123,9 +151,6 @@ key = "geographical scale"
 values = ["world", "continent", "river basin"]
 ```
 
-
-- Configuration settings.
-- Verifying the setup.
 
 ## 6. Using the System
 ### Prompt Engineering and Examples
