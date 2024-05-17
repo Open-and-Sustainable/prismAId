@@ -10,7 +10,8 @@ prismAId leverages advanced AI technology to optimize the extraction and managem
 This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use prismAId.
 
 By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
-
+* * *
+<img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.png" alt="workflow" width="900"/></p>
 * * *
 
 ## Getting Started
