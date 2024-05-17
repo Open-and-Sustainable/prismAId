@@ -5,7 +5,11 @@ Innovate and Accelerate Science with AI: Open and Replicable Tools for Systemati
 * * *
 
 ## Purpose
-prismAId harnesses the power of AI to streamline the process of extracting and managing data from scientific literature. This tool is designed to support researchers by providing a systematic, replicable approach to literature reviews, significantly reducing the time and effort required to gather and analyze data. By automating the extraction of information using customized prompts, prismAId ensures high accuracy and efficiency, enabling users to focus more on analysis and less on data processing.
+prismAId leverages advanced AI technology to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
+
+This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use prismAId.
+
+By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
 
 * * *
 
