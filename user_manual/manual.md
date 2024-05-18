@@ -25,9 +25,9 @@
     - Next, the content of these papers is classified, which is where $prism{\color{red}A}{\color{blue}I}d$ comes into play.
   - $prism{\color{red}A}{\color{blue}I}d$ allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
   - $prism{\color{red}A}{\color{blue}I}d$ users define the information extraction tasks using the prompt engineering template provided by $prism{\color{red}A}{\color{blue}I}d$.
-- $prism{\color{red}A}{\color{blue}I}d$ utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
-- $prism{\color{red}A}{\color{blue}I}d$ processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
-- To facilitate cost management, $prism{\color{red}A}{\color{blue}I}d$ tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
+  - $prism{\color{red}A}{\color{blue}I}d$ utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
+  - $prism{\color{red}A}{\color{blue}I}d$ processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
+  - To facilitate cost management, $prism{\color{red}A}{\color{blue}I}d$ tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
 
 
 ## 3. Technical Requirements
