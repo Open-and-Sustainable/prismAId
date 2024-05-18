@@ -3,9 +3,9 @@
 
 ## 1. Introduction
 ### Scope
-- PrismAId is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
+- $prism{\color{red}A}{\color{blue}I}d$ is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
 - It aims to make the systematic review process easy, requiring no coding.
-- PrismAId is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
+- $prism{\color{red}A}{\color{blue}I}d$ is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
 - It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
 - Though running reviews with PrismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
@@ -14,17 +14,21 @@
 ### Description of Underlying Mechanism
 - How LLMs work:
   - LLMs (Large Language Models) are AI models trained on vast amounts of text data to understand and generate human-like text.
-  - These models can perform a variety of language tasks such as text completion, summarization, translation, and more.
-  
+  - These models can perform a variety of language tasks such as text completion, summarization, translation, and more.  
 - Data flow and processing steps:
   - Contemporary state-of-the-art LLMs offer subscription-based API access.
   - While foundation models can be used in various ways, prismAId focuses solely on prompt engineering or prompting.
   - Prompt engineering involves crafting precise prompts to extract specific information from the AI model via the API.
-  - PrismAId simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
+  - $prism{\color{red}A}{\color{blue}I}d$ simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
   - The data flow of prismAId is embedded in protocol-based approaches to reviews:
     - Initially, there is a selection of literature to be analyzed through detailed steps. These are defined by protocols and are easily replicable. 
-    - Next, the content of these papers is classified, which is where prismAId comes into play.
-  - PrismAId allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
+    - Next, the content of these papers is classified, which is where $prism{\color{red}A}{\color{blue}I}d$ comes into play.
+  - $prism{\color{red}A}{\color{blue}I}d$ allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
+  - $prism{\color{red}A}{\color{blue}I}d$ users define the information extraction tasks using the prompt engineering template provided by $prism{\color{red}A}{\color{blue}I}d$.
+- $prism{\color{red}A}{\color{blue}I}d$ utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
+- $prism{\color{red}A}{\color{blue}I}d$ processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
+- To facilitate cost management, $prism{\color{red}A}{\color{blue}I}d$ tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
+
 
 ## 3. Technical Requirements
 ### Hardware and Software Requirements
@@ -32,13 +36,12 @@
   - Users should have an OpenAI account and generate an API key to use the system. Cost management is explained below.
   - Users need to download the executable for their OS and platform from the releases section of this project on GitHub.
   - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as pdfminer.
-  
 - Installation steps for necessary software:
   1. **OpenAI Account and API Key:**
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
      - Generate an API key from the OpenAI dashboard.
   2. **Download Executable:**
-     - Visit the releases section of the prismAId GitHub repository.
+     - Visit the releases section of the $prism{\color{red}A}{\color{blue}I}d$ GitHub repository.
      - Download the appropriate executable for your operating system and platform.
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
@@ -192,26 +195,11 @@ values = ["world", "continent", "river basin"]
 - Tracking and reporting usage.
 
 ## 8. Best Practices
-### Summary of Golden Rules of PrismAId
+### Summary of Golden Rules of $prism{\color{red}A}{\color{blue}I}d$
 - Do’s and Don’ts.
 - Performance optimization tips.
 
 
-Current foundation models have enough knowledge to understand quite complex scientific concepts  
-
-While model fine tuning and training of as hoc models is possible, it is extremely expensive both because of developing the training set and for actually running the training on dedicated hardware.  
-
-Prompt engineering protocols can be defined and supported to ensure both accuracy and replicability  
-
-The prompt protocol  
 
 One shot
 
-Cleaned text also because of confusion
-
-Clear definition of the output/task + text to be parsed
-
-## How much does prismAId cost?
-Cost estimation  
-Cost optimization and batch  
-Support for project cost
