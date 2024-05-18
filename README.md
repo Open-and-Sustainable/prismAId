@@ -26,7 +26,8 @@ Simply download the executable for your OS and platform, place it in a suitable 
 ```
 After processing the project configuration, $prism{\color{red}A}{\color{blue}I}d$ will print on the terminal an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
-
+Total cost (USD - $): 0.0035965
+Do you want to continue? (y/n): 
 ```
 
 ### Setting up a review project
