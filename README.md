@@ -5,17 +5,17 @@ Innovate and Accelerate Science with AI: Open and Replicable Tools for Systemati
 * * *
 
 ## Purpose
-prismAId leverages advanced AI technology to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
+$prism{\color{red}A}{\color{blue}I}d$ leverages advanced AI technology to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
 
-This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use prismAId.
+This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use $prism{\color{red}A}{\color{blue}I}d$.
 
-By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
+By significantly reducing the time and effort needed for data collection and analysis, $prism{\color{red}A}{\color{blue}I}d$ enhances research efficiency. Through the use of customized prompts, $prism{\color{red}A}{\color{blue}I}d$ automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, $prism{\color{red}A}{\color{blue}I}d$ allows for the first time ever 100% replicable systematic literature reviews.
 * * *
 <img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.png" alt="workflow" width="900"/></p>
 * * *
 
 ## Getting Started
-To use prismAId, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
+To use $prism{\color{red}A}{\color{blue}I}d$, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
 
 ### Running prismAId
 Simply download the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
@@ -23,14 +23,8 @@ Simply download the executable for your OS and platform, place it in a suitable 
 ```bash
 # For Windows
 ./prismAId_windows_amd64.exe --project your_project.toml
-
-# For Linux
-./prismAId_linux_amd64 --project your_project.toml
-
-# For macOS
-./prismAId_darwin_amd64 --project your_project.toml
 ```
-After processing the project configuration, prismAId will print on the terminal an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
+After processing the project configuration, $prism{\color{red}A}{\color{blue}I}d$ will print on the terminal an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
 
 ```
@@ -44,7 +38,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ## Specifications
 - **Review protocol**: Designed to support any literature review protocol, but our preference is for [Prisma 2020](https://www.prisma-statement.org/prisma-2020) (hence the project name).
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems, on AMD64 and ARM64 platforms.
-- **Supported LLMs**: OpenAI ChatGPT Turbo 3.5 and 4. You need an OpenAI account and an **API key** to use prismAId.
+- **Supported LLMs**: OpenAI ChatGPT Turbo 3.5 and 4. You need an OpenAI account and an **API key** to use $prism{\color{red}A}{\color{blue}I}d$.
 - **Input format**: Requires TXT files for scientific papers.
 - **Project Configuration**: Uses TOML files for easy project setup and parameter configuration.
 - **Output format**: Outputs data in CSV and JSON formats.
@@ -60,7 +54,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 * * *
 
 ## Contributing
-Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Contributions are welcome! If you'd like to improve $prism{\color{red}A}{\color{blue}I}d$, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Authors
 
