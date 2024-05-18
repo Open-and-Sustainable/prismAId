@@ -55,7 +55,7 @@
 
 ## 5. Project Configuration
 - Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](../projects/template.toml) and here.
-### Project Section Details
+### Section 1 'Project' Details
 #### Project Information:
 ```toml
 [project]
@@ -101,7 +101,7 @@ batch_execution = "no"  # Not yet implemented; this option is currently ignored.
   - temperature: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
 
-### Prompt Section Details
+### Section 2 'Prompt' Details
 The "prompt" section is aimed at defining the building blocks of the prompt, ensuring high accuracy in information extraction and minimizing hallucinations and misinterpretations.
 
 #### Logic of the Prompt Section
@@ -140,7 +140,7 @@ example = "" # This is a chance to provide an example of the concepts we are ask
   - ""
   - This is an opportunity to provide an example of the desired output, further reducing the risk of misinterpretation and guiding the model towards the correct response.
 
-### Review Section Details
+### Section 3 'Review' Details
 The "review" section is focused on defining the information to be extracted from the text. It outlines the structure of the JSON file to be returned by the LLM, specifying the keys and possible values for the extracted information.
 
 #### Logic of the Review Section
