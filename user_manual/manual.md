@@ -182,24 +182,26 @@ values = ["world", "continent", "river basin"]
   - values: ["world", "continent", "river basin"]
     - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
 
-## 6. Using the System
-### Prompt Engineering and Examples
-- Definition and significance.
-- Sample prompts with results.
-- Crafting your own prompts.
-
-## 7. Cost Management
+## 6. Cost Management
 ### Managing Costs
 - Cost components.
 - Tips for cost reduction.
 - Tracking and reporting usage.
 
+## 7. Further Resources
+### MAstering the art of $prism{\color{red}A}{\color{blue}I}d$
+- Example
+- protocol based approaches
+- OpenAI API
+- libs used
+
 ## 8. Best Practices
 ### Summary of Golden Rules of $prism{\color{red}A}{\color{blue}I}d$
-- Do’s and Don’ts.
-- Performance optimization tips.
-
-
-
-One shot
+1. clean text
+2. repetita juvant
+3. one info one prompt
+4. no open answers
+5. test first
+6. no reviews of reviews, unaless intentional
+7. report the toml as appendix
 
