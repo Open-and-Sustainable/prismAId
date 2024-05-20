@@ -6,8 +6,8 @@
 - $prism{\color{red}A}{\color{blue}I}d$ is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
 - It aims to make the systematic review process easy, requiring no coding.
 - $prism{\color{red}A}{\color{blue}I}d$ is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
-- It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
-- Though running reviews with PrismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
+- It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, $prism{\color{red}A}{\color{blue}I}d$ addresses the primary issue of replicability in systematic reviews.
+- Though running reviews with $prism{\color{red}A}{\color{blue}I}d$ incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
 
 ## 2. Project Overview
@@ -17,10 +17,10 @@
   - These models can perform a variety of language tasks such as text completion, summarization, translation, and more.  
 - Data flow and processing steps:
   - Contemporary state-of-the-art LLMs offer subscription-based API access.
-  - While foundation models can be used in various ways, prismAId focuses solely on prompt engineering or prompting.
+  - While foundation models can be used in various ways, $prism{\color{red}A}{\color{blue}I}d$ focuses solely on prompt engineering or prompting.
   - Prompt engineering involves crafting precise prompts to extract specific information from the AI model via the API.
   - $prism{\color{red}A}{\color{blue}I}d$ simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
-  - The data flow of prismAId is embedded in protocol-based approaches to reviews:
+  - The data flow of $prism{\color{red}A}{\color{blue}I}d$ is embedded in protocol-based approaches to reviews:
     - Initially, there is a selection of literature to be analyzed through detailed steps. These are defined by protocols and are easily replicable. 
     - Next, the content of these papers is classified, which is where $prism{\color{red}A}{\color{blue}I}d$ comes into play.
   - $prism{\color{red}A}{\color{blue}I}d$ allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
