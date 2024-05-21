@@ -35,7 +35,7 @@
 - Detailed specifications:
   - Users should have an OpenAI account and generate an API key to use the system. Cost management is explained below.
   - Users need to download the executable for their OS and platform from the releases section of this project on GitHub.
-  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as [pdfminer]((https://github.com/pdfminer/pdfminer.six).
+  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as [pdfminer](https://github.com/pdfminer/pdfminer.six).
 - Installation steps for necessary software:
   1. **OpenAI Account and API Key:**
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
