@@ -35,7 +35,7 @@
 - Detailed specifications:
   - Users should have an OpenAI account and generate an API key to use the system. Cost management is explained below.
   - Users need to download the executable for their OS and platform from the releases section of this project on GitHub.
-  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as [pdfminer](https://github.com/euske/pdfminer/).
+  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as [pdfminer]((https://github.com/pdfminer/pdfminer.six).
 - Installation steps for necessary software:
   1. **OpenAI Account and API Key:**
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
@@ -184,16 +184,15 @@ values = ["world", "continent", "river basin"]
 
 ## 6. Cost Management
 ### Managing Costs
-- Cost components.
-- Tips for cost reduction.
-- Tracking and reporting usage.
-
+- The cost of using OpenAI models is calculated based on [tokens](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them).
+- $prism{\color{red}A}{\color{blue}I}d$ utilizes a [library](https://github.com/pkoukk/tiktoken-go) to compute the input tokens for each single-shot call before actually executing the call using another [library](https://github.com/sashabaranov/go-openai). Based on the information provided by OpenAI, the cost of each input token for the different models is used to compute the total cost of the review. This estimated cost is presented to the user, allowing them to decide whether to proceed with the analysis and incur the associated cost.
+- Concise but complete prompts are both cost-effective and efficient in information extraction. Unnecessary text increases costs and may introduce noise, negatively affecting the performance of AI models. While additional explanations and definitions in the prompt engineering part may seem superfluous, they are generally limited in size and do not significantly impact costs.
+- By using a project API key, it is possible to track the cost of each project on the OpenAI [dashboard](https://platform.openai.com/usage).
 ## 7. Further Resources
-### MAstering the art of $prism{\color{red}A}{\color{blue}I}d$
-- Example
-- protocol based approaches
-- OpenAI API
-- libs used
+### Mastering the Art of $prism{\color{red}A}{\color{blue}I}d$
+- We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a [study](https://doi.org/10.3390/cli10020027) we conducted.
+- Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by $prism{\color{red}A}{\color{blue}I}d$. Users are encouraged to experiment and define their own $prism{\color{red}A}{\color{blue}I}d$ methodologies.
+- The tree of dependencies of our project is:
 
 ## 8. Best Practices
 ### Summary of Golden Rules of $prism{\color{red}A}{\color{blue}I}d$
