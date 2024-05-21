@@ -147,6 +147,7 @@ The "review" section is focused on defining the information to be extracted from
 - The review section defines the knowledge map that the model needs to fill in, guiding the extraction process.
 - Each review item specifies a key, representing a concept or topic of interest, and possible values that the model can assign to that key.
 - This structured approach ensures that the extracted information is consistent and adheres to the predefined schema.
+- There can be as many review items as needed.
 
 ```toml
 [review] # Review items -- defining the knowledge map that needs to be filled in
