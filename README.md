@@ -18,13 +18,13 @@ By significantly reducing the time and effort needed for data collection and ana
 To use $prism{\color{red}A}{\color{blue}I}d$, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
 
 ### Running $prism{\color{red}A}{\color{blue}I}d$
-Simply download the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
+Simply [download](https://github.com/ricboer0/prismAId/releases) the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
 
 ```bash
 # For Windows
 ./prismAId_windows_amd64.exe --project your_project.toml
 ```
-After processing the project configuration, $prism{\color{red}A}{\color{blue}I}d$ will print on the terminal an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
+After reading the project configuration, $prism{\color{red}A}{\color{blue}I}d$ will print out an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
 Total cost (USD - $): 0.0035965
 Do you want to continue? (y/n): 
@@ -51,7 +51,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ## Notes
 - Ensure that you have fully read the [User Manual](user_manual/manual.md).
 - For troubleshooting and support not covered in the [User Manual](user_manual/manual.md), submit an [issue](/../../issues) on GitHub.
-- Forthcoming additional features: support of ChatGPT4 Omni model and batch execution processes. Both features significantly decrease the execution cost of reviews.
+- **Forthcoming** additional **features**: support of ChatGPT4 Omni model and batch execution processes. Both features significantly decrease the execution cost of reviews.
 
 * * *
 
