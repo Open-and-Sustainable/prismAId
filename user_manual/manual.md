@@ -112,7 +112,7 @@ The "prompt" section is aimed at defining the building blocks of the prompt, ens
 
 ```toml
 [prompt]
-persona = "Some text telling the model what role should be played." # Personas help in setting the expectation on the model role
+persona = "You are an experienced scientist working on a systematic review of the literature." # Some text telling the model what role should be played. Personas help in setting the expectation on the model role
 task = "You are asked to map the concepts discussed in a scientific paper attached here." # This is the task that needs to be solved
 expected_result = "You should output a JSON object with the following keys and possible values: " # This introduces the structure of the output in JSON as specified below in the [review] section
 failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value." # This is the fail-safe option to ask the model to not force answers in categories provided. PArticularly useful if values to keys below are nto complete.
@@ -122,7 +122,7 @@ example = "" # This is a chance to provide an example of the concepts we are ask
 
 #### Examples and Explanation of Entries
 - persona:
-  - "Some text telling the model what role should be played."
+  - "You are an experienced scientist working on a systematic review of the literature."
   - Personas help in setting the expectation on the model's role, providing context for the responses.
 - task:
   - "You are asked to map the concepts discussed in a scientific paper attached here."
