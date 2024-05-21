@@ -35,7 +35,7 @@
 - Detailed specifications:
   - Users should have an OpenAI account and generate an API key to use the system. Cost management is explained below.
   - Users need to download the executable for their OS and platform from the releases section of this project on GitHub.
-  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as pdfminer.
+  - Users should have the papers to be reviewed in .txt format. PDFs can be converted into .txt using various methods; we suggest using packages such as [pdfminer](https://github.com/euske/pdfminer/).
 - Installation steps for necessary software:
   1. **OpenAI Account and API Key:**
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
@@ -45,7 +45,7 @@
      - Download the appropriate executable for your operating system and platform.
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
-     - Papers in html can be saved as text, to convert PDFs to .txt, you can use packages such as pdfminer. Instructions for using pdfminer can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
+     - Papers in html can be saved as text. To convert PDFs to .txt, there are many good options. A good one is the Python solution provided by pdfminer: instructions can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
 
 ## 4. Literature Review Requirements
 ### Literature Identification and Preparation
