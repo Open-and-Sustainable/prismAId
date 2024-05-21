@@ -41,7 +41,7 @@
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
      - Generate an API key from the OpenAI dashboard.
   2. **Download Executable:**
-     - Visit the releases section of the $prism{\color{red}A}{\color{blue}I}d$ GitHub repository.
+     - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the $prism{\color{red}A}{\color{blue}I}d$ GitHub repository.
      - Download the appropriate executable for your operating system and platform.
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
