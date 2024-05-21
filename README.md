@@ -5,7 +5,7 @@ Innovate and Accelerate Science with AI: Open and Replicable Tools for Systemati
 * * *
 
 ## Purpose
-$prism{\color{red}A}{\color{blue}I}d$ leverages advanced AI technology to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
+$prism{\color{red}A}{\color{blue}I}d$ leverages generative AI to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
 
 This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use $prism{\color{red}A}{\color{blue}I}d$.
 
