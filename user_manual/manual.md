@@ -192,9 +192,9 @@ values = ["world", "continent", "river basin"]
 ### Mastering the Art of $prism{\color{red}A}{\color{blue}I}d$
 - We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a [study](https://doi.org/10.3390/cli10020027) we conducted.
 - Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by $prism{\color{red}A}{\color{blue}I}d$. Users are encouraged to experiment and define their own $prism{\color{red}A}{\color{blue}I}d$ methodologies.
-- The tree of dependencies of our project is:
 <details>
-<summary>Project Structure</summary>
+<summary>Project Dependencies</summary>
+```
 command-line-arguments
   ├ flag
   ├ fmt
@@ -203,35 +203,35 @@ command-line-arguments
   ├ os
   ├ path/filepath
   ├ prismAId/config
-    ├ os
-    └ github.com/BurntSushi/toml
+  │ ├ os
+  │ └ github.com/BurntSushi/toml
   ├ prismAId/cost
-    ├ bufio
-    ├ fmt
-    ├ log
-    ├ os
-    ├ strings
-    ├ github.com/pkoukk/tiktoken-go
-    ├ github.com/sashabaranov/go-openai
-    ├ github.com/shopspring/decimal
-    └ prismAId/config
+  │ ├ bufio
+  │ ├ fmt
+  │ ├ log
+  │ ├ os
+  │ ├ strings
+  │ ├ github.com/pkoukk/tiktoken-go
+  │ ├ github.com/sashabaranov/go-openai
+  │ ├ github.com/shopspring/decimal
+  │ └ prismAId/config
   ├ prismAId/llm
-    ├ context
-    ├ encoding/json
-    ├ fmt
-    ├ log
-    ├ github.com/sashabaranov/go-openai
-    ├ prismAId/config
-    └ prismAId/cost
+  │ ├ context
+  │ ├ encoding/json
+  │ ├ fmt
+  │ ├ log
+  │ ├ github.com/sashabaranov/go-openai
+  │ ├ prismAId/config
+  │ └ prismAId/cost
   ├ prismAId/prompt
-    ├ encoding/json
-    ├ fmt
-    ├ log
-    ├ os
-    ├ path/filepath
-    ├ sort
-    ├ strings
-    └ prismAId/config
+  │ ├ encoding/json
+  │ ├ fmt
+  │ ├ log
+  │ ├ os
+  │ ├ path/filepath
+  │ ├ sort
+  │ ├ strings
+  │ └ prismAId/config
   └ prismAId/results
     ├ bytes
     ├ encoding/csv
@@ -239,6 +239,7 @@ command-line-arguments
     ├ log
     ├ os
     └ strings
+```
 </details>
 
 
