@@ -1,16 +1,14 @@
 # <p align="center"><img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png" alt="logo" width="50"/></p>$$prism{\color{red}A}{\color{blue}I}d$$
 # <p align="center">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</p>
-Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews.
-
+<!-- Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews. -->
 * * *
-
 ## Purpose
 $prism{\color{red}A}{\color{blue}I}d$ leverages generative AI to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
 
 This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use $prism{\color{red}A}{\color{blue}I}d$.
 
 By significantly reducing the time and effort needed for data collection and analysis, $prism{\color{red}A}{\color{blue}I}d$ enhances research efficiency. Through the use of customized prompts, $prism{\color{red}A}{\color{blue}I}d$ automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, $prism{\color{red}A}{\color{blue}I}d$ allows for the first time ever 100% replicable systematic literature reviews.
-* * *
+
 <img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.png" alt="workflow" width="900"/></p>
 * * *
 
