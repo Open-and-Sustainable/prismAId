@@ -9,7 +9,7 @@ This tool is tailored to assist researchers by offering a simple-to-use, efficie
 
 By significantly reducing the time and effort needed for data collection and analysis, $prism{\color{red}A}{\color{blue}I}d$ enhances research efficiency. Through the use of customized prompts, $prism{\color{red}A}{\color{blue}I}d$ automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, $prism{\color{red}A}{\color{blue}I}d$ allows for the first time ever 100% replicable systematic literature reviews.
 
-<img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.png" alt="workflow" width="900"/></p>
+<img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.png" alt="workflow" width=1000"/></p>
 * * *
 
 ## Getting Started
