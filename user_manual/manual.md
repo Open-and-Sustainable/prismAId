@@ -197,7 +197,7 @@ values = ["world", "continent", "river basin"]
 
 ## 7. Further Resources
 ### Mastering the Art of $prism{\color{red}A}{\color{blue}I}d$
-- We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a [study](https://doi.org/10.3390/cli10020027) we conducted.
+- We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
 - Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by $prism{\color{red}A}{\color{blue}I}d$. Users are encouraged to experiment and define their own $prism{\color{red}A}{\color{blue}I}d$ methodologies.
 <details>
 <summary>Software Dependencies</summary>
