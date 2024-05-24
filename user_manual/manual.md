@@ -70,10 +70,10 @@ version = "1.0"
 #### Configuration Details:
 ```toml
 [project.configuration]
-input_directory = "/path/to/txt/files"  # Directory containing the .txt files.
-results_file_name = "/path/to/save/results"  # Path to save the results. The path must exist; file extension will be added.
-output_format = "json"  # Output format: "csv" [default] or "json".
-log_level = "low"  # Log level: "low" [default], "medium" (stdout), or "high" (file).
+input_directory = "/path/to/txt/files"
+results_file_name = "/path/to/save/results"
+output_format = "json"
+log_level = "low"
 ```
 - The subsection [project.configuration] contains settings related to the project's execution environment:
   - input_directory: The directory where the .txt files to be reviewed are located.
@@ -86,11 +86,11 @@ log_level = "low"  # Log level: "low" [default], "medium" (stdout), or "high" (f
 #### LLM Configuration:
 ```toml
 [project.llm]
-provider = "OpenAI"  # Only OpenAI is supported so far; this option is actually ignored.
-api_key = ""  # If empty, the API key is retrieved from environment variables. Useful for tracking costs per project.
-model = ""  # Model selection: 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default] for cost optimization.
-temperature = 0.2  # Model temperature (0-1). Low value ensures replicability and accuracy.
-batch_execution = "no"  # Not yet implemented; this option is currently ignored.
+provider = "OpenAI"
+api_key = ""
+model = ""
+temperature = 0.2
+batch_execution = "no"
 ```
 - The [project.llm] section includes parameters for managing the use of the LLM:
   - provider: Currently irrelevant as only OpenAI is supported.
@@ -114,12 +114,12 @@ The "prompt" section is aimed at defining the building blocks of the prompt, ens
 
 ```toml
 [prompt]
-persona = "You are an experienced scientist working on a systematic review of the literature." # Some text telling the model what role should be played. Personas help in setting the expectation on the model role
-task = "You are asked to map the concepts discussed in a scientific paper attached here." # This is the task that needs to be solved
-expected_result = "You should output a JSON object with the following keys and possible values: " # This introduces the structure of the output in JSON as specified below in the [review] section
-failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value." # This is the fail-safe option to ask the model to not force answers in categories provided. PArticularly useful if values to keys below are nto complete.
-definitions = "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually." # This is a chance to define the concepts we are asking to the model, to avoid misconceptions.
-example = "" # This is a chance to provide an example of the concepts we are asking to the model, to avoid misconceptions.
+persona = "You are an experienced scientist working on a systematic review of the literature."
+task = "You are asked to map the concepts discussed in a scientific paper attached here."
+expected_result = "You should output a JSON object with the following keys and possible values: "
+failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
+definitions = "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually."
+example = ""
 ```
 
 #### Examples and Explanation of Entries
@@ -152,7 +152,7 @@ The "review" section is focused on defining the information to be extracted from
 - There can be as many review items as needed.
 
 ```toml
-[review] # Review items -- defining the knowledge map that needs to be filled in
+[review]
 [review.1]
 key = "interest rate"
 values = [""]
