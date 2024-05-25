@@ -107,7 +107,7 @@ The "prompt" section is aimed at defining the building blocks of the prompt, ens
 #### Logic of the Prompt Section
 - The prompt section allows the user providing clear instructions and context to the AI model.
 - The prompt structure is made of these blocks:
-![prompt structure](https://github.com/ricboer0/prismAId/blob/main/figures/prompt_struct.PNG)
+![prompt structure](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prompt_struct.PNG)
 - It ensures that the model understands the role it needs to play, the task it needs to perform, and the format of the expected output.
 - By providing definitions and examples, it minimizes the risk of misinterpretation and improves the accuracy of the information extracted.
 - A failsafe mechanism is included to prevent the model from forcing answers when information is not available.
