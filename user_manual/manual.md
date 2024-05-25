@@ -1,6 +1,5 @@
-# <p align="center">![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)</p>
-# $$prism{\color{red}A}{\color{blue}I}d$$
-# <p align="center">User Manual</p>
+# ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)prismAId
+# User Manual
 
 ## 1. Introduction
 ### Scope
