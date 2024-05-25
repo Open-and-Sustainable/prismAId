@@ -1,20 +1,20 @@
-# <div align="center">![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)</div>
+# <div align="center">![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)</div>
 # $$prism{\color{red}A}{\color{blue}I}d$$
 # <div align="center">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</div>
 <!-- Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews. -->
 * * *
 ## Purpose
-$prism{\color{red}A}{\color{blue}I}d$ leverages generative AI to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
+prismAId leverages generative AI to optimize the extraction and management of data from scientific literature. It extracts a structured database of the specific information researchers seek from the literature.
 
-This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use $prism{\color{red}A}{\color{blue}I}d$.
+This tool is tailored to assist researchers by offering a simple-to-use, efficient, and replicable method for conducting literature reviews. No coding skills are required to use prismAId.
 
-By significantly reducing the time and effort needed for data collection and analysis, $prism{\color{red}A}{\color{blue}I}d$ enhances research efficiency. Through the use of customized prompts, $prism{\color{red}A}{\color{blue}I}d$ automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, $prism{\color{red}A}{\color{blue}I}d$ allows for the first time ever 100% replicable systematic literature reviews.
+By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
 
-<img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_workflow.PNG" alt="workflow" width="1000"/></p>
+![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_workflow.PNG)
 * * *
 
 ## Getting Started
-To use $prism{\color{red}A}{\color{blue}I}d$, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
+To use prismAId, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
 
 ### Running $prism{\color{red}A}{\color{blue}I}d$
 Simply [download](https://github.com/ricboer0/prismAId/releases) the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
@@ -23,7 +23,7 @@ Simply [download](https://github.com/ricboer0/prismAId/releases) the executable 
 # For Windows
 ./prismAId_windows_amd64.exe --project your_project.toml
 ```
-After reading the project configuration, $prism{\color{red}A}{\color{blue}I}d$ will print out an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
+After reading the project configuration, prismAId will print out an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
 Total cost (USD - $): 0.0035965
 Do you want to continue? (y/n): 
@@ -64,7 +64,7 @@ Riccardo Boero - ribo@nilu.no
 ## License
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 
-<img src="https://www.gnu.org/graphics/agplv3-155x51.png" alt="license" width="155"/>
+![license](https://www.gnu.org/graphics/agplv3-155x51.png)
 
 ## Citation
 Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews (v0.1.1). Zenodo. https://doi.org/10.5281/zenodo.11235943
