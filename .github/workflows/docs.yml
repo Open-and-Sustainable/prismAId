@@ -3,7 +3,7 @@ name: Deploy MkDocs to GitHub Pages
 on:
   push:
     branches:
-      - main  # Set this to the branch you want to deploy from
+      - main  # Change to the branch you want to deploy from
 
 jobs:
   build:
@@ -29,7 +29,7 @@ jobs:
       run: |
         mkdir -p docs/user-manual
         cp README.md docs/index.md
-        cp user_manual/manual.md docs/user-manual/manual.md
+        cp user-manual/manual.md docs/user-manual/manual.md
 
     - name: Build MkDocs site
       run: mkdocs build
@@ -37,5 +37,5 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        personal_token: ${{ secrets.GH_PAT }}
         publish_dir: ./site
