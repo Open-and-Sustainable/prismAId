@@ -16,7 +16,7 @@ By significantly reducing the time and effort needed for data collection and ana
 ## Getting Started
 To use prismAId, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
 
-### Running $prism{\color{red}A}{\color{blue}I}d$
+### Running prismAId
 Simply [download](https://github.com/ricboer0/prismAId/releases) the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
 
 ```bash
