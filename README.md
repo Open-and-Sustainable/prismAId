@@ -54,7 +54,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 * * *
 
 ## Contributing
-Contributions are welcome! If you'd like to improve $prism{\color{red}A}{\color{blue}I}d$, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Authors
 
