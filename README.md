@@ -1,5 +1,5 @@
-# <div style="text-align: center;">![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)$$prism{\color{red}A}{\color{blue}I}d$$</div>
-# <div style="text-align: center;">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</div>
+# <div align="center">![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)$$prism{\color{red}A}{\color{blue}I}d$$</div>
+# <div align="center">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</div>
 <!-- Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews. -->
 * * *
 ## Purpose
