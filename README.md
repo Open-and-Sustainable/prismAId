@@ -1,6 +1,8 @@
-# <div align="center">![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)</div>
-# $$prism{\color{red}A}{\color{blue}I}d$$
-# <div align="center">Open Science AI Tools for Systematic, Protocol-Based Literature Reviews</div>
+# <div style="display: flex; align-items: center;">
+  <img src="https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png" alt="prismAId Logo" style="margin-right: 10px;" />
+  <span>prism</span><span style="color:red;">A</span><span style="color:blue;">I</span><span>d</span>
+</div>
+# Open Science AI Tools for Systematic, Protocol-Based Literature Reviews
 <!-- Innovate and Accelerate Science with AI: Open and Replicable Tools for Systematic, Protocol-Based Literature Reviews. -->
 * * *
 ## Purpose
