@@ -107,7 +107,7 @@ The "prompt" section is aimed at defining the building blocks of the prompt, ens
 #### Logic of the Prompt Section
 - The prompt section allows the user providing clear instructions and context to the AI model.
 - The prompt structure is made of these blocks:
-  <p align="center"><img src="https://github.com/ricboer0/prismAId/blob/main/figures/prompt_struct.PNG" alt="prompt structure" width="1000"/></p>
+  <p align="center">![prompt structure] (https://github.com/ricboer0/prismAId/blob/main/figures/prompt_struct.PNG)</p>
 - It ensures that the model understands the role it needs to play, the task it needs to perform, and the format of the expected output.
 - By providing definitions and examples, it minimizes the risk of misinterpretation and improves the accuracy of the information extracted.
 - A failsafe mechanism is included to prevent the model from forcing answers when information is not available.
@@ -196,7 +196,7 @@ values = ["world", "continent", "river basin"]
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage).
 
 ## 7. Further Resources
-### Mastering the Art of $prism{\color{red}A}{\color{blue}I}d$
+### Mastering the Art of prismAId
 - We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
 - Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by prismAId. Users are encouraged to experiment and define their own prismAId methodologies.
 <details>
