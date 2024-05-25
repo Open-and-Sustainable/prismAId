@@ -3,11 +3,11 @@
 
 ## 1. Introduction
 ### Scope
-- $prism{\color{red}A}{\color{blue}I}d$ is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
+- prismAId is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
 - It aims to make the systematic review process easy, requiring no coding.
-- $prism{\color{red}A}{\color{blue}I}d$ is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
-- It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, $prism{\color{red}A}{\color{blue}I}d$ addresses the primary issue of replicability in systematic reviews.
-- Though running reviews with $prism{\color{red}A}{\color{blue}I}d$ incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
+- prismAId is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
+- It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
+- Though running reviews with prismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
 
 ## 2. Project Overview
@@ -17,17 +17,17 @@
   - These models can perform a variety of language tasks such as text completion, summarization, translation, and more.  
 - Data flow and processing steps:
   - Contemporary state-of-the-art LLMs offer subscription-based API access.
-  - While foundation models can be used in various ways, $prism{\color{red}A}{\color{blue}I}d$ focuses solely on prompt engineering or prompting.
+  - While foundation models can be used in various ways, prismAId focuses solely on prompt engineering or prompting.
   - Prompt engineering involves crafting precise prompts to extract specific information from the AI model via the API.
-  - $prism{\color{red}A}{\color{blue}I}d$ simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
-  - The data flow of $prism{\color{red}A}{\color{blue}I}d$ is embedded in protocol-based approaches to reviews:
+  - prismAId simplifies the creation of rigorous and replicable prompts to extract information through the AI model API.
+  - The data flow of prismAId is embedded in protocol-based approaches to reviews:
     - Initially, there is a selection of literature to be analyzed through detailed steps. These are defined by protocols and are easily replicable. 
-    - Next, the content of these papers is classified, which is where $prism{\color{red}A}{\color{blue}I}d$ comes into play.
-  - $prism{\color{red}A}{\color{blue}I}d$ allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
-  - $prism{\color{red}A}{\color{blue}I}d$ users define the information extraction tasks using the prompt engineering template provided by $prism{\color{red}A}{\color{blue}I}d$.
-  - $prism{\color{red}A}{\color{blue}I}d$ utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
-  - $prism{\color{red}A}{\color{blue}I}d$ processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
-  - To facilitate cost management, $prism{\color{red}A}{\color{blue}I}d$ tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
+    - Next, the content of these papers is classified, which is where prismAId comes into play.
+  - prismAId allows for parsing the selected literature and extracting the information the researcher is interested in. AI models do not know fatigue and are much faster than humans.
+  - prismAId users define the information extraction tasks using the prompt engineering template provided by prismAId.
+  - prismAId utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
+  - prismAId processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
+  - To facilitate cost management, prismAId tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
 
 
 ## 3. Technical Requirements
@@ -41,7 +41,7 @@
      - Create an OpenAI account at [OpenAI](https://www.openai.com/).
      - Generate an API key from the OpenAI dashboard.
   2. **Download Executable:**
-     - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the $prism{\color{red}A}{\color{blue}I}d$ GitHub repository.
+     - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the prismAId GitHub repository.
      - Download the appropriate executable for your operating system and platform.
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
@@ -188,7 +188,7 @@ values = ["world", "continent", "river basin"]
 ## 6. Cost Management
 ### Managing Costs
 - The cost of using OpenAI models is calculated based on [tokens](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them).
-- $prism{\color{red}A}{\color{blue}I}d$ utilizes a [library](https://github.com/pkoukk/tiktoken-go) to compute the input tokens for each single-shot prompt before actually executing the call using another [library](https://github.com/sashabaranov/go-openai). Based on the information provided by OpenAI, the cost of each input token for the different models is used to compute the total cost of the review. This estimated cost is presented to the user, allowing them to decide whether to proceed with the analysis and incur the associated cost.
+- prismAId utilizes a [library](https://github.com/pkoukk/tiktoken-go) to compute the input tokens for each single-shot prompt before actually executing the call using another [library](https://github.com/sashabaranov/go-openai). Based on the information provided by OpenAI, the cost of each input token for the different models is used to compute the total cost of the review. This estimated cost is presented to the user, allowing them to decide whether to proceed with the analysis and incur the associated cost.
 - Concise but complete prompts are both cost-effective and efficient in information extraction. Unnecessary text increases costs and may introduce noise, negatively affecting the performance of AI models. While additional explanations and definitions in the prompt engineering part may seem superfluous, they are generally limited in size and do not significantly impact costs.
 - By using a project API key, it is possible to track the cost of each project on the OpenAI [dashboard](https://platform.openai.com/usage).
 - **The cost assessment function is indicative.**
@@ -198,7 +198,7 @@ values = ["world", "continent", "river basin"]
 ## 7. Further Resources
 ### Mastering the Art of $prism{\color{red}A}{\color{blue}I}d$
 - We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
-- Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by $prism{\color{red}A}{\color{blue}I}d$. Users are encouraged to experiment and define their own $prism{\color{red}A}{\color{blue}I}d$ methodologies.
+- Multiple [protocols](https://doi.org/10.1186/s13643-023-02255-9) for reporting systematic literature reviews are supported by prismAId. Users are encouraged to experiment and define their own prismAId methodologies.
 <details>
 <summary>Software Dependencies</summary>
 
@@ -252,13 +252,13 @@ command-line-arguments
 
 
 ## 8. Best Practices
-### The Golden Rules of $prism{\color{red}A}{\color{blue}I}d$
+### The Golden Rules of prismAId
 1. Remove unnecessary sections from the literature to be reviewed.
 2. It's better to risk repeating an explanation of the information you are seeking through examples than not defining it clearly enough.
 3. If the budget allows, conduct a separate review process for each piece of information you want to extract. This allows for more detailed definitions for each information piece.
 4. Try to avoid using open-ended answers and define and explain all possible answers the AI model can provide.
 5. First, run a test on a single paper. Once the results are satisfactory, repeat the process with a different batch of papers. If the results are still satisfactory, proceed with the rest of the literature.
 6. Focus on primary sources and avoid reviewing reviews unless it is intentional and carefully planned. Do not mix primary and secondary sources in the same review process.
-7. Include the project configuration (the .toml file) in the appendix of your paper. And please properly cite $prism{\color{red}A}{\color{blue}I}d$ [doi.org/10.5281/zenodo.11235943](https://doi.org/10.5281/zenodo.11235943).
+7. Include the project configuration (the .toml file) in the appendix of your paper. And please properly cite prismAId [doi.org/10.5281/zenodo.11235943](https://doi.org/10.5281/zenodo.11235943).
 
 
