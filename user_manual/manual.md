@@ -1,4 +1,5 @@
-# <p align="center"><img src="https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png" alt="logo" width="50"/></p>$$prism{\color{red}A}{\color{blue}I}d$$
+# <p align="center">![logo](https://github.com/ricboer0/prismAId/blob/main/figures/prismAId_logo.png)</p>
+# $$prism{\color{red}A}{\color{blue}I}d$$
 # <p align="center">User Manual</p>
 
 ## 1. Introduction
@@ -107,7 +108,7 @@ The "prompt" section is aimed at defining the building blocks of the prompt, ens
 #### Logic of the Prompt Section
 - The prompt section allows the user providing clear instructions and context to the AI model.
 - The prompt structure is made of these blocks:
-  <p align="center">![prompt structure] (https://github.com/ricboer0/prismAId/blob/main/figures/prompt_struct.PNG)</p>
+![prompt structure](https://github.com/ricboer0/prismAId/blob/main/figures/prompt_struct.PNG)
 - It ensures that the model understands the role it needs to play, the task it needs to perform, and the format of the expected output.
 - By providing definitions and examples, it minimizes the risk of misinterpretation and improves the accuracy of the information extracted.
 - A failsafe mechanism is included to prevent the model from forcing answers when information is not available.
