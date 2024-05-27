@@ -4,7 +4,7 @@ title: Home
 nav_order: 1
 ---
 
-# Welcome to prismAId
+# Welcome to prismAId ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)
 
 Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
