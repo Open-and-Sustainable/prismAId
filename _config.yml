@@ -1,4 +1,4 @@
-#theme: jekyll-theme-slate
+remote_theme: pmarsceill/just-the-docs
 title: prismAId
 description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
