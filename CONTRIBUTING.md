@@ -13,7 +13,7 @@ There are many ways to contribute to our project:
 
 ## Code of Conduct
 
-Participation in this project is governed by our Code of Conduct, which sets expectations for collaboration and communication. You can read the full text [here](LINK_TO_CODE_OF_CONDUCT).
+Participation in this project is governed by our Code of Conduct, which sets expectations for collaboration and communication. You can read the full text at [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
 ## Getting Started
 
