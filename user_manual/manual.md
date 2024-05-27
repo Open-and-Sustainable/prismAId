@@ -1,4 +1,4 @@
-# ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)prismAId
+# ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png) prismAId
 # User Manual
 
 ## 1. Introduction
