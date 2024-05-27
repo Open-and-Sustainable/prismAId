@@ -1,11 +1,12 @@
-theme: jekyll-theme-slate
-title: Your Project Name
-description: Description of your project.
+#theme: jekyll-theme-slate
+title: prismAId
+description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
 # Optional settings for GitHub Pages
 include:
   - _pages
   - CONTRIBUTING.md
+  - CODE_OF_CONDUCT.md
 
 # Optional navigation links
 navigation:
