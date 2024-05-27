@@ -16,3 +16,5 @@ navigation:
     link: user_manual/manual.md
   - name: Contributing
     link: CONTRIBUTING.md
+  - name: Code of Conduct
+    link: CODE_OF_CONDUCT.md
