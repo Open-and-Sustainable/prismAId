@@ -1,0 +1,17 @@
+theme: jekyll-theme-slate
+title: Your Project Name
+description: Description of your project.
+
+# Optional settings for GitHub Pages
+include:
+  - _pages
+  - CONTRIBUTING.md
+
+# Optional navigation links
+navigation:
+  - name: Home
+    link: index.html
+  - name: User Manual
+    link: user_manual/manual.md
+  - name: Contributing
+    link: CONTRIBUTING.md
