@@ -1,4 +1,6 @@
+# Use the Just the Docs theme
 remote_theme: pmarsceill/just-the-docs
+
 title: prismAId
 description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
@@ -8,13 +10,34 @@ include:
   - CONTRIBUTING.md
   - CODE_OF_CONDUCT.md
 
-# Optional navigation links
-navigation:
-  - name: Home
-    link: index.html
-  - name: User Manual
-    link: user_manual/manual.md
-  - name: Contributing
-    link: CONTRIBUTING.md
-  - name: Code of Conduct
-    link: CODE_OF_CONDUCT.md
+# Sidebar navigation structure
+just_the_docs:
+  # Enable or disable the navigation sidebar
+  show_sidebar: true
+
+  # Specify the order of the pages in the navigation
+  nav_order:
+    - Home
+    - User Manual
+    - Contributing
+    - Code of Conduct
+
+# Navigation links
+nav:
+  home:
+    - title: "Home"
+      url: "/"
+      nav_order: 1
+  user_manual:
+    - title: "User Manual"
+      url: "/user_manual/manual"
+      nav_order: 2
+  contributing:
+    - title: "Contributing"
+      url: "/CONTRIBUTING"
+      nav_order: 3
+  code_of_conduct:
+    - title: "Code of Conduct"
+      url: "/CODE_OF_CONDUCT"
+      nav_order: 4
+
