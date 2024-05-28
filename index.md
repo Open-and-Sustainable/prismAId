@@ -8,8 +8,8 @@ nav_order: 1
 
 Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
-Learn how to use prismAId in the [intro README file]({{ site.baseurl }}/README.md), the [User Manual]({{ site.baseurl }}/user_manual/manual.md), and the [Technical FAQs]({{ site.baseurl }}/user_manual/technical_faqs.md).
+Learn how to use prismAId by referring to the [intro README file](README.md), the [User Manual](user_manual/manual.md), and the [Technical FAQs](user_manual/technical_faqs.md).
 
-For reference, please read our [Code of Conduct]({{ site.baseurl }}/CODE_OF_CONDUCT.md) and [Contributing Guidelines]({{ site.baseurl }}/CONTRIBUTING.md).
+For additional information, please review our [Code of Conduct](CODE_OF_CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md).
 
 <!-- This file is the landing page of the documentation website on Github pages, https://open-and-sustainable.github.io/prismAId/ -->
