@@ -47,8 +47,8 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 * * *
 
 ## Notes
-- Ensure that you have fully read the [User Manual](user_manual/manual.md).
-- For troubleshooting and support not covered in the [User Manual](user_manual/manual.md), submit an [issue](/../../issues) on GitHub.
+- Ensure that you have fully read the [User Manual](user_manual/manual.md) and the [technical FAQs](user_manual/technical_faqs.md).
+- For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
 - **Forthcoming** additional **features**: support of ChatGPT4 Omni model and batch execution processes. Both features significantly decrease the execution cost of reviews.
 
 * * *

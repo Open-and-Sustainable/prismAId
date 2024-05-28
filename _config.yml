@@ -21,6 +21,7 @@ just_the_docs:
     - Home
     - Readme
     - User Manual
+    - Technical FAQs
     - Contributing
     - Code of Conduct
 
@@ -38,12 +39,16 @@ nav:
     - title: "User Manual"
       url: "/user_manual/manual"
       nav_order: 3
+  technical_faqs:
+    - title: "Technical FAQs"
+      url: "/user_manual/technical_faqs"
+      nav_order: 4
   contributing:
     - title: "Contributing"
       url: "/CONTRIBUTING"
-      nav_order: 4
+      nav_order: 5
   code_of_conduct:
     - title: "Code of Conduct"
       url: "/CODE_OF_CONDUCT"
-      nav_order: 5
+      nav_order: 6
 
