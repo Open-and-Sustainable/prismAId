@@ -6,7 +6,6 @@ description: Open Science AI Tools for Systematic, Protocol-Based Literature Rev
 
 # Optional settings for GitHub Pages
 include:
-  - _pages
   - user_manual
   - CONTRIBUTING.md
   - CODE_OF_CONDUCT.md
