@@ -10,7 +10,7 @@ Nevertheless, using a lower temperature is a good strategy to minimize probabili
 
 **Further reading:** [https://doi.org/10.48550/arXiv.2308.00951](https://doi.org/10.48550/arXiv.2308.00951)
 
-### Q: Does noise, or how much information is hidden in the literature to be reviewed, have an impact?
+### Q: Does noise (or how much information is hidden in the literature to be reviewed) have an impact?
 
 **A:** Yes, the presence of noise and the degree to which information is hidden significantly impact the quality of information extraction. The more obscured the information and the higher the noise level in the prompt, the more challenging it becomes to extract accurate and high-quality information. During the project configuration development phase, thorough testing can help identify the most effective prompt structures and content. This process helps in refining the prompts to minimize noise and enhance clarity, thereby improving the ability to find critical information even when it is well-hidden, akin to finding a "needle in the haystack."
 
