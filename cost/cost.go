@@ -39,10 +39,12 @@ func GetModel(prompt string, config *config.Config) string {
 	if config.Project.LLM.Model == "" {
 		numTokens := numTokensFromMessages(messages, model)
 		if numTokens > 16385 {
-			model = openai.GPT4Turbo
+			model = openai.GPT4o
 		}
 	} else if config.Project.LLM.Model == "gpt-4-turbo" {
 		model = openai.GPT4Turbo
+	} else if config.Project.LLM.Model == "gpt-4o" {
+		model = openai.GPT4o
 	}
 	return model
 }

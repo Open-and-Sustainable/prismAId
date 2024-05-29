@@ -12,7 +12,7 @@ log_level = "low" # Could be "low" [default], "medium" showing entries on stdout
 [project.llm]
 provider = "OpenAI" # Only OpenAI is supported so far, this option is actually ignored.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
+model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o', or '' [default]. Leave empty string (or remove key) if you want cost optimization: it will switch between ChatGPT4 Omni and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
 temperature = 0.2 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
 batch_execution = "no" # Not yet implemented, this option is actually ignored.
 

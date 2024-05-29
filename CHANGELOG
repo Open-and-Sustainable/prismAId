@@ -9,6 +9,15 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.2] - 2024-05-29
+### Added
+- gpt-4o support & cost
+- Technical FAQs
+- Pages generation
+### Fixed
+- Cost minimization to include gpt-4o
+- User manual
+
 ## [0.1.1] - 2024-05-21
 ### Fixed
 - User Manual

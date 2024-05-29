@@ -95,8 +95,8 @@ batch_execution = "no"
   - provider: Currently irrelevant as only OpenAI is supported.
   - api_key: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
   - model: Determines the model to use. Options are:
-    - Leave empty for cost optimization (automatically selects the cheapest model based on token limits).
-    - gpt-4-turbo or gpt-3.5-turbo for specific model selection.
+    - Leave empty `''` for cost optimization (automatically selects the cheapest model based on token limits).
+    - `gpt-4o` or `gpt-4-turbo` or `gpt-3.5-turbo` for specific model selection.
   - temperature: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
 
