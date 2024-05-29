@@ -37,7 +37,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ## Specifications
 - **Review protocol**: Designed to support any literature review protocol, but our preference is for [Prisma 2020](https://www.prisma-statement.org/prisma-2020) (hence the project name).
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems, on AMD64 and ARM64 platforms.
-- **Supported LLMs**: OpenAI ChatGPT Turbo 3.5 and 4. You need an OpenAI account and an **API key** to use prismAId.
+- **Supported LLMs**: OpenAI GPT 3.5 Turbo, GPT 4 Turbo, and GPT4o. You need an OpenAI account and an **API key** to use prismAId.
 - **Input format**: Requires TXT files for scientific papers.
 - **Project Configuration**: Uses TOML files for easy project setup and parameter configuration.
 - **Output format**: Outputs data in CSV and JSON formats.
