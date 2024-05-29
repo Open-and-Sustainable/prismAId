@@ -57,8 +57,10 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Authors
-
 Riccardo Boero - ribo@nilu.no
+
+## Acknowledgments
+This project was initiated with the generous support of a SIS project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort.
 
 ## License
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
