@@ -23,7 +23,8 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 		"gpt-4-0314",
 		"gpt-4-32k-0314",
 		"gpt-4-0613",
-		"gpt-4-32k-0613":
+		"gpt-4-32k-0613",
+		"gpt-4o":
 		tokensPerMessage = 3
 		tokensPerName = 1
 	case "gpt-3.5-turbo-0301":
@@ -34,7 +35,7 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 			log.Println("warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.")
 			return numTokensFromMessages(messages, "gpt-3.5-turbo-0613")
 		} else if strings.Contains(model, "gpt-4") {
-			log.Println("warning: gpt-4 may update over time. Returning num tokens assuming computation as in gpt-4-0613.")
+			log.Println("warning: gpt-4 may update over time. Returning num tokens assuming computation as in gpt-4-0613, .")
 			return numTokensFromMessages(messages, "gpt-4-0613")
 		} else {
 			err = fmt.Errorf("num_tokens_from_messages() is not implemented for model %s. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens", model)
