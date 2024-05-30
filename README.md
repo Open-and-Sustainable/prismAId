@@ -63,7 +63,7 @@ Contributions are welcome! If you'd like to improve prismAId, please create a ne
 Riccardo Boero - ribo@nilu.no
 
 ## Acknowledgments
-This project was initiated with the generous support of a SIS project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort.
+This project was initiated with the generous support of a SIS internal project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort.
 
 * * *
 
