@@ -7,9 +7,10 @@ description: Open Science AI Tools for Systematic, Protocol-Based Literature Rev
 # Optional settings for GitHub Pages
 include:
   - user_manual
-  - CONTRIBUTING.md
-  - CODE_OF_CONDUCT.md
   - README.md
+#  - CONTRIBUTING.md
+#  - CODE_OF_CONDUCT.md
+
 
 # Sidebar navigation structure
 just_the_docs:
@@ -22,8 +23,8 @@ just_the_docs:
     - Readme
     - User Manual
     - Technical FAQs
-    - Contributing
-    - Code of Conduct
+#    - Contributing
+#    - Code of Conduct
 
 # Navigation links
 nav:
@@ -43,12 +44,12 @@ nav:
     - title: "Technical FAQs"
       url: "/user_manual/technical_faqs"
       nav_order: 4
-  contributing:
-    - title: "Contributing"
-      url: "/CONTRIBUTING"
-      nav_order: 5
-  code_of_conduct:
-    - title: "Code of Conduct"
-      url: "/CODE_OF_CONDUCT"
-      nav_order: 6
+ # contributing:
+ #   - title: "Contributing"
+ #     url: "/CONTRIBUTING"
+ #     nav_order: 5
+ # code_of_conduct:
+ #   - title: "Code of Conduct"
+ #     url: "/CODE_OF_CONDUCT"
+ #     nav_order: 6
 
