@@ -259,6 +259,7 @@ command-line-arguments
 4. Try to avoid using open-ended answers and define and explain all possible answers the AI model can provide.
 5. First, run a test on a single paper. Once the results are satisfactory, repeat the process with a different batch of papers. If the results are still satisfactory, proceed with the rest of the literature.
 6. Focus on primary sources and avoid reviewing reviews unless it is intentional and carefully planned. Do not mix primary and secondary sources in the same review process.
-7. Include the project configuration (the .toml file) in the appendix of your paper. And please properly cite prismAId [doi.org/10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796).
+7. Include the project configuration (the .toml file) in the appendix of your paper.
+8. Properly cite prismAId [doi.org/10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796).
 
 
