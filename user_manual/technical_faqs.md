@@ -21,7 +21,7 @@ Nevertheless, using a lower temperature is a good strategy to minimize probabili
 
 **Further reading:** [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
 
-### Q: Are there reasoning biases I should expect when using generative AI models?
+### Q: Are there reasoning biases I should expect when analyzing literature with generative AI models?
 
 **A:** Yes, similar to human reasoning biases, AI models trained on human texts can replicate these biases and may lead to false information extraction if the prompts steer them in that direction. This is because the models learn from and mimic the patterns found in the training data, which includes human reasoning biases. A good strategy to address this in prismAId is to ensure prompts are carefully crafted to be as precise, neutral, and unbiased as possible. prismAId's prompt structure supports the minimization of these problems, but there is still no guarantee against misuse by researchers.
 
