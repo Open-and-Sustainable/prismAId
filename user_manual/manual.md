@@ -6,7 +6,7 @@
 - It aims to make the systematic review process easy, requiring no coding.
 - prismAId is designed to be much faster than traditional human-based approaches, offering also a high-speed software implementation.
 - It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
-- Though running reviews with prismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between half a cent to 25 cents (USD or EUR).
+- Though running reviews with prismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between a quarter of a cent to 10 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
 
 ## 2. Project Overview
