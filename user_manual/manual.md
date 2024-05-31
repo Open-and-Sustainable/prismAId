@@ -1,5 +1,20 @@
 # ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png) prismAId - User Manual
+***
+## Table of Contents
+- [1. Introduction](#1-introduction)
+- [2. Project Overview](#2-project-overview)
+- [3. Technical Requirements](#3-technical-requirements)
+- [4. Literature Review Requirements](#4-literature-review-requirements)
+- [5. Project Configuration](#5-project-configuration)
+  - [Section 1 'Project' Details](#section-1-project-details)
+  - [Section 2 'Prompt' Details](#section-2-prompt-details)
+  - [Section 3 'Review' Details](#section-3-review-details)
+- [6. Cost Management](#6-cost-management)
+- [7. Further Resources](#7-further-resources)
+- [8. Best Practices](#8-best-practices)
 
+
+***
 ## 1. Introduction
 ### Scope
 - prismAId is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
@@ -8,7 +23,7 @@
 - It ensures full replicability. Unlike traditional methods, which rely on subjective interpretation and classification of scientific concepts, prismAId addresses the primary issue of replicability in systematic reviews.
 - Though running reviews with prismAId incurs costs associated with using AI models, these costs are limited and lower than alternative approaches such as fine-tuning models or developing ad hoc on-premises models, which also complicate replicability. Indicatively, the cost of extracting information from a paper, as of today, can vary between a quarter of a cent to 10 cents (USD or EUR).
 - Beneficiaries: Any scientist conducting a literature review or meta-analysis for developing projects, proposals, or manuscripts.
-
+***
 ## 2. Project Overview
 ### Description of Underlying Mechanism
 - How LLMs work:
@@ -27,8 +42,7 @@
   - prismAId utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
   - prismAId processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
   - To facilitate cost management, prismAId tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
-
-
+***
 ## 3. Technical Requirements
 ### Hardware and Software Requirements
 - Detailed specifications:
@@ -45,13 +59,13 @@
   3. **Prepare Papers for Review:**
      - Ensure that all papers to be reviewed are in .txt format.
      - Papers in html can be saved as text. To convert PDFs to .txt, there are many good options. A good one is the Python solution provided by pdfminer: instructions can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
-
+***
 ## 4. Literature Review Requirements
 ### Literature Search, Identification, and Preparation
 - Follow protocols for literature search and identification, for instance as outlined in [PRISMA 2020](https://doi.org/10.1136/bmj.n71).
 - Remove unnecessary elements from the articles. For example, the list of references usually does not provide relevant information. Similarly, the abstract and introductory parts often may (or should) be removed. Reviewing a review should be done with particular care and only if necessary.
 - Unnecessary parts of text waste resources and increase analysis costs without any additional value. Actually, uneccessary parts could [negatively affect](https://arxiv.org/abs/2404.08865) model performance.
-
+***
 ## 5. Project Configuration
 - Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](../projects/template.toml) and here.
 ### Section 1 'Project' Details
@@ -183,7 +197,7 @@ values = ["world", "continent", "river basin"]
     - The concept or topic to be extracted.
   - values: ["world", "continent", "river basin"]
     - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
-
+***
 ## 6. Cost Management
 ### Managing Costs
 - The cost of using OpenAI models is calculated based on [tokens](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them).
@@ -193,7 +207,7 @@ values = ["world", "continent", "river basin"]
 - **The cost assessment function is indicative.**
   - We strive to maintain up-to-date data for cost estimation, though our estimations currently pertain only to the input aspect of AI model usage. As such, we cannot guarantee precise assessments.
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage).
-
+***
 ## 7. Further Resources
 ### Mastering the Art of prismAId
 - Carefully read the [technical FAQs](user_manual/technical_faqs.md) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
@@ -250,7 +264,7 @@ command-line-arguments
 ```
 </details>
 
-
+***
 ## 8. Best Practices
 ### The Golden Rules of prismAId
 1. Remove unnecessary sections from the literature to be reviewed.
