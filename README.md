@@ -11,6 +11,37 @@ By significantly reducing the time and effort needed for data collection and ana
 
 Most AI tools for systematic literature reviews focus on the literature search phase. While a few tools address the analysis phase, they do not fully leverage the capabilities of generative AI models. prismAId brings generative AI and Open Science where they matter most — in the analysis and data extraction phases.
 ![workflow](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_workflow.PNG)
+***
+## Open Science
+prismAId supports Open Science in many aspects:
+
+1. **Transparency and Reproducibility**
+   - prismAId ensures transparency in the analysis process, making it easier for other researchers to understand, replicate, and validate the findings.
+   - prismAId removes the subjectivity of individual interpretations, making systematic literature reviews 100% reproducible.
+   - As a software tool, prismAId helps maintain detailed logs and records of the analysis process, enhancing reproducibility.
+
+2. **Accessibility and Collaboration**
+   - prismAId facilitates collaboration among researchers by providing an open tool that makes it possible to share data, analysis methods, and results.
+   - prismAId is open source and openly licensed. Making analysis tools openly available promotes wider participation and contribution from the scientific community.
+
+3. **Efficiency and Scalability**
+   - prismAId can handle large volumes of data efficiently, making the analysis phase quicker and more scalable compared to traditional methods.
+   - This efficiency supports open science by allowing more comprehensive and timely reviews, reducing the time society needs to properly 'digest' scientific innovations.
+
+4. **Quality and Accuracy**
+   - By explicitly defining each piece of reviewed information through prompt configurations, prismAId enhances the quality and accuracy of data extraction and analysis, leading to more reliable systematic reviews.
+   - Publishing prismAId project configuration files ensures that approaches, biases, and methods are visible and verifiable by the broader research community. By doing so, they are also reusable and extendable.
+
+5. **Ethical Considerations and Bias Reduction**
+   - Using prismAId means explicitly addressing biases and incorporating ethical considerations in its design and implementation to minimize biases in data analysis.
+   - prismAId enables open science approaches, ensuring full transparency on ethical standards, with community oversight and input helping to identify and mitigate potential biases.
+
+6. **Scientific Innovation**
+   - prismAId promotes scientific innovation by fully formalizing the analysis process, creating standardized procedures that ensure consistency and accuracy in systematic reviews.
+   - This formalization makes methods and procedures reusable and extendable, allowing researchers to build upon previous analyses and adapt methods to new contexts.
+   - By facilitating incremental discoveries, prismAId supports the cumulative advancement of science, where each study contributes to a larger body of knowledge.
+   - prismAId's commitment to open science principles ensures that all tools, methods, and data are openly accessible, fostering collaboration and rapid dissemination of innovations.
+  
 * * *
 
 ## Getting Started
@@ -50,12 +81,12 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ## Notes
 - Ensure that you have fully read the [User Manual](user_manual/manual.md) and the [technical FAQs](user_manual/technical_faqs.md).
 - For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
-- **Forthcoming** additional **features**: support of ChatGPT4 Omni model and batch execution processes. Both features significantly decrease the execution cost of reviews.
+- Forthcoming features include support for batch execution processes, which can halve the cost of reviews at the expense of a delay of up to 24 hours.
 
 * * *
 
 ## Contributing
-Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md). Please also adhere to our [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md.md).
 
 * * *
 
