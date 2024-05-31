@@ -23,6 +23,7 @@ prismAId supports Open Science in many aspects:
 2. **Accessibility and Collaboration**
    - prismAId facilitates collaboration among researchers by providing an open tool that makes it possible to share data, analysis methods, and results.
    - prismAId is open source and openly licensed. Making analysis tools openly available promotes wider participation and contribution from the scientific community.
+   - prismAId releases and their source code are archived on [Zenodo](https://zenodo.org/doi/10.5281/zenodo.11210796), ensuring long-term accessibility and referencability. This helps address legacy issues for analyses conducted using prismAId, making the tool and its results open, replicable, and understandable over the long run.
 
 3. **Efficiency and Scalability**
    - prismAId can handle large volumes of data efficiently, making the analysis phase quicker and more scalable compared to traditional methods.
@@ -83,9 +84,7 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 - For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
 - Forthcoming features include support for batch execution processes, which can halve the cost of reviews at the expense of a delay of up to 24 hours.
 
-* * *
-
-## Contributing
+### Contributing
 Contributions are welcome! If you'd like to improve prismAId, please create a new branch in the repo and submit a pull request. We encourage you to submit issues for bugs, feature requests, and suggestions. Please make sure to adhere to our coding standards and commit guidelines found in [`CONTRIBUTING.md`](CONTRIBUTING.md). Please also adhere to our [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md.md).
 
 * * *
@@ -93,7 +92,7 @@ Contributions are welcome! If you'd like to improve prismAId, please create a ne
 ## Authors
 Riccardo Boero - ribo@nilu.no
 
-## Acknowledgments
+### Acknowledgments
 This project was initiated with the generous support of a SIS internal project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort.
 
 * * *
@@ -102,6 +101,8 @@ This project was initiated with the generous support of a SIS internal project f
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 
 ![license](https://www.gnu.org/graphics/agplv3-155x51.png)
+
+* * *
 
 ## Citation
 Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews. Zenodo. https://doi.org/10.5281/zenodo.11210796
