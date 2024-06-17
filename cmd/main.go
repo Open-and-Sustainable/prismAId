@@ -11,6 +11,7 @@ import (
 	"prismAId/llm"
 	"prismAId/prompt"
 	"prismAId/results"
+	"strings"
 	"time"
 )
 
@@ -35,11 +36,11 @@ func main() {
 	}
 	// setup logging
 	if config.Project.Configuration.LogLevel == "high" {
-		setupLogging(File)
+		setupLogging(File, *projectConfigPath)
 	} else if config.Project.Configuration.LogLevel == "medium" {
-		setupLogging(Stdout)
+		setupLogging(Stdout, *projectConfigPath)
 	} else {
-		setupLogging(Silent) // default value
+		setupLogging(Silent, *projectConfigPath) // default value
 	}
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
@@ -112,7 +113,7 @@ const (
 )
 
 // Setup logging based on log level
-func setupLogging(level LogLevel) {
+func setupLogging(level LogLevel, filename string) {
 	var logOutput io.Writer
 	switch level {
 	case Silent:
@@ -120,8 +121,8 @@ func setupLogging(level LogLevel) {
 	case Stdout:
 		logOutput = os.Stdout // Log to standard output
 	case File:
-		fmt.Println("Logging to file ./project.log")
-		logFile, err := os.OpenFile("./project.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		logname := strings.TrimSuffix(filename, ".toml") + ".log"
+		logFile, err := os.OpenFile(logname, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
 			log.Fatalf("error opening file: %v", err)
 		}
@@ -163,17 +164,13 @@ func getWaitTime(prompt string, config *config.Config) int {
 func waitWithStatus(waitTime int) {
 	ticker := time.NewTicker(1 * time.Second) // Ticks every second
 	defer ticker.Stop()
-
 	remainingTime := waitTime
-
 	for range ticker.C {
 		// Print the status only when the remaining time modulo 5 equals 0
 		if remainingTime%5 == 0 {
 			fmt.Printf("Waiting... %d seconds remaining\n", remainingTime)
 		}
-
 		remainingTime--
-
 		// Break the loop when no time is left
 		if remainingTime <= 0 {
 			fmt.Println("Wait completed.")

@@ -95,7 +95,7 @@ log_level = "low"
   - `log_level`: The level of logging:
     - `low`: Minimal logging, making debugging difficult.
     - `medium`: Logs entries to stdout.
-    - `high`: Saves logs to a file (project.log).
+    - `high`: Saves logs to a file in the same directory as 'project_name.toml', named 'project_name.log'.
 #### LLM Configuration:
 ```toml
 [project.llm]
