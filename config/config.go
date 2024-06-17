@@ -34,6 +34,7 @@ type LLMConfig struct {
 	Model          string  `toml:"model"`
 	Temperature    float64 `toml:"temperature"`
 	BatchExecution string  `toml:"batch_execution"`
+	TpmLimit       int     `toml:"tpm_limit"`
 }
 
 type PromptConfig struct {

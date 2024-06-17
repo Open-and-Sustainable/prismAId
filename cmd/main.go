@@ -6,12 +6,12 @@ import (
 	"io"
 	"log"
 	"os"
-	"path/filepath"
 	"prismAId/config"
 	"prismAId/cost"
 	"prismAId/llm"
 	"prismAId/prompt"
 	"prismAId/results"
+	"time"
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	}
 	// setup logging
 	if config.Project.Configuration.LogLevel == "high" {
-		setupLogging(filepath.ListSeparator)
+		setupLogging(File)
 	} else if config.Project.Configuration.LogLevel == "medium" {
 		setupLogging(Stdout)
 	} else {
@@ -75,6 +75,10 @@ func main() {
 				return
 			}
 			results.WriteJSONData(response, outputFile) // Write formatted JSON to file
+			// sleep before next prompt if it's not the last one
+			if i < len(prompts)-1 {
+				time.Sleep(time.Duration(getWaitTime(prompt, config)) * time.Second)
+			}
 		}
 	} else {
 		keys := prompt.GetResultsKeys(config)
@@ -89,6 +93,10 @@ func main() {
 				return
 			}
 			results.WriteCSVData(response, filenames[i], writer, keys)
+			// sleep before next prompt if it's not the last one
+			if i < len(prompts)-1 {
+				time.Sleep(time.Duration(getWaitTime(prompt, config)) * time.Second)
+			}
 		}
 	}
 }
@@ -110,7 +118,8 @@ func setupLogging(level LogLevel) {
 	case Stdout:
 		logOutput = os.Stdout // Log to standard output
 	case File:
-		logFile, err := os.OpenFile("project.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+		fmt.Println("Logging to file ./project.log")
+		logFile, err := os.OpenFile("./project.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 		if err != nil {
 			log.Fatalf("error opening file: %v", err)
 		}
@@ -121,4 +130,30 @@ func setupLogging(level LogLevel) {
 
 	log.SetOutput(logOutput)
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
+}
+
+// Method that returns the number of seconds to wait to respect TPM limits
+func getWaitTime(prompt string, config *config.Config) int {
+	// Get the number of tokens from the prompt
+	tokens := cost.GetNumTokensFromPrompt(prompt, config)
+	// Get the TPM limit from the configuration
+	tpmLimit := config.Project.LLM.TpmLimit
+	// Calculate the time to wait until the next minute
+	now := time.Now()
+	remainingSeconds := 60 - now.Second()
+	// Calculate the number of tokens per second allowed
+	tokensPerSecond := float64(tpmLimit) / 60.0
+	// Calculate the required wait time in seconds to not exceed TPM limit
+	requiredWaitTime := float64(tokens) / tokensPerSecond
+	// Calculate the seconds to the next minute
+	secondsToMinute := 0
+	if int(requiredWaitTime) > 60 {
+		secondsToMinute = 60 - int(requiredWaitTime)%60
+	}
+	// If required wait time is more than remaining seconds in the current minute, wait until next minute
+	if requiredWaitTime > float64(remainingSeconds) {
+		return remainingSeconds + int(requiredWaitTime) + secondsToMinute
+	}
+	// Otherwise, calculate the wait time based on tokens used
+	return remainingSeconds
 }

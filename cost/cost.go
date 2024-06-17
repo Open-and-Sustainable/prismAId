@@ -48,3 +48,9 @@ func GetModel(prompt string, config *config.Config) string {
 	}
 	return model
 }
+
+func GetNumTokensFromPrompt(prompt string, config *config.Config) int {
+	messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
+	model := GetModel(prompt, config)
+	return numTokensFromMessages(messages, model)
+}

@@ -13,9 +13,9 @@ log_level = "low" # Could be "low" [default], "medium" showing entries on stdout
 provider = "OpenAI" # Only OpenAI is supported so far
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
 model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will switch between ChatGPT4 Turbo and ChatGPT3.5 Turbo according to the cost of the model ad the limits on input tokens
-temperature = 0.2 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
-batch_execution = "no" # Coul be "yes" [default] or "no". If yes it will send the prompt as batch jobs executed in 24 hours and costing 50%. Not yet implemented!
-
+temperature = 0.0001 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
+batch_execution = "no" # Could be "yes" or "no" [default]. Batch executiuon is completed within 24 hours and costs 50% less. Not yet implemented.
+tpm_limit = 30000 # This is the limit for GPT-4 turbo and omni models for usage tier 1.
 
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 
