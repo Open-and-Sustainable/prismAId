@@ -9,6 +9,13 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.3] - 2024-06-17
+### Added
+- TPM limits support
+- Documentation of this feature
+### Fixed
+- project.log saving in case of 'high' level of logging request
+
 ## [0.2] - 2024-05-29
 ### Added
 - gpt-4o support & cost
