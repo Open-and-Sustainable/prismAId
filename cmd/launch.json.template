@@ -1,4 +1,4 @@
-// put this in your .vscode folder, remove the .template extension, add the API key, and remove this line
+// put this in your .vscode folder, remove the .template extension, add the API key, and remove this line -- excute with ctrl+shift+B
 {
     "version": "0.2.0",
     "configurations": [
