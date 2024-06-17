@@ -68,6 +68,7 @@ func main() {
 	defer outputFile.Close() // Ensure the file is closed after all operations are done
 	if output_format == "json" {
 		for i, prompt := range prompts {
+			fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
 			log.Println("File: ", filenames[i], " Prompt: ", prompt)
 			response, err := llm.QueryOpenAI(prompt, config)
 			if err != nil {
@@ -77,7 +78,7 @@ func main() {
 			results.WriteJSONData(response, outputFile) // Write formatted JSON to file
 			// sleep before next prompt if it's not the last one
 			if i < len(prompts)-1 {
-				time.Sleep(time.Duration(getWaitTime(prompt, config)) * time.Second)
+				waitWithStatus(getWaitTime(prompt, config))
 			}
 		}
 	} else {
@@ -86,6 +87,7 @@ func main() {
 		defer writer.Flush()                                // Ensure data is flushed after all writes
 		// send prompts to API and write results on file
 		for i, prompt := range prompts {
+			fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
 			log.Println("File: ", filenames[i], " Prompt: ", prompt)
 			response, err := llm.QueryOpenAI(prompt, config)
 			if err != nil {
@@ -95,7 +97,7 @@ func main() {
 			results.WriteCSVData(response, filenames[i], writer, keys)
 			// sleep before next prompt if it's not the last one
 			if i < len(prompts)-1 {
-				time.Sleep(time.Duration(getWaitTime(prompt, config)) * time.Second)
+				waitWithStatus(getWaitTime(prompt, config))
 			}
 		}
 	}
@@ -156,4 +158,26 @@ func getWaitTime(prompt string, config *config.Config) int {
 	}
 	// Otherwise, calculate the wait time based on tokens used
 	return remainingSeconds
+}
+
+func waitWithStatus(waitTime int) {
+	ticker := time.NewTicker(1 * time.Second) // Ticks every second
+	defer ticker.Stop()
+
+	remainingTime := waitTime
+
+	for range ticker.C {
+		// Print the status only when the remaining time modulo 5 equals 0
+		if remainingTime%5 == 0 {
+			fmt.Printf("Waiting... %d seconds remaining\n", remainingTime)
+		}
+
+		remainingTime--
+
+		// Break the loop when no time is left
+		if remainingTime <= 0 {
+			fmt.Println("Wait completed.")
+			break
+		}
+	}
 }
