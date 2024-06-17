@@ -85,7 +85,6 @@ Follow instructions in the [User Manual](user_manual/manual.md).
 ### Notes
 - Ensure that you have fully read the [User Manual](user_manual/manual.md) and the [technical FAQs](user_manual/technical_faqs.md).
 - For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
-- Forthcoming features include support for batch execution processes, which can halve the cost of reviews at the expense of a delay of up to 24 hours.
 
 ### Specifications
 - **Review protocol**: Designed to support any literature review protocol, but our preference is for [Prisma 2020](https://www.prisma-statement.org/prisma-2020) (hence the project name).
