@@ -76,10 +76,10 @@ name = "Use of LLM for Systematic Review"
 author = "John Doe"
 version = "1.0"
 ```
-- The first section [project] contains basic information about the project. This includes:
-  - name: The name of the project.
-  - author: The author of the project.
-  - version: The version of the project configuration.
+- The first section `[project]` contains basic information about the project. This includes:
+  - `name`: The name of the project.
+  - `author`: The author of the project.
+  - `version`: The version of the project configuration.
 #### Configuration Details:
 ```toml
 [project.configuration]
@@ -88,14 +88,14 @@ results_file_name = "/path/to/save/results"
 output_format = "json"
 log_level = "low"
 ```
-- The subsection [project.configuration] contains settings related to the project's execution environment:
-  - input_directory: The directory where the .txt files to be reviewed are located.
-  - results_file_name: The path where the results will be saved. Ensure the path exists in the filesystem.
-  - output_format: The format of the output file, either "csv" or "json".
-  - log_level: The level of logging:
-    - low: Minimal logging, making debugging difficult.
-    - medium: Logs entries to stdout.
-    - high: Saves logs to a file.
+- The subsection `[project.configuration]` contains settings related to the project's execution environment:
+  - `input_directory`: The directory where the .txt files to be reviewed are located.
+  - `results_file_name`: The path where the results will be saved. Ensure the path exists in the filesystem.
+  - `output_format`: The format of the output file, either `csv` or `json`.
+  - `log_level`: The level of logging:
+    - `low`: Minimal logging, making debugging difficult.
+    - `medium`: Logs entries to stdout.
+    - `high`: Saves logs to a file (project.log).
 #### LLM Configuration:
 ```toml
 [project.llm]
@@ -104,18 +104,20 @@ api_key = ""
 model = ""
 temperature = 0.2
 batch_execution = "no"
+tpm_limit = 0
 ```
-- The [project.llm] section includes parameters for managing the use of the LLM:
-  - provider: Currently irrelevant as only OpenAI is supported.
-  - api_key: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
-  - model: Determines the model to use. Options are:
+- The `[project.llm]` section includes parameters for managing the use of the LLM:
+  - `provider`: Currently irrelevant as only OpenAI is supported.
+  - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
+  - `model`: Determines the model to use. Options are:
     - Leave empty `''` for cost optimization (automatically selects the cheapest model based on token limits).
     - `gpt-4o` or `gpt-4-turbo` or `gpt-3.5-turbo` for specific model selection.
-  - temperature: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
-  - batch_execution: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
+  - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
+  - `batch_execution`: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
+  - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits section in the [OpenAI API documentation](https://platform.openai.com/settings/organization/limits).
 
 ### Section 2 'Prompt' Details
-The "prompt" section is aimed at defining the building blocks of the prompt, ensuring high accuracy in information extraction and minimizing hallucinations and misinterpretations.
+The `[prompt]` section is aimed at defining the building blocks of the prompt, ensuring high accuracy in information extraction and minimizing hallucinations and misinterpretations.
 
 #### Logic of the Prompt Section
 - The prompt section allows the user providing clear instructions and context to the AI model.
@@ -136,27 +138,27 @@ example = ""
 ```
 
 #### Examples and Explanation of Entries
-- persona:
+- `persona`:
   - "You are an experienced scientist working on a systematic review of the literature."
   - Personas help in setting the expectation on the model's role, providing context for the responses.
-- task:
+- `task`:
   - "You are asked to map the concepts discussed in a scientific paper attached here."
   - This entry defines the specific task the model needs to accomplish.
-- expected_result:
+- `expected_result`:
   - "You should output a JSON object with the following keys and possible values: "
   - This introduces the expected output format, specifying that the result should be a JSON object with particular keys and values.
-- failsafe:
+- `failsafe`:
   - "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
   - This entry provides a fail-safe mechanism to avoid forcing answers when the required information is not present, ensuring accuracy and avoiding misinterpretation.
-- definitions:
+- `definitions`:
   - "'Interest rate' is the percentage charged by a lender for borrowing money or earned by an investor on a deposit over a specific period, typically expressed annually."
   - This allows for defining specific concepts to avoid misconceptions, helping the model understand precisely what is being asked.
-- example:
+- `example`:
   - ""
   - This is an opportunity to provide an example of the desired output, further reducing the risk of misinterpretation and guiding the model towards the correct response.
 
 ### Section 3 'Review' Details
-The "review" section is focused on defining the information to be extracted from the text. It outlines the structure of the JSON file to be returned by the LLM, specifying the keys and possible values for the extracted information.
+The `[review]` section is focused on defining the information to be extracted from the text. It outlines the structure of the JSON file to be returned by the LLM, specifying the keys and possible values for the extracted information.
 
 #### Logic of the Review Section
 - The review section defines the knowledge map that the model needs to fill in, guiding the extraction process.
@@ -177,25 +179,25 @@ key = "geographical scale"
 values = ["world", "continent", "river basin"]
 ```
 #### Examples and Explanation of Entries
-- [review]:
+- `[review]`:
   - This section header indicates the beginning of the review items configuration, which defines the structure of the knowledge map.
-- [review.1]:
+- `[review.1]`:
   - Defines the first item to be reviewed.
-  - key: "interest rate"
+  - `key`: "interest rate"
     - The concept or topic to be extracted.
-  - values: [""]
+  - `values`: [""]
     - Possible values for this key. An empty string indicates that any value can be assigned.
-- [review.2]:
+- `[review.2]`:
   - Defines the second item to be reviewed.
-  - key: "regression models"
+  - `key`: "regression models"
     - The concept or topic to be extracted.
-  - values: ["yes", "no"]
+  - `values`: ["yes", "no"]
     - The key "regression models" can take either "yes" or "no" as its value, providing a clear binary choice.
-- [review.3]:
+- `[review.3]`:
   - Defines the third item to be reviewed.
-  - key: "geographical scale"
+  - `key`: "geographical scale"
     - The concept or topic to be extracted.
-  - values: ["world", "continent", "river basin"]
+  - `values`: ["world", "continent", "river basin"]
     - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
 ***
 ## 6. Cost Management
