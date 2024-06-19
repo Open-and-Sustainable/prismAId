@@ -29,7 +29,7 @@ This tool is tailored to assist researchers by offering a simple-to-use, efficie
 By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
 
 Most AI tools for systematic literature reviews focus on the literature search phase. While a few tools address the analysis phase, they do not fully leverage the capabilities of generative AI models. prismAId brings generative AI and Open Science where they matter most — in the analysis and data extraction phases.
-![workflow](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_workflow.PNG)
+![workflow](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_workflow.png)
 
 ### Open Science
 prismAId supports Open Science in many aspects:
