@@ -24,7 +24,8 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 		"gpt-4-32k-0314",
 		"gpt-4-0613",
 		"gpt-4-32k-0613",
-		"gpt-4o":
+		"gpt-4o",
+		"gpt-4oMini":
 		tokensPerMessage = 3
 		tokensPerName = 1
 	case "gpt-3.5-turbo-0301":
@@ -52,6 +53,6 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 			numTokens += tokensPerName
 		}
 	}
-	numTokens += 3 // I beleive because messages are primed with other tokens
+	numTokens += 3 // replies are primed with <|start|>assistant<|message|>
 	return numTokens
 }
