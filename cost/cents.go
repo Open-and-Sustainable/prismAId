@@ -7,7 +7,8 @@ import (
 )
 
 // Define a map to hold the rates for each model
-var modelRates = map[string]decimal.Decimal{ // dollar prices per M token
+var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
+	"gpt-4oMini":             decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
 	"gpt-4o":                 decimal.NewFromFloat(5).Div(decimal.NewFromInt(1000000)),
 	"gpt-4-turbo":            decimal.NewFromFloat(10).Div(decimal.NewFromInt(1000000)),
 	"gpt-4":                  decimal.NewFromFloat(30).Div(decimal.NewFromInt(1000000)),
