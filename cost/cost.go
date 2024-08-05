@@ -34,17 +34,21 @@ func assessPromptCost(prompt string, config *config.Config) (decimal.Decimal, st
 }
 
 func GetModel(prompt string, config *config.Config) string {
-	messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
-	model := openai.GPT3Dot5Turbo
+	//messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
+	model := openai.GPT4oMini
 	if config.Project.LLM.Model == "" {
-		numTokens := numTokensFromMessages(messages, model)
+		/*numTokens := numTokensFromMessages(messages, model) // old code to minimize costs before GPT 4 Omni mini model availability
 		if numTokens > 16385 {
 			model = openai.GPT4o
-		}
+		}*/
+	} else if config.Project.LLM.Model == "gpt-3.5-turbo" {
+		model = openai.GPT3Dot5Turbo
 	} else if config.Project.LLM.Model == "gpt-4-turbo" {
 		model = openai.GPT4Turbo
 	} else if config.Project.LLM.Model == "gpt-4o" {
 		model = openai.GPT4o
+	} else if config.Project.LLM.Model == "gpt-4o-mini" {
+		model = openai.GPT4oMini
 	}
 	return model
 }
