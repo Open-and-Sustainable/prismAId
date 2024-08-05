@@ -9,6 +9,10 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.3.2] - 2024-08-05
+### Added
+- support of GPT 4 Omni Mini model
+
 ## [0.3.1] - 2024-06-18
 ### Added
 - in case of 'high' level of logging requested, log file named as project file

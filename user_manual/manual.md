@@ -111,7 +111,7 @@ tpm_limit = 0
   - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
   - `model`: Determines the model to use. Options are:
     - Leave empty `''` for cost optimization (automatically selects the cheapest model based on token limits).
-    - `gpt-4o` or `gpt-4-turbo` or `gpt-3.5-turbo` for specific model selection.
+    - `gpt-4o-mini`, `gpt-4o` or `gpt-4-turbo` or `gpt-3.5-turbo` for specific model selection.
   - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - `batch_execution`: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
   - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits section in the [OpenAI API documentation](https://platform.openai.com/settings/organization/limits).
