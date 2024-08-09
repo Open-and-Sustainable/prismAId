@@ -1,5 +1,1 @@
-title: prismAId
-description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews
-show_downloads: false
-google_analytics:
-theme: jekyll-theme-leap-day
+remote_theme: Open-and-Sustainable/greendoc_theme
