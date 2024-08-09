@@ -1,55 +1,5 @@
-# Use the Just the Docs theme
-remote_theme: pmarsceill/just-the-docs
-
 title: prismAId
-description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
-
-# Optional settings for GitHub Pages
-include:
-  - user_manual
-  - README.md
-#  - CONTRIBUTING.md
-#  - CODE_OF_CONDUCT.md
-
-
-# Sidebar navigation structure
-just_the_docs:
-  # Enable or disable the navigation sidebar
-  show_sidebar: true
-
-  # Specify the order of the pages in the navigation
-  nav_order:
-    - Home
-    - Readme
-    - User Manual
-    - Technical FAQs
-#    - Contributing
-#    - Code of Conduct
-
-# Navigation links
-nav:
-  home:
-    - title: "Home"
-      url: "/"
-      nav_order: 1
-  readme:
-    - title: "Readme"
-      url: "/README"
-      nav_order: 2
-  user_manual:
-    - title: "User Manual"
-      url: "/user_manual/manual"
-      nav_order: 3
-  technical_faqs:
-    - title: "Technical FAQs"
-      url: "/user_manual/technical_faqs"
-      nav_order: 4
- # contributing:
- #   - title: "Contributing"
- #     url: "/CONTRIBUTING"
- #     nav_order: 5
- # code_of_conduct:
- #   - title: "Code of Conduct"
- #     url: "/CODE_OF_CONDUCT"
- #     nav_order: 6
-
+description: Open Science AI Tools for Systematic, Protocol-Based Literature Reviews
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-leap-day
