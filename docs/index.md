@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: prismAId ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png)
 nav_order: 1
 ---
 
