@@ -6,15 +6,6 @@ toc: true
 
 # Technical FAQs
 ***
-## List of FAQs
-
-- [Will I always get the same answer if I set the model temperature to zero?](#q-will-i-always-get-the-same-answer-if-i-set-the-model-temperature-to-zero)
-- [Does noise (or how much information is hidden in the literature to be reviewed) have an impact?](#q-does-noise-or-how-much-information-is-hidden-in-the-literature-to-be-reviewed-have-an-impact)
-- [What happens if the literature to be reviewed says something different from the data used to train the model?](#q-what-happens-if-the-literature-to-be-reviewed-says-something-different-from-the-data-used-to-train-the-model)
-- [Are there reasoning biases I should expect when analyzing literature with generative AI models?](#q-are-there-reasoning-biases-i-should-expect-when-analyzing-literature-with-generative-ai-models)
-- [Is it always better to analyze literature by extracting one piece of information at a time (one piece of information per prismAId project)?](#q-is-it-always-better-to-analyze-literature-by-extracting-one-piece-of-information-at-a-time-one-piece-of-information-per-prismaid-project)
-
-***
 ### Q: Will I always get the same answer if I set the model temperature to zero?
 
 **A:** No, setting the model temperature to zero does not guarantee identical answers every time. Generative AI models, including GPT-4, can exhibit some variability even with a temperature setting of zero. While the temperature parameter influences the randomness of the output, setting it to zero aims to make the model more deterministic. However, GPT-4 and similar models are sparse mixture-of-experts models, meaning they may still show some probabilistic behavior at higher levels.
