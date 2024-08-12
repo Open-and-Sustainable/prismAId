@@ -1,1 +1,21 @@
+title: "prismAId"
+description: "Documentation for the prismAId tools"
+baseurl: "/prismaid"
+url: "https://open-and-sustainable.github.io"
+github_repo: "https://github.com/Open-and-Sustainable/prismaid"
+logo: "/assets/images/prismaid-logo.png"
+favicon: "/assets/images/prismaid-favicon.ico"
 remote_theme: Open-and-Sustainable/greendoc_theme
+nav_links:
+  - name: "Open Science"
+    url: "/open-science.html"
+  - name: "Getting Started"
+    url: "/getting-started.html"
+  - name: "FAQs"
+    url: "/faqs.html"
+  - name: "For Developers"
+    url: "/for-developers.html"
+
+nav_background_color: "#007BFF" # Override nav bar color (blue)
+nav_hover_color: "#0056b3"      # Override hover color (darker blue)
+nav_link_color: "#ffffff"       # Override link text color (white)
