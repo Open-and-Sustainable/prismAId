@@ -29,6 +29,7 @@ Prepare a project configuration file in [TOML](https://toml.io/en/) following th
 Additional parameters in **Section 1** can be used to activate the most advanced features of prismAId. these are discussed in [Advanced Features](advanced-features).
 
 ## Section 1: 'Project' Details
+
 ### Project Information:
 ```toml
 [project]
@@ -40,6 +41,7 @@ version = "1.0"
   - `name`: The name of the project.
   - `author`: The author of the project.
   - `version`: The version of the project configuration.
+
 ### Configuration Details:
 ```toml
 [project.configuration]
@@ -56,6 +58,7 @@ log_level = "low"
     - `low`: Minimal logging, making debugging difficult.
     - `medium`: Logs entries to stdout.
     - `high`: Saves logs to a file in the same directory as 'project_name.toml', named 'project_name.log'.
+
 ### LLM Configuration:
 ```toml
 [project.llm]
