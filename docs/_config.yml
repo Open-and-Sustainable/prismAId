@@ -1,3 +1,4 @@
+remote_theme: Open-and-Sustainable/greendoc_theme
 title: "prismAId"
 description: "Documentation for the prismAId tools"
 baseurl: "/prismaid"
@@ -5,7 +6,6 @@ url: "https://open-and-sustainable.github.io"
 github_repo: "https://github.com/Open-and-Sustainable/prismAId"
 logo: "/assets/images/prismaid-logo.png"
 favicon: "/assets/images/prismaid-favicon.ico"
-remote_theme: Open-and-Sustainable/greendoc_theme
 nav_links:
   - name: "Getting Started"
     url: "/getting-started.html"
