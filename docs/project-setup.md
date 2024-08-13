@@ -15,22 +15,21 @@ layout: default
 3. **Prepare Papers for Review:**
     - Ensure that all papers to be reviewed are in .txt format.
     - Papers in html can be saved as text. To convert PDFs to .txt, there are many good options. A good one is the Python solution provided by pdfminer: instructions can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
-***
+
 ## Literature Review Requirements
-### Literature Search, Identification, and Preparation
 - Follow protocols for literature search and identification, for instance as outlined in [PRISMA 2020](https://doi.org/10.1136/bmj.n71).
 - Remove unnecessary elements from the articles. For example, the list of references usually does not provide relevant information. Similarly, the abstract and introductory parts often may (or should) be removed. Reviewing a review should be done with particular care and only if necessary.
 - Unnecessary parts of text waste resources and increase analysis costs without any additional value. Actually, uneccessary parts could [negatively affect](https://arxiv.org/abs/2404.08865) model performance.
-***
-## Project Configuration
+
+## How to Configure a Review Project
 Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/template.toml) and here.
 
 **Section 1** is introduced below focusing on the basic settings to configure a project. **Section 2 and 3** of the configuraiton file are discussed in [Prompt Design](prompt-design).
 
 Additional parameters in **Section 1** can be used to activate the most advanced features of prismAId. these are discussed in [Advanced Features](advanced-features).
 
-### Section 1: 'Project' Details
-#### Project Information:
+## Section 1: 'Project' Details
+### Project Information:
 ```toml
 [project]
 name = "Use of LLM for Systematic Review"
@@ -41,7 +40,7 @@ version = "1.0"
   - `name`: The name of the project.
   - `author`: The author of the project.
   - `version`: The version of the project configuration.
-#### Configuration Details:
+### Configuration Details:
 ```toml
 [project.configuration]
 input_directory = "/path/to/txt/files"
@@ -57,7 +56,7 @@ log_level = "low"
     - `low`: Minimal logging, making debugging difficult.
     - `medium`: Logs entries to stdout.
     - `high`: Saves logs to a file in the same directory as 'project_name.toml', named 'project_name.log'.
-#### LLM Configuration:
+### LLM Configuration:
 ```toml
 [project.llm]
 provider = "OpenAI"

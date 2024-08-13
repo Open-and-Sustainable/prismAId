@@ -3,11 +3,13 @@ title: Prompt Design
 layout: default
 ---
 
+# Prompt Design
+**Section 2 and 3** of the project configuration file define the prompts used to run the generative AI models to extract the information researchers are looking for. This is the key of a review project andthe prismAId robust approach to this part enables the many [Open Science](open-science) advantages provided by the tool.
 
-### Section 2 'Prompt' Details
+## Section 2: 'Prompt' Details
 The `[prompt]` section is aimed at defining the building blocks of the prompt, ensuring high accuracy in information extraction and minimizing hallucinations and misinterpretations.
 
-#### Logic of the Prompt Section
+### Logic of the Prompt Section
 - The prompt section allows the user providing clear instructions and context to the AI model.
 - The prompt structure is made of these blocks:
 ![prompt structure](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prompt_struct.png)
@@ -25,7 +27,7 @@ definitions = "'Interest rate' is the percentage charged by a lender for borrowi
 example = ""
 ```
 
-#### Examples and Explanation of Entries
+### Examples and Explanation of Entries
 - `persona`:
   - "You are an experienced scientist working on a systematic review of the literature."
   - Personas help in setting the expectation on the model's role, providing context for the responses.
@@ -45,10 +47,10 @@ example = ""
   - ""
   - This is an opportunity to provide an example of the desired output, further reducing the risk of misinterpretation and guiding the model towards the correct response.
 
-### Section 3 'Review' Details
+## Section 3: 'Review' Details
 The `[review]` section is focused on defining the information to be extracted from the text. It outlines the structure of the JSON file to be returned by the LLM, specifying the keys and possible values for the extracted information.
 
-#### Logic of the Review Section
+### Logic of the Review Section
 - The review section defines the knowledge map that the model needs to fill in, guiding the extraction process.
 - Each review item specifies a key, representing a concept or topic of interest, and possible values that the model can assign to that key.
 - This structured approach ensures that the extracted information is consistent and adheres to the predefined schema.
@@ -66,7 +68,7 @@ values = ["yes", "no"]
 key = "geographical scale"
 values = ["world", "continent", "river basin"]
 ```
-#### Examples and Explanation of Entries
+### Examples and Explanation of Entries
 - `[review]`:
   - This section header indicates the beginning of the review items configuration, which defines the structure of the knowledge map.
 - `[review.1]`:
@@ -87,4 +89,3 @@ values = ["world", "continent", "river basin"]
     - The concept or topic to be extracted.
   - `values`: ["world", "continent", "river basin"]
     - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
-***

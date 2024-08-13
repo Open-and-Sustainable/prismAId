@@ -12,7 +12,7 @@ We value community contributions that help improve prismAId. Whether you're fixi
 - **Community Engagement**: Engage with us through GitHub [issues](https://github.com/Open-and-Sustainable/prismAId/issues) and [discussions](https://github.com/Open-and-Sustainable/prismAId/discussions) for feature requests, suggestions, or any queries related to project development.
 
 For detailed guidelines on contributing, please refer to our [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
-***
+
 ## Software Stack and Approach
 prismAId is built using the Go programming language, known for its simplicity and efficiency in handling concurrent operations. We prioritize staying up-to-date with the latest stable releases of Go to leverage the newest features and improvements.
 
@@ -35,7 +35,7 @@ Our architecture is designed to be robust yet simple, ensuring that the tool rem
 ### Development Philosophy
 - **Open Source**: We embrace an open-source model, encouraging community contributions and transparency in development.
 - **Continuous Integration/Continuous Deployment (CI/CD)**: We utilize CI/CD pipelines to maintain high standards of quality and reliability, automatically testing and deploying new versions as they are developed.
-***
+
 ## Software Dependencies
 
 ```text

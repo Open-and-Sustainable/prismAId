@@ -16,9 +16,9 @@ In **Section 1** of the project configuration:
 - **The cost assessment function is indicative.**
   - We strive to maintain up-to-date data for cost estimation, though our estimations currently pertain only to the input aspect of AI model usage. As such, we cannot guarantee precise assessments.
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage).
-***
+
 ## Batch Execution
 In **Section 1** of the project configuration:
   - `batch_execution`: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
-***
+
 

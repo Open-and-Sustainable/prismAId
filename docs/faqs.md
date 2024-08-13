@@ -11,7 +11,7 @@ layout: default
 - **Partial Results**: Results presenting only the first few entries of a review containing many more contributions suggest an incorrect adherence to the Token Per Minute limits set in the project configuration.
 - **Software Bugs**: For troubleshooting software issues, submit an [issue on the GitHub repository](https://github.com/Open-and-Sustainable/prismAId/issues).
 - **Feature Requests**: To submit requests for new functionalities, participate in [GitHub Discussions](https://github.com/Open-and-Sustainable/prismAId/discussions).
-***
+
 ## Tips and Tricks
 ### Mastering the Art of prismAId
 - Carefully read the [technical FAQs](faqs) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
@@ -27,7 +27,7 @@ layout: default
 6. Focus on primary sources and avoid reviewing reviews unless it is intentional and carefully planned. Do not mix primary and secondary sources in the same review process.
 7. Include the project configuration (the .toml file) in the appendix of your paper.
 8. Properly cite prismAId [doi.org/10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796).
-***
+
 ## Technical FAQs
 ### Q: Will I always get the same answer if I set the model temperature to zero?
 **A:** No, setting the model temperature to zero does not guarantee identical answers every time. Generative AI models, including GPT-4, can exhibit some variability even with a temperature setting of zero. While the temperature parameter influences the randomness of the output, setting it to zero aims to make the model more deterministic. However, GPT-4 and similar models are sparse mixture-of-experts models, meaning they may still show some probabilistic behavior at higher levels.
@@ -71,4 +71,3 @@ A good strategy to address this in prismAId is to ensure prompts are carefully c
 The only drawback is the higher cost incurred from using the model API. Separating two questions into distinct projects approximately doubles the cost of the analysis, as most of the tokens in each project are comprised of the literature text. Therefore, the only constraint to quality is the budget.
 
 **Further reading:** [OpenAI API Prices](https://openai.com/api/pricing/) - [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
-

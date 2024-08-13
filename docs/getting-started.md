@@ -40,7 +40,7 @@ Most AI tools for systematic literature reviews focus on the literature search p
   - prismAId utilizes multiple single-shot prompt API calls to individually parse each scientific paper.
   - prismAId processes the JSON files returned by the AI model, converting the extracted information into the user-specified format.
   - To facilitate cost management, prismAId tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
-***
+
 ## Installation
 To use prismAId, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
 
