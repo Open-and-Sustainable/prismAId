@@ -1,7 +1,6 @@
 ---
 title: Open Science
 layout: default
-toc: true
 ---
 
 # prismAId Contribution to Open Science

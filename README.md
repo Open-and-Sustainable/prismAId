@@ -3,21 +3,19 @@
 
 ## Introduction
 ### Purpose
-prismAId leverages generative AI to extract data from scientific literature. prismAId assists researchers by offering a simple-to-use, efficient, and replicable method for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
+prismAId leverages generative AI to extract data from scientific literature. It assists researchers by offering simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
 
 ### Specifications
 - **Review protocol**: Designed to support any literature review protocol, but our preference is for [Prisma 2020](https://www.prisma-statement.org/prisma-2020) (hence the project name).
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems, on AMD64 and ARM64 platforms.
 - **Supported LLMs**: 
     1. **OpenAI**: GPT 3.5 Turbo, GPT 4 Turbo, GPT4o, and GPT4o Mini.
-- **Input format**: Requires TXT files for scientific papers.
-- **Project Configuration**: Uses TOML files for easy project setup and parameter configuration.
 - **Output format**: Outputs data in CSV and JSON formats.
 - **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding**.
 - **Programming Language**: Developed in Go.
 
 ### prismAId Documentation
-All the information to install, use, and improve prismAId can be found at [(open-and-sustainable.github.io/prismAId](https://open-and-sustainable.github.io/prismAId/).
+All the information to install, use, and improve prismAId can be found at [open-and-sustainable.github.io/prismAId](https://open-and-sustainable.github.io/prismAId/).
 
 * * *
 ## Credits
@@ -25,7 +23,7 @@ All the information to install, use, and improve prismAId can be found at [(open
 Riccardo Boero - ribo@nilu.no
 
 ### Acknowledgments
-This project was initiated with the generous support of a SIS internal project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort. Further, acknowledgment is due for the research credit received from the OpenAI Researcher Access Program and the Cohere For AI Research Grant Program, both of which have significantly contributed to the advancement of this work.
+This project was initiated with the generous support of a SIS internal project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort. Further, acknowledgment is due for the research credits received from the [OpenAI Researcher Access Program](https://grants.openai.com/prog/openai_researcher_access_program/) and the [Cohere For AI Research Grant Program](https://share.hsforms.com/1aF5ZiZDYQqCOd8JSzhUBJQch5vw?ref=txt.cohere.com), both of which have significantly contributed to the advancement of this work.
 
 * * *
 ## License

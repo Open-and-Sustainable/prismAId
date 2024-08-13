@@ -1,7 +1,6 @@
 ---
 title: FAQs
 layout: default
-toc: true
 ---
 
 # FAQs and Troubleshooting
@@ -11,6 +10,25 @@ toc: true
 - For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
 
 ## Tips and Tricks
+
+### Mastering the Art of prismAId
+- Carefully read the [technical FAQs](technical_faqs.md) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
+- We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
+- Multiple protocols for reporting systematic literature reviews are supported by prismAId [https://doi.org/10.1186/s13643-023-02255-9](https://doi.org/10.1186/s13643-023-02255-9). Users are encouraged to experiment and define their own prismAId methodologies.
+
+
+## 8. Best Practices
+### The Golden Rules of prismAId
+1. Remove unnecessary sections from the literature to be reviewed.
+2. It's better to risk repeating an explanation of the information you are seeking through examples than not defining it clearly enough.
+3. If the budget allows, conduct a separate review process for each piece of information you want to extract. This allows for more detailed definitions for each information piece.
+4. Try to avoid using open-ended answers and define and explain all possible answers the AI model can provide.
+5. First, run a test on a single paper. Once the results are satisfactory, repeat the process with a different batch of papers. If the results are still satisfactory, proceed with the rest of the literature.
+6. Focus on primary sources and avoid reviewing reviews unless it is intentional and carefully planned. Do not mix primary and secondary sources in the same review process.
+7. Include the project configuration (the .toml file) in the appendix of your paper.
+8. Properly cite prismAId [doi.org/10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796).
+
+
 
 ## Technical FAQs
 ***

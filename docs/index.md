@@ -1,7 +1,6 @@
 ---
 title: Home
 layout: default
-toc: true
 ---
 
 # Welcome to prismAId 
