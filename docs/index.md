@@ -3,8 +3,7 @@ title: Home
 layout: default
 ---
 
-# Welcome
-Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
+# Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
 ## Purpose
 prismAId uses generative AI models to extract data from scientific literature. It offers simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
