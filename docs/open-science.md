@@ -3,7 +3,7 @@ title: Open Science
 layout: default
 ---
 
-# prismAId Contribution to Open Science
+# Contribution to Open Science
 prismAId supports Open Science in many aspects:
 
 ## Transparency and Reproducibility

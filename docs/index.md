@@ -3,7 +3,7 @@ title: Home
 layout: default
 ---
 
-# Welcome to prismAId 
+# Welcome
 Open Science AI Tools for Systematic, Protocol-Based Literature Reviews.
 
 ## Purpose

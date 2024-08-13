@@ -3,6 +3,7 @@ title: Advanced Features
 layout: default
 ---
 
+# Advanced Features
 
 ## Cost Minimization
 In **Section 1** of the project configuration:
