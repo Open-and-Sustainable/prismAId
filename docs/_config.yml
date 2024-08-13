@@ -21,7 +21,6 @@ nav_links:
     url: "/faqs.html"
   - name: "For Developers"
     url: "/for-developers.html"
-
 nav_background_color: "#0056b3" # Override nav bar color (darker blue)
 nav_hover_color: "#007BFF"      # Override hover color (blue)
 nav_link_color: "#ffffff"       # Override link text color (white)
