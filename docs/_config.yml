@@ -9,6 +9,8 @@ favicon: "assets/images/prismaid-favicon.ico"
 nav_links:
   - name: "Getting Started"
     url: "/getting-started.html"
+  - name: "Project Setup"
+    url: "/project-setup.html"
   - name: "Prompt Design"
     url: "/prompt-design.html"
   - name: "Advanced Features"
@@ -23,3 +25,4 @@ nav_links:
 nav_background_color: "#0056b3" # Override nav bar color (darker blue)
 nav_hover_color: "#007BFF"      # Override hover color (blue)
 nav_link_color: "#ffffff"       # Override link text color (white)
+toc-hover-color: "#007BFF"      # Override TOC hover color (blue)

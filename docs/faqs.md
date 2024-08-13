@@ -6,18 +6,18 @@ layout: default
 # FAQs and Troubleshooting
 
 ## Common Issues and Solutions
-
-- For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
-
+- **Debugging Information**: The level of debugging information and its permanent storage can be easily activated within the project configuration.
+- **API Keys**: These may be loaded either through system variables or the project configuration. If multiple keys are provided, the latter will have priority.
+- **Partial Results**: Results presenting only the first few entries of a review containing many more contributions suggest an incorrect adherence to the Token Per Minute limits set in the project configuration.
+- **Software Bugs**: For troubleshooting software issues, submit an [issue on the GitHub repository](https://github.com/Open-and-Sustainable/prismAId/issues).
+- **Feature Requests**: To submit requests for new functionalities, participate in [GitHub Discussions](https://github.com/Open-and-Sustainable/prismAId/discussions).
+***
 ## Tips and Tricks
-
 ### Mastering the Art of prismAId
-- Carefully read the [technical FAQs](technical_faqs.md) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
+- Carefully read the [technical FAQs](faqs) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
 - We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
 - Multiple protocols for reporting systematic literature reviews are supported by prismAId [https://doi.org/10.1186/s13643-023-02255-9](https://doi.org/10.1186/s13643-023-02255-9). Users are encouraged to experiment and define their own prismAId methodologies.
 
-
-## 8. Best Practices
 ### The Golden Rules of prismAId
 1. Remove unnecessary sections from the literature to be reviewed.
 2. It's better to risk repeating an explanation of the information you are seeking through examples than not defining it clearly enough.
@@ -27,13 +27,9 @@ layout: default
 6. Focus on primary sources and avoid reviewing reviews unless it is intentional and carefully planned. Do not mix primary and secondary sources in the same review process.
 7. Include the project configuration (the .toml file) in the appendix of your paper.
 8. Properly cite prismAId [doi.org/10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796).
-
-
-
-## Technical FAQs
 ***
+## Technical FAQs
 ### Q: Will I always get the same answer if I set the model temperature to zero?
-
 **A:** No, setting the model temperature to zero does not guarantee identical answers every time. Generative AI models, including GPT-4, can exhibit some variability even with a temperature setting of zero. While the temperature parameter influences the randomness of the output, setting it to zero aims to make the model more deterministic. However, GPT-4 and similar models are sparse mixture-of-experts models, meaning they may still show some probabilistic behavior at higher levels.
 
 This probabilistic behavior becomes more pronounced when the prompts are near the maximum token limit. In such cases, the content within the model's attention window may change due to space constraints, leading to different outputs. Additionally, there are other mechanisms within the model that can affect its determinism.
@@ -41,7 +37,7 @@ This probabilistic behavior becomes more pronounced when the prompts are near th
 Nevertheless, using a lower temperature is a good strategy to minimize probabilistic behavior. During the development phase of your project, repeating prompts can help achieve more consistent and replicable answers, contributing to a robust reviewing process. Robustness of answers could further be tested by modifying the sequence order of prompt building blocks, i.e., the order by which information is presented to the model.
 
 **Further reading:** [https://doi.org/10.48550/arXiv.2308.00951](https://doi.org/10.48550/arXiv.2308.00951)
-***
+
 ### Q: Does noise (or how much information is hidden in the literature to be reviewed) have an impact?
 
 **A:** Yes, the presence of noise and the degree to which information is hidden significantly impact the quality of information extraction. The more obscured the information and the higher the noise level in the prompt, the more challenging it becomes to extract accurate and high-quality information. 
@@ -49,7 +45,7 @@ Nevertheless, using a lower temperature is a good strategy to minimize probabili
 During the project configuration development phase, thorough testing can help identify the most effective prompt structures and content. This process helps in refining the prompts to minimize noise and enhance clarity, thereby improving the ability to find critical information even when it is well-hidden, akin to finding a "needle in the haystack."
 
 **Further reading:** [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
-***
+
 ### Q: What happens if the literature to be reviewed says something different from the data used to train the model?
 
 **A:** This is a challenge that cannot be completely avoided. We do not have full transparency on the exact data used for training the model. If the literature and the training data conflict, information extraction from the literature could be biased, transformed, or augmented by the training data. 
@@ -59,7 +55,7 @@ While focusing strictly on providing results directly from the prompt can help m
 However, the prismAId ability to replicate reviews and experiment with different prompts provides an additional tool for checking these biases, offering an advantage over traditional human reviewers.
 
 **Further reading:** [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
-***
+
 ### Q: Are there reasoning biases I should expect when analyzing literature with generative AI models?
 
 **A:** Yes, similar to human reasoning biases, AI models trained on human texts can replicate these biases and may lead to false information extraction if the prompts steer them in that direction. This is because the models learn from and mimic the patterns found in the training data, which includes human reasoning biases. 
@@ -67,7 +63,7 @@ However, the prismAId ability to replicate reviews and experiment with different
 A good strategy to address this in prismAId is to ensure prompts are carefully crafted to be as precise, neutral, and unbiased as possible. prismAId's prompt structure supports the minimization of these problems, but there is still no guarantee against misuse by researchers.
 
 **Further reading:** [https://doi.org/10.1038/s43588-023-00527-x](https://doi.org/10.1038/s43588-023-00527-x)
-***
+
 ### Q: Is it always better to analyze literature by extracting one piece of information at a time (one piece of information per prismAId project)?
 
 **A:** Yes, creating a separate prismAId project for each piece of information to be analyzed is a viable and highly effective approach. The main advantage is that it allows you to tailor the prompt structure and content, effectively guiding the AI model to provide accurate answers. Adding multiple information retrieval tasks within a single prismAId project requires writing much longer prompts, which can lead to more complex, potentially noisier, and confused requests for the AI model. 
@@ -75,4 +71,4 @@ A good strategy to address this in prismAId is to ensure prompts are carefully c
 The only drawback is the higher cost incurred from using the model API. Separating two questions into distinct projects approximately doubles the cost of the analysis, as most of the tokens in each project are comprised of the literature text. Therefore, the only constraint to quality is the budget.
 
 **Further reading:** [OpenAI API Prices](https://openai.com/api/pricing/) - [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
-***
+

@@ -3,15 +3,15 @@
 
 ## Introduction
 ### Purpose
-prismAId leverages generative AI to extract data from scientific literature. It assists researchers by offering simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
+prismAId uses generative AI models to extract data from scientific literature. It offers simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
 
 ### Specifications
-- **Review protocol**: Designed to support any literature review protocol, but our preference is for [Prisma 2020](https://www.prisma-statement.org/prisma-2020) (hence the project name).
-- **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems, on AMD64 and ARM64 platforms.
+- **Review protocol**: Designed to support any literature review protocol with a preference for [Prisma 2020](https://www.prisma-statement.org/prisma-2020), which inspired our project name.
+- **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems on AMD64 and ARM64 platforms.
 - **Supported LLMs**: 
     1. **OpenAI**: GPT 3.5 Turbo, GPT 4 Turbo, GPT4o, and GPT4o Mini.
 - **Output format**: Outputs data in CSV and JSON formats.
-- **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding**.
+- **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding** required.
 - **Programming Language**: Developed in Go.
 
 ### prismAId Documentation
