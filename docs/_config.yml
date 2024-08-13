@@ -1,11 +1,15 @@
+# Jekyll theme
 remote_theme: Open-and-Sustainable/greendoc_theme
+# title and description, URLs
 title: "prismAId"
-description: "Documentation for the prismAId tools"
+description: "Documentation of prismAId tools"
 baseurl: "/prismAId"
 url: "https://open-and-sustainable.github.io"
 github_repo: "https://github.com/Open-and-Sustainable/prismAId"
+# logo and favicon
 logo: "assets/images/prismaid-logo.png"
 favicon: "assets/images/prismaid-favicon.ico"
+# configuration of navigation entries
 nav_links:
   - name: "Getting Started"
     url: "/getting-started.html"
@@ -21,6 +25,7 @@ nav_links:
     url: "/faqs.html"
   - name: "For Developers"
     url: "/for-developers.html"
+# configuration of custom colors
 nav_background_color: "#0056b3" # Override nav bar color (darker blue)
 nav_hover_color: "#007BFF"      # Override hover color (blue)
 nav_link_color: "#ffffff"       # Override link text color (white)
