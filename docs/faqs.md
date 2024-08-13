@@ -4,7 +4,15 @@ layout: default
 toc: true
 ---
 
-# Technical FAQs
+# FAQs and Troubleshooting
+
+## Common Issues and Solutions
+
+- For troubleshooting with software bugs, to submit requests for new functionalities, or to engage in discussions, submit an [issue](/../../issues) or participate in [GitHub Discussions](/../../discussions).
+
+## Tips and Tricks
+
+## Technical FAQs
 ***
 ### Q: Will I always get the same answer if I set the model temperature to zero?
 
