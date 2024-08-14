@@ -12,7 +12,7 @@ prismAId uses generative AI models to extract data from scientific literature. I
 - **Review protocol**: Designed to support any literature review protocol with a preference for [Prisma 2020](https://www.prisma-statement.org/prisma-2020), which inspired our project name.
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems on AMD64 and ARM64 platforms.
 - **Supported LLMs**: 
-    1. **OpenAI**: GPT 3.5 Turbo, GPT 4 Turbo, GPT4o, and GPT4o Mini.
+    1. **OpenAI**: GPT-3.5 Turbo, GPT-4 Turbo, GPT-4o, and GPT-4o Mini.
 - **Output format**: Outputs data in CSV and JSON formats.
 - **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding** required.
 - **Programming Language**: Developed in Go.
