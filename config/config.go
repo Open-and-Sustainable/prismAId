@@ -58,7 +58,11 @@ func LoadConfig(path string) (*Config, error) {
 		return nil, err
 	}
 	if config.Project.LLM.ApiKey == "" {
-		config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
+		if config.Project.LLM.Provider == "OpenAI" {
+			config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
+		} else if config.Project.LLM.Provider == "GoogleAI" {
+			config.Project.LLM.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
+		}
 	}
 	return &config, nil
 }
