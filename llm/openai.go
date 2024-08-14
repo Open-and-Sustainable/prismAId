@@ -11,7 +11,7 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-func QueryOpenAI(prompt string, config *config.Config) (string, error) {
+func queryOpenAI(prompt string, config *config.Config) (string, error) {
 
 	model := cost.GetModel(prompt, config)
 

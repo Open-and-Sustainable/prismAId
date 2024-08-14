@@ -71,9 +71,9 @@ func main() {
 		for i, prompt := range prompts {
 			fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
 			log.Println("File: ", filenames[i], " Prompt: ", prompt)
-			response, err := llm.QueryOpenAI(prompt, config)
+			response, err := llm.QueryLLM(prompt, config)
 			if err != nil {
-				log.Println("Error querying OpenAI:", err)
+				log.Println("Error querying LLM:", err)
 				return
 			}
 			results.WriteJSONData(response, outputFile) // Write formatted JSON to file
@@ -90,9 +90,9 @@ func main() {
 		for i, prompt := range prompts {
 			fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
 			log.Println("File: ", filenames[i], " Prompt: ", prompt)
-			response, err := llm.QueryOpenAI(prompt, config)
+			response, err := llm.QueryLLM(prompt, config)
 			if err != nil {
-				log.Println("Error querying OpenAI:", err)
+				log.Println("Error querying LLM:", err)
 				return
 			}
 			results.WriteCSVData(response, filenames[i], writer, keys)
