@@ -13,7 +13,8 @@ prismAId uses generative AI models to extract data from scientific literature. I
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems on AMD64 and ARM64 platforms.
 - **Supported LLMs**: 
     1. **OpenAI**: GPT-3.5 Turbo, GPT-4 Turbo, GPT-4o, and GPT-4o Mini.
-- **Output format**: Outputs data in CSV and JSON formats.
+    2. **GoogleAI**: Gemini 1.0 Pro, Gemini 1.5 Pro, and Gemini 1.5 Flash.
+- **Output format**: Outputs data in CSV or JSON formats.
 - **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding** required.
 - **Programming Language**: Developed in Go.
 
