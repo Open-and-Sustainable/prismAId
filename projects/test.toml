@@ -16,8 +16,8 @@ model = ""  # see below:
 # OpenAI: 'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will use GPT-4o Mini as the model currently minimizing costs and with maximum limits on input tokens.
 # GoogleAI: 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', or '' [default]. Leave empty string (or remove key) if you want cost optimization: it will use Gemini 1.5 Flash as the model currently minimizing costs and with maximum limits on input tokens.
 temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability
-batch_execution = "no" # Could be "yes" or "no" [default]. Batch executiuon is completed within 24 hours and costs 50% less. Not yet implemented.
-tpm_limit = 30000 # This is the limit for GPT-4 turbo and omni models for usage tier 1.
+tpm_limit = 30000 # This is the maximin number of tokens per minute that can be processed by the model. 30k is the limit for GPT-4 turbo and omni models for usage tier 1.
+rpm_limit = 500 # This is the maximin number of requests per minute that can be processed by the model. 5k is the limit for GPT-4 turbo and omni models for usage tier 2.
 
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 

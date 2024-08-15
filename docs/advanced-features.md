@@ -5,6 +5,31 @@ layout: default
 
 # Advanced Features
 
+## Rate Limits
+We enforce usage limits for models through two primary parameters specified in **Section 1** of the project configuration:
+
+- **`tpm_limit`**: Defines the maximum number of tokens that the model can process per minute.
+- **`rpm_limit`**: Specifies the maximum number of requests that the model can handle per minute.
+
+For both parameters, a value of `0` is the default and is used if the parameter is not specified in the configuration file. The default value has a special meaning: no delay will be applied. However, if positive numbers are provided, the algorithm will compute delays and wait times between requests to the API accordingly.
+
+Please note that we **do not support automatic enforcement of daily request limits**. If your usage tier includes a maximum number of requests per day, you will need to monitor and manage this limit manually.
+
+On [OpenAI](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?context=tier-one), for example, as of August 2024 users in tier 1 are subject to the following rate limits:
+| Model          | RPM  | RPD    | TPM     | Batch Queue Limit |
+|----------------|------|--------|---------|-------------------|
+| gpt-4o         | 500  | -      | 30,000  | 90,000            |
+| gpt-4o-mini    | 500  | 10,000 | 200,000 | 2,000,000          |
+| gpt-4-turbo    | 500  | -      | 30,000  | 90,000            |
+| gpt-3.5-turbo  | 3,500| 10,000 | 200,000 | 2,000,000          |
+
+On [GoogleAI](https://ai.google.dev/pricing), as of August 2024 free of charge users are subject to the limits:
+| Model           | RPM  | RPD   | TPM       |
+|-----------------|------|-------|-----------|
+| Gemini 1.5 Flash | 15   | 1,500 | 1,000,000 |
+| Gemini 1.5 Pro   | 2    | 50    | 32,000    |
+| Gemini 1.0 Pro   | 15   | 1,500 | 32,000    |
+
 ## Cost Minimization
 In **Section 1** of the project configuration:
  - `model`: Determines the model to use. Options are:
