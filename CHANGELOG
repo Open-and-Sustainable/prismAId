@@ -9,6 +9,14 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.4.0] - 2024-08-16
+### Added
+- full support for Google AI models
+- support for RPM limits
+- documentation for these new features
+### Changed
+- documentation website formatting and structure
+
 ## [0.3.2] - 2024-08-05
 ### Added
 - support of GPT 4 Omni Mini model
