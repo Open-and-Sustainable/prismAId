@@ -16,6 +16,7 @@ For both parameters, a value of `0` is the default and is used if the parameter 
 Please note that we **do not support automatic enforcement of daily request limits**. If your usage tier includes a maximum number of requests per day, you will need to monitor and manage this limit manually.
 
 On [OpenAI](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?context=tier-one), for example, as of August 2024 users in tier 1 are subject to the following rate limits:
+
 | Model          | RPM  | RPD    | TPM     | Batch Queue Limit |
 |----------------|------|--------|---------|-------------------|
 | gpt-4o         | 500  | -      | 30,000  | 90,000            |
