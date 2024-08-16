@@ -30,12 +30,10 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, error) {
 	model.SetCandidateCount(1)                                 // Set candidate count to 1
 	model.ResponseMIMEType = "application/json"                // Set response format to JSON
 
-	// Optionally, you can set other fields like SystemInstruction, SafetySettings, etc.
-
 	// Generate content using the configured model
 	resp, err := model.GenerateContent(ctx, genai.Text(prompt))
 	if err != nil || len(resp.Candidates) == 0 {
-		log.Printf("Completion error: err:%v len(candidates):%v\n", err, len(resp.Candidates))
+		log.Printf("Completion error: err:%v \n", err)
 		return "", fmt.Errorf("no response from Google AI: %v", err)
 	}
 
