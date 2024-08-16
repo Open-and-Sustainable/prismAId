@@ -17,14 +17,12 @@ Please note that we **do not support automatic enforcement of daily request limi
 
 On [OpenAI](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?context=tier-one), for example, as of August 2024 users in tier 1 are subject to the following rate limits:
 
-<div class="table-spacing">
 | Model            |   RPM   |   RPD    |     TPM      |   Batch Queue Limit   |
 |------------------|---------|----------|--------------|-----------------------|
 | gpt-4o           |   500   |    -     |   30,000     |  90,000               |
 | gpt-4o-mini      |   500   |  10,000  |   200,000    |  2,000,000            |
 | gpt-4-turbo      |   500   |    -     |   30,000     |  90,000               |
 | gpt-3.5-turbo    |  3,500  |  10,000  |   200,000    |  2,000,000            |
-</div>
 
 On [GoogleAI](https://ai.google.dev/pricing), as of August 2024 **free of charge** users are subject to the limits:
 
