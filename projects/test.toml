@@ -10,12 +10,14 @@ output_format = "csv"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 
 [project.llm]
-provider = "OpenAI" # Only OpenAI is supported so far
+provider = "GoogleAI" # Could be 'OpenAI' or 'GoogleAI'.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "" # Could be 'gpt-4-turbo', 'gpt-3.5-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will use GPT4oMini as the model currently minimizing costs and with maximum limits on input tokens.
-temperature = 0.0001 # Between 0 and 1. Low model temperature to decrease randomness and ensure replicability
-batch_execution = "no" # Could be "yes" or "no" [default]. Batch executiuon is completed within 24 hours and costs 50% less. Not yet implemented.
-tpm_limit = 30000 # This is the limit for GPT-4 turbo and omni models for usage tier 1.
+model = "gemini-1.5-flash"  # see below: 
+# OpenAI: 'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will use GPT-4o Mini as the model currently minimizing costs and with maximum limits on input tokens.
+# GoogleAI: 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', or '' [default]. Leave empty string (or remove key) if you want cost optimization: it will use Gemini 1.5 Flash as the model currently minimizing costs and with maximum limits on input tokens.
+temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability
+tpm_limit = 4000000 # This is the maximin number of tokens per minute that can be processed by the model. 
+rpm_limit = 1000 # This is the maximin number of requests per minute that can be processed by the model. 
 
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 

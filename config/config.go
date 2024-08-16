@@ -35,6 +35,7 @@ type LLMConfig struct {
 	Temperature    float64 `toml:"temperature"`
 	BatchExecution string  `toml:"batch_execution"`
 	TpmLimit       int     `toml:"tpm_limit"`
+	RpmLimit       int     `toml:"rpm_limit"`
 }
 
 type PromptConfig struct {
@@ -57,8 +58,40 @@ func LoadConfig(path string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// API keys
 	if config.Project.LLM.ApiKey == "" {
-		config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
+		if config.Project.LLM.Provider == "OpenAI" {
+			config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
+		} else if config.Project.LLM.Provider == "GoogleAI" {
+			config.Project.LLM.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
+		}
 	}
+
+	// Default values
+	if config.Project.Configuration.OutputFormat == "" {
+		config.Project.Configuration.OutputFormat = "csv"
+	}
+
+	if config.Project.Configuration.LogLevel == "" {
+		config.Project.Configuration.LogLevel = "low"
+	}
+
+	if config.Project.LLM.Temperature == 0 {
+		config.Project.LLM.Temperature = 0
+	}
+
+	if config.Project.LLM.TpmLimit == 0 {
+		config.Project.LLM.TpmLimit = 0 // This would mean no delay is applied
+	}
+
+	if config.Project.LLM.RpmLimit == 0 {
+		config.Project.LLM.RpmLimit = 0 // This would mean no delay is applied
+	}
+
+	if config.Project.LLM.BatchExecution == "" {
+		config.Project.LLM.BatchExecution = "no"
+	}
+
 	return &config, nil
 }

@@ -9,7 +9,8 @@
             "mode": "auto",
             "program": "${fileDirname}",
             "env": {
-                "OPENAI_API_KEY": "PUT_THE_API_KEY_HERE" 
+                "OPENAI_API_KEY": "PUT_THE_API_KEY_HERE",
+                "GOOGLE_AI_API_KEY": "PUT_GOOGLE_AI_API_KEY_HERE"
             },
             "args": ["--project", "../projects/test.toml"], // Relative path to the project config
             "console": "integratedTerminal"

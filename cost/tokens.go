@@ -1,15 +1,21 @@
 package cost
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"strings"
 
+	"prismAId/config"
+
+	genai "github.com/google/generative-ai-go/genai"
 	tiktoken "github.com/pkoukk/tiktoken-go"
-	"github.com/sashabaranov/go-openai"
+	openai "github.com/sashabaranov/go-openai"
+	option "google.golang.org/api/option"
 )
 
-func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string) (numTokens int) {
+func numTokensFromPromptOpenAI(prompt string, model string) (numTokens int) {
+	messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
 	tkm, err := tiktoken.EncodingForModel(model)
 	if err != nil {
 		err = fmt.Errorf("encoding for model: %v", err)
@@ -34,10 +40,10 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 	default:
 		if strings.Contains(model, "gpt-3.5-turbo") {
 			log.Println("warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.")
-			return numTokensFromMessages(messages, "gpt-3.5-turbo-0613")
+			return numTokensFromPromptOpenAI(prompt, "gpt-3.5-turbo-0613")
 		} else if strings.Contains(model, "gpt-4") {
 			log.Println("warning: gpt-4 may update over time. Returning num tokens assuming computation as in gpt-4-0613, .")
-			return numTokensFromMessages(messages, "gpt-4-0613")
+			return numTokensFromPromptOpenAI(prompt, "gpt-4-0613")
 		} else {
 			err = fmt.Errorf("num_tokens_from_messages() is not implemented for model %s. See https://github.com/openai/openai-python/blob/main/chatml.md for information on how messages are converted to tokens", model)
 			log.Println(err)
@@ -55,4 +61,23 @@ func numTokensFromMessages(messages []openai.ChatCompletionMessage, model string
 	}
 	numTokens += 3 // replies are primed with <|start|>assistant<|message|>
 	return numTokens
+}
+
+func numTokensFromPromptGoogleAI(prompt string, modelName string, cfg *config.Config) (numTokens int) {
+	// Create a new context
+	ctx := context.Background()
+	// Create a new Google Generative AI client using the API key
+	client, err := genai.NewClient(ctx, option.WithAPIKey(cfg.Project.LLM.ApiKey))
+	if err != nil {
+		log.Printf("Failed to create Google AI client: %v", err)
+		return 0
+	}
+	defer client.Close() // Ensure the client is closed when the function exits
+	// Select and configure the generative model
+	model := client.GenerativeModel(modelName)
+	tokResp, err := model.CountTokens(ctx, genai.Text(prompt))
+	if err != nil {
+		log.Fatal(err)
+	}
+	return int(tokResp.TotalTokens)
 }

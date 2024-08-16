@@ -8,7 +8,7 @@ import (
 )
 
 func RunUserCheck(totalCost string) error {
-	fmt.Println("Total cost (USD - $):", totalCost)
+	fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is:", totalCost)
 	// Ask the user if they want to continue
 	fmt.Print("Do you want to continue? (y/n): ")
 	reader := bufio.NewReader(os.Stdin)
