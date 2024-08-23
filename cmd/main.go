@@ -51,7 +51,7 @@ func main() {
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
 	// ask if continuing given the total cost
-	check := cost.RunUserCheck(cost.ComputeCosts(prompts, config))
+	check := cost.RunUserCheck(cost.ComputeCosts(prompts, config), config)
 	if check != nil {
 		log.Printf("Error:\n%v", check)
 		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
