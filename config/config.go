@@ -28,6 +28,7 @@ type ProjectConfiguration struct {
 	LogLevel        string `toml:"log_level"`
 	BatchExecution  string  `toml:"batch_execution"`
 	CotJustification string  `toml:"cot_justification"`
+	Duplication      string  `toml:"duplication"`
 }
 
 type LLMConfig struct {
@@ -88,6 +89,10 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.Configuration.CotJustification == "" {
 		config.Project.Configuration.CotJustification = "no"
+	}
+
+	if config.Project.Configuration.Duplication == "" {
+		config.Project.Configuration.Duplication = "no"
 	}
 
 	if config.Project.LLM.TpmLimit == 0 {

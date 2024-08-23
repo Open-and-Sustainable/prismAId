@@ -65,6 +65,15 @@ func WriteCSVData(response string, fileNameWithoutExt string, writer *csv.Writer
 	}
 }
 
+// to start results as an array
+func StartJSONArray(outputFile *os.File) error {
+	_, err := outputFile.WriteString("[\n")
+	if err != nil {
+		log.Println("Error starting JSON array:", err)
+		return err
+	}
+	return nil
+}
 
 // WriteJSONData writes the JSON data to the file.
 func WriteJSONData(response string, filename string, outputFile *os.File) {
@@ -87,8 +96,28 @@ func WriteJSONData(response string, filename string, outputFile *os.File) {
 	}
 
 	// Write the modified JSON to the file
-	_, err = outputFile.Write(modifiedJSON)
+	_, err = outputFile.WriteString(string(modifiedJSON))
 	if err != nil {
 		log.Println("Error writing JSON to file:", err)
 	}
+}
+
+func WriteCommaInJSONArray(outputFile *os.File) error {
+	_, err := outputFile.WriteString(",\n")
+	if err != nil {
+		log.Println("Error writing comma in JSON array:", err)
+		return err
+	}
+	return nil
+}
+
+func CloseJSONArray(outputFile *os.File) error {
+	// Write the closing bracket
+	_, err := outputFile.WriteString("\n]")
+	if err != nil {
+		log.Println("Error closing JSON array:", err)
+		return err
+	}
+
+	return nil
 }

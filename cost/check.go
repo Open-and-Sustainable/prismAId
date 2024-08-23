@@ -10,7 +10,11 @@ import (
 )
 
 func RunUserCheck(totalCost string, cfg *config.Config) error {
-	fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)
+	if  cfg.Project.LLM.Provider == "GoogleAI" {
+		fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)
+	} else {
+		fmt.Println("The total cost (USD - $) to run this review is at least:", totalCost)
+	}
 	fmt.Println("This value is an estimate of the total cost of input tokens only.")
 	if cfg.Project.Configuration.CotJustification == "yes" {
 		fmt.Println("Since you have chosen to include the CoT justifications of the answers provided, the total cost of inputs will be higher and depend on the cost of tokens stored in the chat.")

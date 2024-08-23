@@ -1,3 +1,4 @@
+[
 {
     "bayesian approach": "no",
     "clustering": "no",
@@ -7,11 +8,29 @@
     "geographical scale": "river basin",
     "historical data analysis": "yes",
     "historical period studied": [
-        "1970-1999",
-        "2000-2017",
-        "1977-2017",
-        "1997-2017",
-        "1980-2000"
+        "1977 to 2017",
+        "1970–1999",
+        "2000–2017",
+        "1980–2000",
+        "1997–2017"
+    ],
+    "regression models": "yes"
+},
+{
+    "bayesian approach": "no",
+    "clustering": "no",
+    "copulas": "yes",
+    "filename": "lit_test_duplicate",
+    "forecasting": "yes",
+    "geographical scale": "river basin",
+    "historical data analysis": "yes",
+    "historical period studied": [
+        "1977 to 2017",
+        "1970–1999",
+        "2000–2017",
+        "1980–2000",
+        "1997–2017"
     ],
     "regression models": "yes"
 }
+]

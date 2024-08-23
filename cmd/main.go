@@ -1,17 +1,17 @@
 package main
 
 import (
+	"encoding/csv"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"prismAId/config"
 	"prismAId/cost"
+	"prismAId/debug"
 	"prismAId/llm"
 	"prismAId/prompt"
 	"prismAId/results"
-	"strings"
 	"sync"
 	"time"
 )
@@ -41,12 +41,18 @@ func main() {
 	}
 	// setup logging
 	if config.Project.Configuration.LogLevel == "high" {
-		setupLogging(File, *projectConfigPath)
+		debug.SetupLogging(debug.File, *projectConfigPath)
 	} else if config.Project.Configuration.LogLevel == "medium" {
-		setupLogging(Stdout, *projectConfigPath)
+		debug.SetupLogging(debug.Stdout, *projectConfigPath)
 	} else {
-		setupLogging(Silent, *projectConfigPath) // default value
+		debug.SetupLogging(debug.Silent, *projectConfigPath) // default value
 	}
+
+	// setup debugging features
+	if config.Project.Configuration.Duplication == "yes" {
+		debug.DuplicateInput(config)
+	}
+
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
@@ -73,6 +79,20 @@ func main() {
 	}
 	defer outputFile.Close() // Ensure the file is closed after all operations are done
 
+	var writer *csv.Writer
+	keys := []string{}
+	if config.Project.Configuration.OutputFormat == "csv" {
+		keys = prompt.GetResultsKeys(config)
+		writer = results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
+		defer writer.Flush()                                // Ensure data is flushed after all writes	
+	} else if config.Project.Configuration.OutputFormat == "json" {
+		err = results.StartJSONArray(outputFile)
+		if err != nil {
+			log.Println("Error starting JSON array:", err)
+			return
+		}
+	}
+
 	// Loop through the prompts
 	for i, promptText := range prompts {
 		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
@@ -88,11 +108,12 @@ func main() {
 		// Handle the output format
 		if output_format == "json" {
 			results.WriteJSONData(response, filenames[i], outputFile) // Write formatted JSON to file
+			// add comma if it's not the last element
+			if i < len(prompts)-1 {
+				results.WriteCommaInJSONArray(outputFile)
+			}
 		} else {
 			if output_format == "csv" {
-				keys := prompt.GetResultsKeys(config)
-				writer := results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
-				defer writer.Flush()                                // Ensure data is flushed after all writes
 				results.WriteCSVData(response, filenames[i], writer, keys)
 			}
 		}
@@ -111,37 +132,21 @@ func main() {
 			waitWithStatus(getWaitTime(promptText, config))
 		}
 	}
-}
 
-type LogLevel int
-
-const (
-	Silent LogLevel = iota
-	Stdout
-	File
-)
-
-// Setup logging based on log level
-func setupLogging(level LogLevel, filename string) {
-	var logOutput io.Writer
-	switch level {
-	case Silent:
-		logOutput = io.Discard // Discard all log output
-	case Stdout:
-		logOutput = os.Stdout // Log to standard output
-	case File:
-		logname := strings.TrimSuffix(filename, ".toml") + ".log"
-		logFile, err := os.OpenFile(logname, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// close JSON array if needed
+	if config.Project.Configuration.OutputFormat == "json" {
+		err = results.CloseJSONArray(outputFile)
 		if err != nil {
-			log.Fatalf("error opening file: %v", err)
+			log.Println("Error closing JSON array:", err)
+			return
 		}
-		logOutput = logFile // Log to file
-	default:
-		logOutput = io.Discard // Default to discarding output
 	}
 
-	log.SetOutput(logOutput)
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	// cleanup eventual debugging temporary files
+	if config.Project.Configuration.Duplication == "yes" {
+		debug.RemoveDuplicateInput(config)
+	}
+	
 }
 
 // Method that returns the number of seconds to wait to respect TPM limits
