@@ -1,7 +1,6 @@
 package results
 
 import (
-	"bytes"
 	"encoding/csv"
 	"encoding/json"
 	"log"
@@ -66,16 +65,29 @@ func WriteCSVData(response string, fileNameWithoutExt string, writer *csv.Writer
 	}
 }
 
+
 // WriteJSONData writes the JSON data to the file.
-func WriteJSONData(response string, outputFile *os.File) {
-	var prettyJSON bytes.Buffer
-	err := json.Indent(&prettyJSON, []byte(response), "", "    ") // Indent for pretty JSON output
+func WriteJSONData(response string, filename string, outputFile *os.File) {
+	// Unmarshal the JSON string into a map to modify it
+	var data map[string]interface{}
+	err := json.Unmarshal([]byte(response), &data)
 	if err != nil {
-		log.Println("Error formatting JSON:", err)
+		log.Println("Error unmarshaling JSON:", err)
 		return
 	}
 
-	_, err = outputFile.Write(prettyJSON.Bytes())
+	// Add the filename to the JSON data
+	data["filename"] = filename
+
+	// Marshal the modified data back into a JSON string
+	modifiedJSON, err := json.MarshalIndent(data, "", "    ") // Indent for pretty JSON output
+	if err != nil {
+		log.Println("Error marshaling modified JSON:", err)
+		return
+	}
+
+	// Write the modified JSON to the file
+	_, err = outputFile.Write(modifiedJSON)
 	if err != nil {
 		log.Println("Error writing JSON to file:", err)
 	}

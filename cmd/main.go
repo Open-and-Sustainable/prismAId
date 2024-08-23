@@ -79,7 +79,7 @@ func main() {
 		log.Println("File: ", filenames[i], " Prompt: ", promptText)
 
 		// Query the LLM
-		response, err := llm.QueryLLM(promptText, config)
+		response, justification, err := llm.QueryLLM(promptText, config)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return
@@ -87,12 +87,23 @@ func main() {
 
 		// Handle the output format
 		if output_format == "json" {
-			results.WriteJSONData(response, outputFile) // Write formatted JSON to file
+			results.WriteJSONData(response, filenames[i], outputFile) // Write formatted JSON to file
 		} else {
-			keys := prompt.GetResultsKeys(config)
-			writer := results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
-			defer writer.Flush()                                // Ensure data is flushed after all writes
-			results.WriteCSVData(response, filenames[i], writer, keys)
+			if output_format == "csv" {
+				keys := prompt.GetResultsKeys(config)
+				writer := results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
+				defer writer.Flush()                                // Ensure data is flushed after all writes
+				results.WriteCSVData(response, filenames[i], writer, keys)
+			}
+		}
+
+		if config.Project.Configuration.CotJustification == "yes" {
+			justificationFilePath := resultsFileName + "_" + filenames[i] + "_justification.txt"
+			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
+			if err != nil {
+				log.Println("Error writing justification file:", err)
+				return
+			}
 		}
 
 		// Sleep before the next prompt if it's not the last one
@@ -100,7 +111,6 @@ func main() {
 			waitWithStatus(getWaitTime(promptText, config))
 		}
 	}
-
 }
 
 type LogLevel int
