@@ -26,6 +26,8 @@ type ProjectConfiguration struct {
 	ResultsFileName string `toml:"results_file_name"`
 	OutputFormat    string `toml:"output_format"`
 	LogLevel        string `toml:"log_level"`
+	BatchExecution  string  `toml:"batch_execution"`
+	CotJustification string  `toml:"cot_justification"`
 }
 
 type LLMConfig struct {
@@ -33,7 +35,6 @@ type LLMConfig struct {
 	ApiKey         string  `toml:"api_key"`
 	Model          string  `toml:"model"`
 	Temperature    float64 `toml:"temperature"`
-	BatchExecution string  `toml:"batch_execution"`
 	TpmLimit       int     `toml:"tpm_limit"`
 	RpmLimit       int     `toml:"rpm_limit"`
 }
@@ -81,16 +82,20 @@ func LoadConfig(path string) (*Config, error) {
 		config.Project.LLM.Temperature = 0
 	}
 
+	if config.Project.Configuration.BatchExecution == "" {
+		config.Project.Configuration.BatchExecution = "no"
+	}
+
+	if config.Project.Configuration.CotJustification == "" {
+		config.Project.Configuration.CotJustification = "no"
+	}
+
 	if config.Project.LLM.TpmLimit == 0 {
 		config.Project.LLM.TpmLimit = 0 // This would mean no delay is applied
 	}
 
 	if config.Project.LLM.RpmLimit == 0 {
 		config.Project.LLM.RpmLimit = 0 // This would mean no delay is applied
-	}
-
-	if config.Project.LLM.BatchExecution == "" {
-		config.Project.LLM.BatchExecution = "no"
 	}
 
 	return &config, nil

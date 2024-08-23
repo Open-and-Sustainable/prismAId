@@ -5,10 +5,16 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"prismAId/config"
 )
 
-func RunUserCheck(totalCost string) error {
-	fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is:", totalCost)
+func RunUserCheck(totalCost string, cfg *config.Config) error {
+	fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)
+	fmt.Println("This value is an estimate of the total cost of input tokens only.")
+	if cfg.Project.Configuration.CotJustification == "yes" {
+		fmt.Println("Since you have chosen to include the CoT justifications of the answers provided, the total cost of inputs will be higher and depend on the cost of tokens stored in the chat.")
+	}
 	// Ask the user if they want to continue
 	fmt.Print("Do you want to continue? (y/n): ")
 	reader := bufio.NewReader(os.Stdin)

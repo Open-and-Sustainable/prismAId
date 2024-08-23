@@ -9,6 +9,11 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.4.1] - in progress
+### Added
+- project parameter CoT justification
+- automatic generation of CoT justification in OpenAI and Google AI models, as aditional prompt in same chat
+
 ## [0.4.0] - 2024-08-16
 ### Added
 - full support for Google AI models
