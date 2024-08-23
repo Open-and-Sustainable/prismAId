@@ -35,7 +35,7 @@ func ParsePrompts(config *config.Config) ([]string, []string) {
 			filePath := filepath.Join(config.Project.Configuration.InputDirectory, file.Name())
 			documentText, err := os.ReadFile(filePath)
 			if err != nil {
-				fmt.Println("Error reading file:", err)
+				log.Println("Error reading file:", err)
 				return nil, nil
 			}
 

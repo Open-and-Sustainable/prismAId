@@ -13,6 +13,11 @@ Security: For vulnerabilities.
 ### Added
 - project parameter CoT justification
 - automatic generation of CoT justification in OpenAI and Google AI models, as aditional prompt in same chat
+- project parameter for duplicate runs (for debugging purposes)  
+- implementation and testing of duplication algorithm
+### Fixed
+- output in JSON array formatting
+- cleaned code structure by creating debug package an dmoving log setup there
 
 ## [0.4.0] - 2024-08-16
 ### Added
