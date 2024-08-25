@@ -5,7 +5,7 @@ layout: default
 
 # Project Setup
 
-## Walktrhrough
+## Walkthrough
 1. **OpenAI Account and API Key:**
     - Create an OpenAI account at [OpenAI](https://www.openai.com/).
     - Generate an API key from the OpenAI dashboard.
@@ -89,24 +89,19 @@ rpm_limit = 0
 - `rpm_limits`: Maximum number of API requests per minute. The default value is `0`, which indicates that there is no limit. Check the summary tables on Rate Limits in [Advanced Features](advanced-features).
 
 ### Supported Models
-Each model has different limits on the size of inpus and a different cost:### OpenAI Models
+Each model has different limits on the size of inputs and a different cost:
 
 <table class="table-spacing">
     <thead>
         <tr>
             <th style="text-align: left;">Model</th>
             <th style="text-align: right;">Maximum Input Tokens</th>
-            <th style="text-align: right;">Cost per 1M Input Tokens</th>
+            <th style="text-align: right;">Cost of 1M Input Tokens</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td style="text-align: left; font-style: italic;">OpenAI</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
             <td></td>
             <td></td>
         </tr>
@@ -137,11 +132,6 @@ Each model has different limits on the size of inpus and a different cost:### Op
         </tr>
         <tr>
             <td style="text-align: left; font-style: italic;">GoogleAI</td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td></td>
             <td></td>
             <td></td>
         </tr>
