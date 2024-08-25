@@ -75,14 +75,33 @@ api_key = ""
 model = ""
 temperature = 0.2
 tpm_limit = 0
+rpm_limit = 0
 ```
 - The `[project.llm]` section includes parameters for managing the use of the LLM:
-  - `provider`: Currently irrelevant as only OpenAI is supported.
+  - `provider`: Currently are supported `OpenAI` and `GoogleAI`.
   - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
   - `model`: Determines the model to use. Options are:
-    - Leave empty `''` for cost optimization (automatically selects the cheapest model based on token limits).
-    - `gpt-4o-mini`, `gpt-4o` or `gpt-4-turbo` or `gpt-3.5-turbo` for specific model selection.
+    - Leave empty - or mit the key - `''` for cost optimization (automatically selects the cheapest model based on token limits depending on provider).
+    - **OpenAI** as provider: `gpt-3.5-turbo`, `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`  for specific model selection.
+    - **GoogleAI**: `gemini-1.5-flash`, `gemini-1.5-pro`, or `gemini-1.0-pro`.
   - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
-  - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits section in the [OpenAI API documentation](https://platform.openai.com/settings/organization/limits).
+  - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits webpage for your provider or the summary tables on Rate Limits in [Advanced Features](advanced-features).
+- `rpm_limits`: Maximum number of API requests per minute. The default value is `0`, which indicates that there is no limit. Check the summary tables on Rate Limits in [Advanced Features](advanced-features).
 
+### Supported Models
+Each model has different limits on the size of inpus and a different cost:### OpenAI Models
 
+| Model            | Maximum Input Tokens | Cost per 1M Input Tokens |
+|:----------------|---------------------:|-------------------:|
+|*OpenAI*|||
+||||
+| gpt-4o-mini      | 128,000                | $0.15              |
+| gpt-4o           | 128,000                | $5.00              |
+| gpt-4-turbo      | 128,000              | $10.00              |
+| gpt-3.5-turbo    | 16,385                | $3.00              |
+||||
+|*GoogleAI*|||
+||||
+| Gemini 1.5 Flash | 1,048,576                | $0.15              |
+| Gemini 1.5 Pro   | 2,097,152                | $7.00              |
+| Gemini 1.0 Pro   | 32,760                | $0.50              |
