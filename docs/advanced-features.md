@@ -60,28 +60,114 @@ Please note that we **do not support automatic enforcement of daily request limi
 
 On [OpenAI](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?context=tier-one), for example, as of August 2024 users in tier 1 are subject to the following rate limits:
 
-| Model            |   RPM   |   RPD    |     TPM      |   Batch Queue Limit   |
-|:---|---:|---:|---:|---:|
-| gpt-4o           |   500   |    -     |   30,000     |  90,000               |
-| gpt-4o-mini      |   500   |  10,000  |   200,000    |  2,000,000            |
-| gpt-4-turbo      |   500   |    -     |   30,000     |  90,000               |
-| gpt-3.5-turbo    |  3,500  |  10,000  |   200,000    |  2,000,000            |
+<table class="table-spacing">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Model</th>
+            <th style="text-align: right;">RPM</th>
+            <th style="text-align: right;">RPD</th>
+            <th style="text-align: right;">TPM</th>
+            <th style="text-align: right;">Batch Queue Limit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left;">gpt-4o</td>
+            <td style="text-align: right;">500</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">30,000</td>
+            <td style="text-align: right;">90,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-4o-mini</td>
+            <td style="text-align: right;">500</td>
+            <td style="text-align: right;">10,000</td>
+            <td style="text-align: right;">200,000</td>
+            <td style="text-align: right;">2,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-4-turbo</td>
+            <td style="text-align: right;">500</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">30,000</td>
+            <td style="text-align: right;">90,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-3.5-turbo</td>
+            <td style="text-align: right;">3,500</td>
+            <td style="text-align: right;">10,000</td>
+            <td style="text-align: right;">200,000</td>
+            <td style="text-align: right;">2,000,000</td>
+        </tr>
+    </tbody>
+</table>
+
 
 On [GoogleAI](https://ai.google.dev/pricing), as of August 2024 **free of charge** users are subject to the limits:
 
-| Model           | RPM  | RPD   | TPM       |
-|:---|---:|---:|---:|
-| Gemini 1.5 Flash | 15   | 1,500 | 1,000,000 |
-| Gemini 1.5 Pro   | 2    | 50    | 32,000    |
-| Gemini 1.0 Pro   | 15   | 1,500 | 32,000    |
+<table class="table-spacing">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Model</th>
+            <th style="text-align: right;">RPM</th>
+            <th style="text-align: right;">RPD</th>
+            <th style="text-align: right;">TPM</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Flash</td>
+            <td style="text-align: right;">15</td>
+            <td style="text-align: right;">1,500</td>
+            <td style="text-align: right;">1,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Pro</td>
+            <td style="text-align: right;">2</td>
+            <td style="text-align: right;">50</td>
+            <td style="text-align: right;">32,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.0 Pro</td>
+            <td style="text-align: right;">15</td>
+            <td style="text-align: right;">1,500</td>
+            <td style="text-align: right;">32,000</td>
+        </tr>
+    </tbody>
+</table>
 
 while **pay-as-you-go** users are subject to:
 
-| Model           | RPM  | RPD   | TPM       |
-|:---|---:|---:|---:|
-| Gemini 1.5 Flash | 1000   | - | 4,000,000 |
-| Gemini 1.5 Pro   | 360    | - | 4,000,000   |
-| Gemini 1.0 Pro   | 360   | 30,000 | 120,000    |
+<table class="table-spacing">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Model</th>
+            <th style="text-align: right;">RPM</th>
+            <th style="text-align: right;">RPD</th>
+            <th style="text-align: right;">TPM</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Flash</td>
+            <td style="text-align: right;">1000</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">4,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Pro</td>
+            <td style="text-align: right;">360</td>
+            <td style="text-align: right;">-</td>
+            <td style="text-align: right;">4,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.0 Pro</td>
+            <td style="text-align: right;">360</td>
+            <td style="text-align: right;">30,000</td>
+            <td style="text-align: right;">120,000</td>
+        </tr>
+    </tbody>
+</table>
 
 **PLEASE NOTE**: If you choose the cost minimization approach described below you must report in the configuration file the smallest tpm and rpm limits of the models by the provider you selected. This is the only way to ensure respecting limits since there is no authomatic check on them by prismAId and the selected model varies because of number of tokens in requests and model use prices.
 

@@ -91,17 +91,75 @@ rpm_limit = 0
 ### Supported Models
 Each model has different limits on the size of inpus and a different cost:### OpenAI Models
 
-| Model            | Maximum Input Tokens | Cost per 1M Input Tokens |
-|:----------------|---------------------:|-------------------:|
-|*OpenAI*|||
-||||
-| gpt-4o-mini      | 128,000                | $0.15              |
-| gpt-4o           | 128,000                | $5.00              |
-| gpt-4-turbo      | 128,000              | $10.00              |
-| gpt-3.5-turbo    | 16,385                | $3.00              |
-||||
-|*GoogleAI*|||
-||||
-| Gemini 1.5 Flash | 1,048,576                | $0.15              |
-| Gemini 1.5 Pro   | 2,097,152                | $7.00              |
-| Gemini 1.0 Pro   | 32,760                | $0.50              |
+<table class="table-spacing">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Model</th>
+            <th style="text-align: right;">Maximum Input Tokens</th>
+            <th style="text-align: right;">Cost per 1M Input Tokens</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left; font-style: italic;">OpenAI</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-4o-mini</td>
+            <td style="text-align: right;">128,000</td>
+            <td style="text-align: right;">$0.15</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-4o</td>
+            <td style="text-align: right;">128,000</td>
+            <td style="text-align: right;">$5.00</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-4-turbo</td>
+            <td style="text-align: right;">128,000</td>
+            <td style="text-align: right;">$10.00</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">gpt-3.5-turbo</td>
+            <td style="text-align: right;">16,385</td>
+            <td style="text-align: right;">$3.00</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; font-style: italic;">GoogleAI</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Flash</td>
+            <td style="text-align: right;">1,048,576</td>
+            <td style="text-align: right;">$0.15</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.5 Pro</td>
+            <td style="text-align: right;">2,097,152</td>
+            <td style="text-align: right;">$7.00</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Gemini 1.0 Pro</td>
+            <td style="text-align: right;">32,760</td>
+            <td style="text-align: right;">$0.50</td>
+        </tr>
+    </tbody>
+</table>
+

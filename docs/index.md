@@ -26,3 +26,21 @@ Visit this [documentation website](https://open-and-sustainable.github.io/prismA
 4. A presentation of the most advanced features provided by the tool: [Advanced Features](advanced-features).
 5. Troubleshooting directions and frequently asked questions on prismAId and generative AI features and results: [FAQs and Troubleshooting](faqs).
 6. A description of the software implementation of prismAId along with guidelines on how to contribute to its future development: [For Developers](for-developers).
+
+
+## Credits
+### Authors
+Riccardo Boero - ribo@nilu.no
+
+### Acknowledgments
+This project was initiated with the generous support of a SIS internal project from [NILU](https://nilu.com). Their support was crucial in starting this research and development effort. Further, acknowledgment is due for the research credits received from the [OpenAI Researcher Access Program](https://grants.openai.com/prog/openai_researcher_access_program/) and the [Cohere For AI Research Grant Program](https://share.hsforms.com/1aF5ZiZDYQqCOd8JSzhUBJQch5vw?ref=txt.cohere.com), both of which have significantly contributed to the advancement of this work.
+
+## License
+GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
+
+![license](https://www.gnu.org/graphics/agplv3-155x51.png)
+
+## Citation
+Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews. Zenodo. https://doi.org/10.5281/zenodo.11210796
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
