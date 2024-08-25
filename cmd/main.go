@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"prismAId/check"
 	"prismAId/config"
 	"prismAId/cost"
 	"prismAId/debug"
@@ -19,6 +20,11 @@ import (
 // Global variable to store the timestamps of requests
 var requestTimestamps []time.Time
 var mutex sync.Mutex
+
+const (
+    // Define a specific exit code for input token errors
+    ExitCodeInputTokenError = 2
+)
 
 func main() {
 	// Define a flag for the project configuration file
@@ -39,6 +45,7 @@ func main() {
 		fmt.Println("Error loading project configuration:", err) // here the logging function is not implemented yet
 		return
 	}
+
 	// setup logging
 	if config.Project.Configuration.LogLevel == "high" {
 		debug.SetupLogging(debug.File, *projectConfigPath)
@@ -48,7 +55,7 @@ func main() {
 		debug.SetupLogging(debug.Silent, *projectConfigPath) // default value
 	}
 
-	// setup debugging features
+	// setup other debugging features
 	if config.Project.Configuration.Duplication == "yes" {
 		debug.DuplicateInput(config)
 	}
@@ -56,8 +63,16 @@ func main() {
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
+	// check if prompts resepct input tokens limits for selected models
+	problem, checkInputLimits := check.RunInputLimitsCheck(prompts, filenames, config)
+	if checkInputLimits != nil {
+		fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models:", problem)
+		log.Println("Max input tokens limits violation:", problem)
+		log.Printf("Error:\n%v", checkInputLimits)
+		os.Exit(ExitCodeInputTokenError)	
+	}
 	// ask if continuing given the total cost
-	check := cost.RunUserCheck(cost.ComputeCosts(prompts, config), config)
+	check := check.RunUserCheck(cost.ComputeCosts(prompts, config), config)
 	if check != nil {
 		log.Printf("Error:\n%v", check)
 		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
