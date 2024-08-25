@@ -9,6 +9,10 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.5.0] - ongoing
+### Added
+- check on model input tokens limit, stops the execution if it exceeds the limit
+
 ## [0.4.1] - 2024-08-25
 ### Added
 - project parameter CoT justification
