@@ -9,12 +9,14 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
-## [0.4.1] - in progress
+## [0.4.1] - 2024-08-25
 ### Added
 - project parameter CoT justification
 - automatic generation of CoT justification in OpenAI and Google AI models, as aditional prompt in same chat
 - project parameter for duplicate runs (for debugging purposes)  
 - implementation and testing of duplication algorithm
+- documentation of these features
+- examples of these features
 ### Fixed
 - output in JSON array formatting
 - cleaned code structure by creating debug package an dmoving log setup there

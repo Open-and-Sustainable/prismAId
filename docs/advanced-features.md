@@ -54,8 +54,45 @@ In **Section 1** of the project configuration:
   - We strive to maintain up-to-date data for cost estimation, though our estimations currently pertain only to the input aspect of AI model usage. As such, we cannot guarantee precise assessments.
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage).
 
-## Batch Execution
-In **Section 1** of the project configuration:
-  - `batch_execution`: Not yet supported. Once implemented, it will allow running API calls with a delay for cost savings. Results will need to be retrieved from the OpenAI platform differently.
+## Debugging
+In **Section 1** of the project configuration, there are three parameters supporting the devleopment of projects and testing of prompt configurations.
+They are:
+  - `log_level`: [`low`], `medium`, or `high`.
+  - `duplication`: [`no`], or `yes`.
+  - `cot_justiication`:  [`no`], or `yes`.
+First, if debuggin level is higher than low all API responses can be inspected in details. This means that besides output files, users will be able to access, either on terminal (stdout - `log_level`: `medium`) or in a log file (`log_level`: `high`), the complete reponses and eventual errors from the API and the prismAId execution.
 
+Second, duplication makes possible to test whether a prompt definition is clear enough. In fact, if running twice the same prompt generates different ouptut it is very likely that the prompt is not deifning the model reviewing task clearly enough. Setting `duplication`: `yes` and then checking if answers differ in the two analyses of the same manuscript is a good way to assess whether the prompt is clear enough to be used for the review project. 
 
+Duplicating manuscripts increases the cost of the project run, but the total cost presented at the beginning of the analysis is updated accordingly to let researchers assess the cost to be incurred. Hence, for instance, with Google AI as provider and Gemini 1.5 Flash model, without duplication:
+```bash
+Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least: 0.0005352
+This value is an estimate of the total cost of input tokens only.
+Do you want to continue? (y/n): y
+Processing file #1/1: lit_test
+```
+With duplication active:
+```bash
+Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least: 0.0010704
+This value is an estimate of the total cost of input tokens only.
+Do you want to continue? (y/n): y
+Processing file #1/2: lit_test
+Waiting... 30 seconds remaining
+Waiting... 25 seconds remaining
+Waiting... 20 seconds remaining
+Waiting... 15 seconds remaining
+Waiting... 10 seconds remaining
+Waiting... 5 seconds remaining
+Wait completed.
+Processing file #2/2: lit_test_duplicate
+```
+
+Third, in order to assess if the prompt definition are not only clear but also effective in extracting the information the researcher is looking for, it is is possible to use `cot_justiication`: `yes`. This will create an output `.txt` for each manuscript containing the chain of thought (CoT) justification for the answer provided. Technically, the justification is provided by the model in the same chat as the answer, and right after it.
+
+The ouput in the justification output reports the information requested, the answer provided, the modle CoT, and eventually the relevant sentences in the manuscript reviewd, like in:
+```md
+- **clustering**: "no" - The text does not mention any clustering techniques or grouping of data points based on similarities.
+- **copulas**: "yes" - The text explicitly mentions the use of copulas to model the joint distribution of multiple flooding indicators (maximum soil moisture, runoff, and precipitation). "The multidimensional representation of the joint distributions of relevant hydrological climate impacts is based on the concept of statistical copulas [43]."
+- **forecasting**: "yes" - The text explicitly mentions the use of models to predict future scenarios of flooding hazards and damage. "Future scenarios use hazard and damage data predicted for the period 2018–2100."
+
+```
