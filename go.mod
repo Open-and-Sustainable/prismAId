@@ -9,6 +9,7 @@ require (
 	github.com/sashabaranov/go-openai v1.27.1
 	github.com/shopspring/decimal v1.4.0
 	google.golang.org/api v0.186.0
+	github.com/cohere-ai/cohere-go/v2 v2.10.0 
 )
 
 require (
@@ -18,6 +19,8 @@ require (
 	cloud.google.com/go/auth/oauth2adapt v0.2.2 // indirect
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	cloud.google.com/go/longrunning v0.5.7 // indirect
+	github.com/aws/aws-sdk-go-v2 v1.30.3 // indirect
+	github.com/aws/smithy-go v1.20.3 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect

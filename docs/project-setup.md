@@ -78,12 +78,13 @@ tpm_limit = 0
 rpm_limit = 0
 ```
 - The `[project.llm]` section includes parameters for managing the use of the LLM:
-  - `provider`: Currently are supported `OpenAI` and `GoogleAI`.
+  - `provider`: Currently supported providers are `OpenAI`, `GoogleAI`, and `Cohere`.
   - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
   - `model`: Determines the model to use. Options are:
     - Leave empty - or mit the key - `''` for cost optimization (automatically selects the cheapest model based on token limits depending on provider).
     - **OpenAI** as provider: `gpt-3.5-turbo`, `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`  for specific model selection.
     - **GoogleAI**: `gemini-1.5-flash`, `gemini-1.5-pro`, or `gemini-1.0-pro`.
+    - **Cohere**: `command-r-plus`, `command-r`, `command-light`, or `command`.
   - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
   - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits webpage for your provider or the summary tables on Rate Limits in [Advanced Features](advanced-features).
 - `rpm_limits`: Maximum number of API requests per minute. The default value is `0`, which indicates that there is no limit. Check the summary tables on Rate Limits in [Advanced Features](advanced-features).
@@ -149,6 +150,36 @@ Each model has different limits on the size of inputs and a different cost:
             <td style="text-align: left;">Gemini 1.0 Pro</td>
             <td style="text-align: right;">32,760</td>
             <td style="text-align: right;">$0.50</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left; font-style: italic;">Cohere</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Command R+</td>
+            <td style="text-align: right;">128,000</td>
+            <td style="text-align: right;">$3.00</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Command R</td>
+            <td style="text-align: right;">128,000</td>
+            <td style="text-align: right;">$0.50</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Command Light</td>
+            <td style="text-align: right;">4,096</td>
+            <td style="text-align: right;">$0.30</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Command</td>
+            <td style="text-align: right;">4,096</td>
+            <td style="text-align: right;">$1.00</td>
         </tr>
     </tbody>
 </table>

@@ -15,6 +15,8 @@ func QueryLLM(prompt string, cfg *config.Config) (string, string, error) {
 		queryFunc = queryOpenAI
 	case "GoogleAI":
 		queryFunc = queryGoogleAI
+	case "Cohere":
+		queryFunc = queryCohere
 	default:
 		return "", "", fmt.Errorf("unsupported LLM provider: %s", cfg.Project.LLM.Provider)
 	}
