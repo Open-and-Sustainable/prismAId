@@ -8,7 +8,7 @@ import (
 	"prismAId/config"
 	"prismAId/cost"
 
-	cohere       "github.com/cohere-ai/cohere-go/v2"
+	cohere "github.com/cohere-ai/cohere-go/v2"
 	cohereclient "github.com/cohere-ai/cohere-go/v2/client"
 	uuid "github.com/google/uuid"
 )

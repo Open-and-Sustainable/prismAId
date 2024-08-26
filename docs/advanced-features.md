@@ -10,7 +10,7 @@ In **Section 1** of the project configuration, there are three parameters suppor
 They are:
   - `log_level`: [`low`], `medium`, or `high`.
   - `duplication`: [`no`], or `yes`.
-  - `cot_justiication`:  [`no`], or `yes`.
+  - `cot_justification`:  [`no`], or `yes`.
 First, if debuggin level is higher than low all API responses can be inspected in details. This means that besides output files, users will be able to access, either on terminal (stdout - `log_level`: `medium`) or in a log file (`log_level`: `high`), the complete reponses and eventual errors from the API and the prismAId execution.
 
 Second, duplication makes possible to test whether a prompt definition is clear enough. In fact, if running twice the same prompt generates different ouptut it is very likely that the prompt is not deifning the model reviewing task clearly enough. Setting `duplication`: `yes` and then checking if answers differ in the two analyses of the same manuscript is a good way to assess whether the prompt is clear enough to be used for the review project. 
@@ -38,7 +38,7 @@ Wait completed.
 Processing file #2/2: lit_test_duplicate
 ```
 
-Third, in order to assess if the prompt definition are not only clear but also effective in extracting the information the researcher is looking for, it is is possible to use `cot_justiication`: `yes`. This will create an output `.txt` for each manuscript containing the chain of thought (CoT) justification for the answer provided. Technically, the justification is provided by the model in the same chat as the answer, and right after it.
+Third, in order to assess if the prompt definition are not only clear but also effective in extracting the information the researcher is looking for, it is is possible to use `cot_justification`: `yes`. This will create an output `.txt` for each manuscript containing the chain of thought (CoT) justification for the answer provided. Technically, the justification is provided by the model in the same chat as the answer, and right after it.
 
 The ouput in the justification output reports the information requested, the answer provided, the modle CoT, and eventually the relevant sentences in the manuscript reviewd, like in:
 ```md

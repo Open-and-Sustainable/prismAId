@@ -60,10 +60,10 @@ cot_justification = "no"
     - `low`: No logging, only essential text reported on stdout. The default value.
     - `medium`: Logs entries sent to stdout.
     - `high`: Saves logs to a file in the same directory as 'project_name.toml', named 'project_name.log'.
-  - `duplication`: The level of logging:
+  - `duplication`: Duplication of reviews for debugging purposes:
     - `no`: The default value.
     - `yes`: Manuscripts in the input directory will be duplicated and reviewed. Duplications will be removed before the end of the program execution.
-  - `cot_justiication`: The level of logging:
+  - `cot_justification`: Printing of justifications for debugging and validation purposes:
     - `no`: The default value.
     - `yes`: Justifications will be asked to the model after results and saved manuscript by manuscript in the same directory.
     
