@@ -107,22 +107,22 @@ Each model has different limits on the size of inputs and a different cost:
             <td></td>
         </tr>
         <tr>
-            <td style="text-align: left;">gpt-4o-mini</td>
+            <td style="text-align: left;">GPT-4o Mini</td>
             <td style="text-align: right;">128,000</td>
             <td style="text-align: right;">$0.15</td>
         </tr>
         <tr>
-            <td style="text-align: left;">gpt-4o</td>
+            <td style="text-align: left;">GPT-4o</td>
             <td style="text-align: right;">128,000</td>
             <td style="text-align: right;">$5.00</td>
         </tr>
         <tr>
-            <td style="text-align: left;">gpt-4-turbo</td>
+            <td style="text-align: left;">GPT-4 Turbo</td>
             <td style="text-align: right;">128,000</td>
             <td style="text-align: right;">$10.00</td>
         </tr>
         <tr>
-            <td style="text-align: left;">gpt-3.5-turbo</td>
+            <td style="text-align: left;">GPT-3.5 Turbo</td>
             <td style="text-align: right;">16,385</td>
             <td style="text-align: right;">$3.00</td>
         </tr>
