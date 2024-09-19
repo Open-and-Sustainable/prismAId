@@ -4,13 +4,13 @@ go 1.21.8
 
 require (
 	github.com/BurntSushi/toml v1.4.0
+	github.com/cohere-ai/cohere-go/v2 v2.10.0
 	github.com/google/generative-ai-go v0.17.0
+	github.com/google/uuid v1.6.0
 	github.com/pkoukk/tiktoken-go v0.1.7
 	github.com/sashabaranov/go-openai v1.27.1
 	github.com/shopspring/decimal v1.4.0
 	google.golang.org/api v0.186.0
-	github.com/cohere-ai/cohere-go/v2 v2.10.0 
-	github.com/google/uuid v1.6.0
 )
 
 require (

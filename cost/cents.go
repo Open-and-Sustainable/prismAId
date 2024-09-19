@@ -18,8 +18,8 @@ var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
 	"gemini-1.5-flash":       decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)), // the rate is halved if <= 128K input tokens, fixed below
 	"gemini-1.5-pro":         decimal.NewFromFloat(7).Div(decimal.NewFromInt(1000000)),    // the rate is halved if <= 128K input tokens, fixed below
 	"gemini-1.0-pro":         decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
-	"command-r-plus":         decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
-	"command-r":         decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
+	"command-r-plus":         decimal.NewFromFloat(2.5).Div(decimal.NewFromInt(1000000)),
+	"command-r":         decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
 	"command-light":         decimal.NewFromFloat(0.3).Div(decimal.NewFromInt(1000000)),
 	"command":         decimal.NewFromFloat(1).Div(decimal.NewFromInt(1000000)),
 }

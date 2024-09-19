@@ -82,7 +82,7 @@ rpm_limit = 0
   - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
   - `model`: Determines the model to use. Options are:
     - Leave empty - or mit the key - `''` for cost optimization (automatically selects the cheapest model based on token limits depending on provider).
-    - **OpenAI** as provider: `gpt-3.5-turbo`, `gpt-4-turbo`, `gpt-4o`, `gpt-4o-mini`  for specific model selection.
+    - **OpenAI** as provider: `gpt-4o-mini`, `gpt-4o`, `gpt-4-turbo`, or `gpt-3.5-turbo` for specific model selection.
     - **GoogleAI**: `gemini-1.5-flash`, `gemini-1.5-pro`, or `gemini-1.0-pro`.
     - **Cohere**: `command-r-plus`, `command-r`, `command-light`, or `command`.
   - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
@@ -164,12 +164,12 @@ Each model has different limits on the size of inputs and a different cost:
         <tr>
             <td style="text-align: left;">Command R+</td>
             <td style="text-align: right;">128,000</td>
-            <td style="text-align: right;">$3.00</td>
+            <td style="text-align: right;">$2.50</td>
         </tr>
         <tr>
             <td style="text-align: left;">Command R</td>
             <td style="text-align: right;">128,000</td>
-            <td style="text-align: right;">$0.50</td>
+            <td style="text-align: right;">$0.15</td>
         </tr>
         <tr>
             <td style="text-align: left;">Command Light</td>
