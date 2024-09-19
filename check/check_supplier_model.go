@@ -27,9 +27,9 @@ var modelProviderMap = map[string]string{
     "gpt-3.5-turbo":    OpenAI,
 
     // GoogleAI Models
-    "Gemini 1.5 Flash": GoogleAI,
-    "Gemini 1.5 Pro":   GoogleAI,
-    "Gemini 1.0 Pro":   GoogleAI,
+    "gemini-1.5-flash": GoogleAI,
+    "gemini-1.5-pro":   GoogleAI,
+    "gemini-1.0-pro":   GoogleAI,
 
     // Cohere Models
     "command-r-plus":   Cohere,
