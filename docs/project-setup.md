@@ -6,9 +6,9 @@ layout: default
 # Project Setup
 
 ## Walkthrough
-1. **OpenAI Account and API Key:**
-    - Create an OpenAI account at [OpenAI](https://www.openai.com/).
-    - Generate an API key from the OpenAI dashboard.
+1. **AI Model Provider Account and API Key:**
+    - Create an account at [OpenAI](https://www.openai.com/) or [GoogleAI](https://aistudio.google.com) or [Cohere](https://cohere.com/).
+    - Generate an API key from the the provider dashboard.
 2. **Download Executable:**
     - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the prismAId GitHub repository.
     - Download the appropriate executable for your operating system and platform.
