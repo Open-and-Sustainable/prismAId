@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"strings"
 )
 
 // to start results as an array
@@ -18,6 +19,9 @@ func StartJSONArray(outputFile *os.File) error {
 
 // WriteJSONData writes the JSON data to the file.
 func WriteJSONData(response string, filename string, outputFile *os.File) {
+	// Strip out markdown code fences (```json ... ```) if present
+	response = cleanJSON(response)
+
 	// Unmarshal the JSON string into a map to modify it
 	var data map[string]interface{}
 	err := json.Unmarshal([]byte(response), &data)
@@ -61,4 +65,12 @@ func CloseJSONArray(outputFile *os.File) error {
 	}
 
 	return nil
+}
+
+// cleanJSON strips out the markdown code fences from the response if present.
+func cleanJSON(response string) string {
+	// Remove triple backticks and the "json" part (if present)
+	response = strings.TrimPrefix(response, "```json")
+	response = strings.TrimSuffix(response, "```")
+	return strings.TrimSpace(response) // Trim any extra whitespace
 }
