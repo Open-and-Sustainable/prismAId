@@ -1,10 +1,7 @@
 package check
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 
 	"prismAId/config"
 	"prismAId/cost"
@@ -20,6 +17,11 @@ const (
     Gemini15FlashMaxTokens = 1048576
     Gemini15ProMaxTokens   = 2097152
     Gemini10ProMaxTokens   = 32760
+	// Cohere Models
+	CommandMaxTokens = 4096
+	CommandLightMaxTokens = 4096
+	CommandRMaxTokens = 128000
+	CommandRPlusMaxTokens = 128000
 )
 
 var ModelMaxTokens = map[string]int{
@@ -30,6 +32,10 @@ var ModelMaxTokens = map[string]int{
     "gemini-1.5-flash": Gemini15FlashMaxTokens,
     "gemini-1.5-pro":   Gemini15ProMaxTokens,
     "gemini-1.0-pro":   Gemini10ProMaxTokens,
+	"command-r-plus":   CommandRPlusMaxTokens,
+	"command-r":        CommandRMaxTokens,
+	"command-light":    CommandLightMaxTokens,
+	"command":          CommandMaxTokens,
 }
 
 func RunInputLimitsCheck(prompts []string, filenames []string, cfg *config.Config) (string, error) {
@@ -56,29 +62,3 @@ func checkIfTokensExceedsLimits(nofTokens int, model string) error {
     return nil
 }
 
-func RunUserCheck(totalCost string, cfg *config.Config) error {
-	if  cfg.Project.LLM.Provider == "GoogleAI" {
-		fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)
-	} else {
-		fmt.Println("The total cost (USD - $) to run this review is at least:", totalCost)
-	}
-	fmt.Println("This value is an estimate of the total cost of input tokens only.")
-	if cfg.Project.Configuration.CotJustification == "yes" {
-		fmt.Println("Since you have chosen to include the CoT justifications of the answers provided, the total cost of inputs will be higher and depend on the cost of tokens stored in the chat.")
-	}
-	// Ask the user if they want to continue
-	fmt.Print("Do you want to continue? (y/n): ")
-	reader := bufio.NewReader(os.Stdin)
-	response, err := reader.ReadString('\n')
-	if err != nil {
-		return fmt.Errorf("failed to read input: %v", err)
-	}
-
-	// Normalize and check response
-	response = strings.TrimSpace(strings.ToLower(response))
-	if response != "y" {
-		return fmt.Errorf("operation aborted by the user")
-	}
-
-	return nil // No error, operation continues
-}

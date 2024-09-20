@@ -22,6 +22,8 @@ var requestTimestamps []time.Time
 var mutex sync.Mutex
 
 const (
+	// Define a specific exit code for supplier model errors
+	ExitCodeInputSupplierModelError = 1
     // Define a specific exit code for input token errors
     ExitCodeInputTokenError = 2
 )
@@ -53,6 +55,13 @@ func main() {
 		debug.SetupLogging(debug.Stdout, *projectConfigPath)
 	} else {
 		debug.SetupLogging(debug.Silent, *projectConfigPath) // default value
+	}
+
+	// check consistency of supplier / model selections
+	checkModelInProvider := check.IsModelInProvider(config)
+	if checkModelInProvider != nil {
+		log.Printf("Error:\n%v", checkModelInProvider)
+		os.Exit(ExitCodeInputSupplierModelError)
 	}
 
 	// setup other debugging features

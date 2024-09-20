@@ -6,20 +6,18 @@ version = "0.2"
 [project.configuration]
 input_directory = "../projects/input/test" # where the .txt files are
 results_file_name = "../projects/output/test/output_test" # where results will be saved, the path must exists, file extension will be added
-output_format = "json"  # Could be "csv" [default] or "json"
+output_format = "csv"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 duplication = "no" # Could be "yes" or "no" [default]. 
 cot_justification = "no" # Could be "yes" or "no" [default]. 
 
 [project.llm]
-provider = "GoogleAI" # Could be 'OpenAI' or 'GoogleAI'.
+provider = "Cohere" # Could be 'OpenAI', 'GoogleAI', or 'Cohere'.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "gemini-1.5-flash"  # see below: 
-# OpenAI: 'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will use GPT-4o Mini as the model currently minimizing costs and with maximum limits on input tokens.
-# GoogleAI: 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', or '' [default]. Leave empty string (or remove key) if you want cost optimization: it will use Gemini 1.5 Flash as the model currently minimizing costs and with maximum limits on input tokens.
+model = "command-r" #'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', 'command-r-plus', 'command-r', 'command-light', 'command'
 temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability
-tpm_limit = 4000000 # This is the maximin number of tokens per minute that can be processed by the model. 
-rpm_limit = 1000 # This is the maximin number of requests per minute that can be processed by the model. 
+tpm_limit = 0 # This is the maximin number of tokens per minute that can be processed by the model. 
+rpm_limit = 0 # This is the maximin number of requests per minute that can be processed by the model. 
 
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 

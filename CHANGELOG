@@ -9,9 +9,14 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
-## [0.5.0] - ongoing
+## [0.5.0] - 2024-09-20
 ### Added
+- full support for Cohere models
+- check on consistency between selected supplier and models: both must be supported
 - check on model input tokens limit, stops the execution if it exceeds the limit
+### Fixed
+- cleaned code structure of results and check packages
+- updated documentation to include Cohere models and features
 
 ## [0.4.1] - 2024-08-25
 ### Added
@@ -23,7 +28,7 @@ Security: For vulnerabilities.
 - examples of these features
 ### Fixed
 - output in JSON array formatting
-- cleaned code structure by creating debug package an dmoving log setup there
+- cleaned code structure by creating debug package and moving log setup there
 
 ## [0.4.0] - 2024-08-16
 ### Added

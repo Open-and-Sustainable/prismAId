@@ -67,6 +67,8 @@ func LoadConfig(path string) (*Config, error) {
 			config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
 		} else if config.Project.LLM.Provider == "GoogleAI" {
 			config.Project.LLM.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
+		} else if config.Project.LLM.Provider == "Cohere" {
+			config.Project.LLM.ApiKey = os.Getenv("CO_API_KEY")
 		}
 	}
 
