@@ -11,6 +11,7 @@ require (
 	github.com/sashabaranov/go-openai v1.27.1
 	github.com/shopspring/decimal v1.4.0
 	google.golang.org/api v0.186.0
+	github.com/cqroot/prompt v0.9.4
 )
 
 require (
@@ -30,7 +31,6 @@ require (
 	github.com/charmbracelet/x/ansi v0.1.1 // indirect
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
 	github.com/cqroot/multichoose v0.1.1 // indirect
-	github.com/cqroot/prompt v0.9.4 // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect
