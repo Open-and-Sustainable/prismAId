@@ -17,6 +17,12 @@ func main() {
 	// Parse the flags
 	flag.Parse()
 
+	// Check if the user requested help
+	if flag.Arg(0) == "-help" || flag.Arg(0) == "--help" {
+		flag.Usage()
+		return
+	}
+
 	// Check if both flags are missing or both are present, which could be an invalid state
 	if *projectConfigPath == "" && !*initFlag {
 		fmt.Println("Usage: ./prismAId_OS_CPU[.exe] --project <path-to-your-project-config.toml> or --init")
