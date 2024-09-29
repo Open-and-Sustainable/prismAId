@@ -12,6 +12,12 @@ import (
 	input "github.com/cqroot/prompt/input"
 )
 
+// ReviewItem stores a single review item's key and associated values
+type ReviewItem struct {
+	Key    string
+	Values []string
+}
+
 // Function to interactively collect project configuration information with advanced prompt features
 func RunInteractiveConfigCreation() {
 	fmt.Println("Running interactive project configuration initialization...")
@@ -144,11 +150,140 @@ func RunInteractiveConfigCreation() {
 	}
 	CheckErr(err)
 
+	// Prompt for model temperature
+	temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
+		"0",
+		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+	CheckErr(err)
+
+	// Prompt for tpm limit
+	tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
+		"0",
+		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+	CheckErr(err)
+
+	// Prompt for rpm limit
+	rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
+		"0",
+		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+	CheckErr(err)
+
+	// Prompt for persona part of prompt
+	persona := ""
+	choice_persona, err := prompt.New().Ask("Do you confirm the standard 'persona' part of the review prompt?").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "yes", Note: "'You are an experienced scientist working on a systematic review of the literature.'"},
+				{Text: "no", Note: "I will ask you to provide a new text."},
+			},
+			choose.WithHelp(true),)
+	CheckErr(err)
+	if choice_persona == "yes" {
+		persona = "You are an experienced scientist working on a systematic review of the literature."
+	} else {
+		persona, err = prompt.New().Ask("Enter your persona description:").Input("", input.WithHelp(true))
+		CheckErr(err)
+	}
+	fmt.Printf("You selected: %s\n", persona)
+
+	// Prompt for task part of prompt
+	task := ""
+	choice_task, err := prompt.New().Ask("Do you confirm the standard 'task' part of the review prompt?").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "yes", Note: "'You are asked to map the concepts discussed in a scientific paper attached here.'"},
+				{Text: "no", Note: "I will ask you to provide a new text."},
+			},
+			choose.WithHelp(true),)
+	CheckErr(err)
+	if choice_task == "yes" {
+		task = "You are asked to map the concepts discussed in a scientific paper attached here."
+	} else {
+		task, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
+		CheckErr(err)
+	}
+	fmt.Printf("You selected: %s\n", task)
+
+	// Prompt for expected_result part of prompt
+	expected_result := ""
+	choice_exp_result, err := prompt.New().Ask("Do you confirm the standard 'expected_result' part of the review prompt?").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "yes", Note: "'You should output a JSON object with the following keys and possible values:'"},
+				{Text: "no", Note: "I will ask you to provide a new text."},
+			},
+			choose.WithHelp(true),)
+	CheckErr(err)
+	if choice_exp_result == "yes" {
+		expected_result = "You should output a JSON object with the following keys and possible values:"
+	} else {
+		expected_result, err = prompt.New().Ask("Enter your expected_result description:").Input("", input.WithHelp(true))
+		CheckErr(err)
+	}
+	fmt.Printf("You selected: %s\n", expected_result)
+	
+	review := ""
+	definitions := ""
+	example := ""
+
+	// Build answer object
+	review_items := collectReviewItems()
+	if len(review_items) > 0 {
+		review = generateReviewToml(review_items)
+
+		// Build definitions object
+		definitions = collectDefinitions(review_items)
+
+		// Build example object
+		// Prompt for failsafe part of prompt
+		example = ""
+		choice_example, err := prompt.New().Ask("Do you want to provide examples for the review items?").
+			AdvancedChoose(
+				[]choose.Choice{
+					{Text: "no", Note: "This section of the prompt will be left empty."},
+					{Text: "yes, one by one", Note: "I will ask you to provide an example for each item separately."},
+					{Text: "yes, as a whole", Note: "I will ask you to provide a single text example."},
+				},
+				choose.WithHelp(true),)
+		CheckErr(err)
+		if choice_example == "yes, one by one" {
+			example = collectExamples(review_items)
+		} else {
+			if choice_example == "yes, as a whole" {
+				example, err = prompt.New().Ask("Enter your example:").Input("The text 'Lorem ipsum' once reviewed should provide the JSON object [language = \"latin\", if_empty = \"yes\"]", input.WithHelp(true))
+				CheckErr(err)
+			}
+		}
+	} else {
+		fmt.Println("You will have to fill in review items, definitions and examples in your project configuraiton file.")
+	}
+	
+	// Prompt for failsafe part of prompt
+	failsafe := ""
+	choice_failsafe, err := prompt.New().Ask("Do you confirm the standard 'failsafe' part of the review prompt?").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "yes", Note: "'If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value.'"},
+				{Text: "no", Note: "I will ask you to provide a new text."},
+			},
+			choose.WithHelp(true),)
+	CheckErr(err)
+	if choice_failsafe == "yes" {
+		failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
+	} else {
+		failsafe, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
+		CheckErr(err)
+	}
+	fmt.Printf("You selected: %s\n", failsafe)
+
 	// Generate TOML config from user inputs
 	config := generateTomlConfig(
 		projectName, author, version,
 		inputDir, resultsFileName, outputFormat, logLevel,
-		duplication, cotJustification, provider, apiKey, model,
+		duplication, cotJustification, provider, apiKey, model, 
+		temperature, tpmLimit, rpmLimit, 
+		persona, task, expected_result,
+		failsafe, definitions, example, review,
 	)
 
 	// Write the configuration to file
@@ -160,8 +295,121 @@ func RunInteractiveConfigCreation() {
 	}
 }
 
+// Function to interactively collect review items and generate the [review] section of the TOML file
+func collectReviewItems() []ReviewItem {
+	var reviewItems []ReviewItem
+	count := 1
+
+	for {
+		// Ask if the user wants to define a review item
+		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add review item #%d? (yes/no)", count)).
+			Choose([]string{"yes", "no"},
+			choose.WithHelp(true),)
+		CheckErr(err)
+
+		// Break the loop if the user doesn't want to add more items
+		if addItem == "no" {
+			break
+		}
+
+		// Prompt for the key
+		key, err := prompt.New().Ask(fmt.Sprintf("Enter key for review item #%d:", count)).Input("", input.WithHelp(true))
+		CheckErr(err)
+
+		// Prompt for the list of values (comma-separated)
+		valuesInput, err := prompt.New().Ask(fmt.Sprintf("Enter possible values for review item #%d (comma-separated, e.g.: '1, 2, 3'):", count)).Input("", input.WithHelp(true))
+		CheckErr(err)
+
+		// Split the values by comma and store them in a slice
+		values := strings.Split(valuesInput, ",")
+
+		// Create a new ReviewItem and append it to the list
+		reviewItems = append(reviewItems, ReviewItem{
+			Key:    key,
+			Values: values,
+		})
+
+		count++
+	}
+
+	return reviewItems
+}
+
+// Helper function to generate the TOML configuration string for the [review] section
+func generateReviewToml(reviewItems []ReviewItem) string {
+	var tomlReviewSection strings.Builder
+
+	// Loop through the review items and append each one to the TOML string
+	for i, item := range reviewItems {
+		tomlReviewSection.WriteString(fmt.Sprintf("[review.%d]\n", i+1))
+		tomlReviewSection.WriteString(fmt.Sprintf("key = \"%s\"\n", item.Key))
+		tomlReviewSection.WriteString("values = [")
+		for j, value := range item.Values {
+			tomlReviewSection.WriteString(fmt.Sprintf("\"%s\"", strings.TrimSpace(value)))
+			if j < len(item.Values)-1 {
+				tomlReviewSection.WriteString(", ")
+			}
+		}
+		tomlReviewSection.WriteString("]\n")
+	}
+
+	return tomlReviewSection.String()
+}
+
+// Function to interactively collect definitions based on review items 
+func collectDefinitions(reviewItems []ReviewItem) string {
+	definitions := ""
+	for i, rev := range reviewItems {
+		// Ask if the user wants to define a review item
+		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add a definition for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
+			Choose([]string{"yes", "no"})
+		CheckErr(err)
+
+		// Break the loop if the user doesn't want to add more items
+		if addItem == "no" {
+			break
+		}
+
+		// Prompt for the example
+		def, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' definition:", rev.Key)).Input(fmt.Sprintf("As '%s' we intend ...", rev.Key), input.WithHelp(true))
+		CheckErr(err)
+
+		// Add the definition to the definitions string
+		definitions +=  def + " "
+	}
+
+	return definitions
+}
+
+// Function to interactively collect examples based on review items 
+func collectExamples(reviewItems []ReviewItem) string {
+	examples := ""
+	for i, rev := range reviewItems {
+		// Ask if the user wants to make an example for a review item
+		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to make an example for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
+			Choose([]string{"yes", "no"})
+		CheckErr(err)
+
+		// Break the loop if the user doesn't want to add more items
+		if addItem == "no" {
+			break
+		}
+
+		// Prompt for the example
+		exa, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' example:", rev.Key)).Input(fmt.Sprintf("'%s' takes value .. if reviewing the sentence ..", rev.Key), input.WithHelp(true))
+		CheckErr(err)
+
+		// Add the definition to the definitions string
+		examples +=  exa + " "	
+	}
+
+	return examples
+}
+
 // Helper function to generate the TOML configuration string
-func generateTomlConfig(projectName, author, version, inputDir, resultsFileName, outputFormat, logLevel, duplication, cotJustification, provider, apiKey, model string) string {
+func generateTomlConfig(projectName, author, version, inputDir, resultsFileName, outputFormat, 
+	logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
+	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
 [project]
 name = "%s"
@@ -180,7 +428,23 @@ cot_justification = "%s"
 provider = "%s"
 api_key = "%s"
 model = "%s"
-`, projectName, author, version, inputDir, resultsFileName, outputFormat, logLevel, duplication, cotJustification, provider, apiKey, model)
+temperature = "%s"
+tpm_limit = "%s"
+rpm_limit = "%s"
+
+[prompt]
+persona = "%s"
+task = "%s"
+expected_result = "%s"
+failsafe = "%s"
+definitions = "%s"
+example = "%s"
+
+[review]
+%s
+`, projectName, author, version, inputDir, resultsFileName, outputFormat, 
+logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
+persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
 }
 
@@ -262,5 +526,15 @@ func validateFileName(fileName string) error {
 	     return fmt.Errorf("filename must have a .toml extension")
 	}
 
+	return nil
+}
+
+func validateNonNegative(value string) error {
+	if value == "" {
+		return fmt.Errorf("value cannot be empty")
+	}
+	if value[0] == '-' {
+		return fmt.Errorf("value cannot be negative")
+	}
 	return nil
 }
