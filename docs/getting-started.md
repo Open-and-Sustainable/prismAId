@@ -42,15 +42,29 @@ Most AI tools for systematic literature reviews focus on the literature search p
   - To facilitate cost management, prismAId tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
 
 ## Installation
-To use prismAId, download the appropriate executable for your operating system from our [GitHub Releases](https://github.com/ricboer0/prismAId/releases) page.
+To use prismAId, download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismAId/releases) page.
 
-### Running prismAId
-Simply [download](https://github.com/ricboer0/prismAId/releases) the executable for your OS and platform, place it in a suitable directory, prepare a project configuration (.toml), and run it from your command line, e.g.:
+## Running prismAId
+The tool uses humaly readable project configuration files (.toml) to configure and run the reviews.
+
+You can find a template and an example on the [GitHub repository](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects).
+
+prismAId provides an interactive terminal application guiding users in the creation of draft configuration files. This function is activated by calling binaries with the '-init' flag, for instance: 
+
+```bash
+# For Linux on Intel
+./prismAId_linux_amd64 -init
+```
+
+![Terminal app for drafting project configuration file](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/terminal.gif)
+
+Once the project configuration (.toml) is ready, the project can be executed from your command line, e.g.:
 
 ```bash
 # For Windows
-./prismAId_windows_amd64.exe --project your_project.toml
+./prismAId_windows_amd64.exe -project your_project.toml
 ```
+
 After reading the project configuration, prismAId will print out an estimated cost (without warranty) for running the review using the OpenAI model. The user must enter 'y' to proceed. If the user does not enter 'y', the process will exit without making any API calls, ensuring no costs are incurred.
 ```bash
 Total cost (USD - $): 0.0035965

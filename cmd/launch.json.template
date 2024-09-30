@@ -14,6 +14,7 @@
                 "CO_API_KEY": "PUT_COHERE_API_KEY_HERE"
             },
             "args": ["--project", "../projects/proj_test.toml"], // Relative path to the project config
+            //"args": ["--init"],
             "console": "integratedTerminal"
         }
     ]
