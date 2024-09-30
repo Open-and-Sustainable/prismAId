@@ -103,7 +103,7 @@ On [OpenAI](https://platform.openai.com/docs/guides/rate-limits/usage-tiers?cont
 </table>
 
 
-On [GoogleAI](https://ai.google.dev/pricing), as of August 2024 **free of charge** users are subject to the limits:
+On [GoogleAI](https://ai.google.dev/pricing), as of October 2024 **free of charge** users are subject to the limits:
 
 <table class="table-spacing">
     <thead>
@@ -150,13 +150,13 @@ while **pay-as-you-go** users are subject to:
     <tbody>
         <tr>
             <td style="text-align: left;">Gemini 1.5 Flash</td>
-            <td style="text-align: right;">1000</td>
+            <td style="text-align: right;">2000</td>
             <td style="text-align: right;">-</td>
             <td style="text-align: right;">4,000,000</td>
         </tr>
         <tr>
             <td style="text-align: left;">Gemini 1.5 Pro</td>
-            <td style="text-align: right;">360</td>
+            <td style="text-align: right;">1000</td>
             <td style="text-align: right;">-</td>
             <td style="text-align: right;">4,000,000</td>
         </tr>

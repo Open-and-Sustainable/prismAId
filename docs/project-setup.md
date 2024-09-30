@@ -144,7 +144,7 @@ Each model has different limits on the size of inputs and a different cost:
         <tr>
             <td style="text-align: left;">Gemini 1.5 Pro</td>
             <td style="text-align: right;">2,097,152</td>
-            <td style="text-align: right;">$7.00</td>
+            <td style="text-align: right;">$2.50</td>
         </tr>
         <tr>
             <td style="text-align: left;">Gemini 1.0 Pro</td>
