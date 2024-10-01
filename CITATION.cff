@@ -4,6 +4,7 @@ message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
+doi: 10.5281/zenodo.11210796
 authors:
   - given-names: Riccardo
     family-names: Boero
