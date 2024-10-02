@@ -3,6 +3,7 @@
 
 ![GitHub Release](https://img.shields.io/github/v/release/Open-and-Sustainable/prismAId?sort=semver&display_name=tag&style=flat)
 ![GitHub top language](https://img.shields.io/github/languages/top/Open-and-Sustainable/prismAId?style=flat)
+![GitHub License](https://img.shields.io/github/license/Open-and-Sustainable/prismAId?style=flat)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
 
 ## Introduction
