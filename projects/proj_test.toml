@@ -12,7 +12,7 @@ duplication = "no" # Could be "yes" or "no" [default].
 cot_justification = "no" # Could be "yes" or "no" [default]. 
 
 [project.llm]
-provider = "Cohere" # Could be 'OpenAI', 'GoogleAI', or 'Cohere'.
+provider = "Cohere" # Could be 'OpenAI', 'GoogleAI', 'Cohere', or 'Anthropic'.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
 model = "command-r" #'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', 'command-r-plus', 'command-r', 'command-light', 'command'
 temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability

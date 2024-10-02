@@ -13,7 +13,7 @@ cot_justification = "no" # Could be "yes" or "no" [default]. It is the model jus
 #batch_execution = "no"  # Could be "yes" or "no" [default]. Not yet implemented.
 
 [project.llm]
-provider = "OpenAI" # Could be 'OpenAI', 'GoogleAI' or 'Cohere'.
+provider = "OpenAI" # Could be 'OpenAI', 'GoogleAI', 'Cohere', or 'Anthropic'.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
 model = "" # see below: 
 # OpenAI: 'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default]. Leave empty string (or remove key) if you want cost optimizatoin: it will use GPT-4o Mini as the model currently minimizing costs and with maximum limits on input tokens.
