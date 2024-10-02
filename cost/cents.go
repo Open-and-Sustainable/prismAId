@@ -8,7 +8,7 @@ import (
 
 // Define a map to hold the rates for each model
 var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
-	"gpt-4o-mini":             decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
+	"gpt-4o-mini":            decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
 	"gpt-4o":                 decimal.NewFromFloat(5).Div(decimal.NewFromInt(1000000)),
 	"gpt-4-turbo":            decimal.NewFromFloat(10).Div(decimal.NewFromInt(1000000)),
 	"gpt-4":                  decimal.NewFromFloat(30).Div(decimal.NewFromInt(1000000)),
@@ -19,9 +19,13 @@ var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
 	"gemini-1.5-pro":         decimal.NewFromFloat(2.5).Div(decimal.NewFromInt(1000000)),    // the rate is halved if <= 128K input tokens, fixed below
 	"gemini-1.0-pro":         decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
 	"command-r-plus":         decimal.NewFromFloat(2.5).Div(decimal.NewFromInt(1000000)),
-	"command-r":         decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
-	"command-light":         decimal.NewFromFloat(0.3).Div(decimal.NewFromInt(1000000)),
-	"command":         decimal.NewFromFloat(1).Div(decimal.NewFromInt(1000000)),
+	"command-r":              decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
+	"command-light":          decimal.NewFromFloat(0.3).Div(decimal.NewFromInt(1000000)),
+	"command":                decimal.NewFromFloat(1).Div(decimal.NewFromInt(1000000)),
+	"claude-3-5-sonnet":      decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
+	"claude-3-opus":          decimal.NewFromFloat(15).Div(decimal.NewFromInt(1000000)),
+	"claude-3-sonnet":        decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
+	"claude-3-haiku":         decimal.NewFromFloat(0.25).Div(decimal.NewFromInt(1000000)),
 }
 
 func numCentsFromTokens(numTokens int, model string) decimal.Decimal {
