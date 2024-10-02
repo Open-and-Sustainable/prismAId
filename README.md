@@ -7,7 +7,7 @@ prismAId uses generative AI models to extract data from scientific literature. I
 ![GitHub top language](https://img.shields.io/github/languages/top/Open-and-Sustainable/prismAId?style=flat)
 ![GitHub License](https://img.shields.io/github/license/Open-and-Sustainable/prismAId?style=flat)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
-
+---
 ## Specifications
 - **Review protocol**: Designed to support any literature review protocol with a preference for [Prisma 2020](https://www.prisma-statement.org/prisma-2020), which inspired our project name.
 - **Compatibility**: Compatible with Windows, MacOS, and Linux operating systems on AMD64 and ARM64 platforms.
@@ -18,7 +18,7 @@ prismAId uses generative AI models to extract data from scientific literature. I
 - **Output format**: Outputs data in CSV or JSON formats.
 - **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding** required.
 - **Programming Language**: Developed in Go.
-
+---
 ## Documentation
 All the information to install, use, and improve prismAId can be found at [open-and-sustainable.github.io/prismAId](https://open-and-sustainable.github.io/prismAId/).
 
