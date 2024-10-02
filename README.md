@@ -1,7 +1,12 @@
 # ![logo](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_logo.png) prismAId
 # Open Science AI Tools for Systematic, Protocol-Based Literature Reviews
 
-prismAId uses generative AI models to extract data from scientific literature. It offers simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. No coding skills are required to use prismAId.
+prismAId uses generative AI models to extract data from scientific literature. 
+
+It offers simple-to-use, efficient, and replicable methods for analyzing literature when conducting systematic reviews. 
+
+No coding skills are required to use prismAId.
+
 ---
 ![GitHub Release](https://img.shields.io/github/v/release/Open-and-Sustainable/prismAId?sort=semver&display_name=tag&style=flat)
 ![GitHub top language](https://img.shields.io/github/languages/top/Open-and-Sustainable/prismAId?style=flat)
