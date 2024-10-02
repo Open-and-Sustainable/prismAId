@@ -40,6 +40,6 @@ Contributions are welcome! Please follow guidelines at [open-and-sustainable.git
 
 * * *
 ## Citation
-Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews. Zenodo. https://doi.org/10.5281/zenodo.11210796
+Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews. Zenodo. [DOI: 10.5281/zenodo.11210796](https://doi.org/10.5281/zenodo.11210796)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
