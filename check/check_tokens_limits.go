@@ -5,6 +5,9 @@ import (
 
 	"prismAId/config"
 	"prismAId/cost"
+
+	anthropic "github.com/anthropics/anthropic-sdk-go"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 const (
@@ -22,13 +25,15 @@ const (
 	CommandLightMaxTokens = 4096
 	CommandRMaxTokens = 128000
 	CommandRPlusMaxTokens = 128000
+    // Anthropic Models
+    AnthropicMaxTokens = 200000
 )
 
 var ModelMaxTokens = map[string]int{
-    "gpt-4o-mini":      GPT4MiniMaxTokens,
-    "gpt-4o":           GPT4MaxTokens,
-    "gpt-4-turbo":      GPT4TurboMaxTokens,
-    "gpt-3.5-turbo":    GPT35TurboMaxTokens,
+    openai.GPT4oMini:   GPT4MiniMaxTokens,
+    openai.GPT4o:       GPT4MaxTokens,
+    openai.GPT4Turbo:   GPT4TurboMaxTokens,
+    openai.GPT3Dot5Turbo:    GPT35TurboMaxTokens,
     "gemini-1.5-flash": Gemini15FlashMaxTokens,
     "gemini-1.5-pro":   Gemini15ProMaxTokens,
     "gemini-1.0-pro":   Gemini10ProMaxTokens,
@@ -36,6 +41,10 @@ var ModelMaxTokens = map[string]int{
 	"command-r":        CommandRMaxTokens,
 	"command-light":    CommandLightMaxTokens,
 	"command":          CommandMaxTokens,
+    anthropic.ModelClaude_3_5_Sonnet_20240620:      AnthropicMaxTokens,
+    anthropic.ModelClaude_3_Sonnet_20240229:      AnthropicMaxTokens,
+    anthropic.ModelClaude_3_Opus_20240229:      AnthropicMaxTokens,
+    anthropic.ModelClaude_3_Haiku_20240307:      AnthropicMaxTokens,
 }
 
 func RunInputLimitsCheck(prompts []string, filenames []string, cfg *config.Config) (string, error) {

@@ -4,17 +4,20 @@ import (
 	"log"
 
 	"github.com/shopspring/decimal"
+
+	anthropic "github.com/anthropics/anthropic-sdk-go"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 // Define a map to hold the rates for each model
 var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
-	"gpt-4o-mini":            decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
-	"gpt-4o":                 decimal.NewFromFloat(5).Div(decimal.NewFromInt(1000000)),
-	"gpt-4-turbo":            decimal.NewFromFloat(10).Div(decimal.NewFromInt(1000000)),
-	"gpt-4":                  decimal.NewFromFloat(30).Div(decimal.NewFromInt(1000000)),
-	"gpt-4-32k":              decimal.NewFromFloat(60).Div(decimal.NewFromInt(1000000)),
-	"gpt-3.5-turbo":          decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
-	"gpt-3.5-turbo-instruct": decimal.NewFromFloat(1.5).Div(decimal.NewFromInt(1000000)),
+	openai.GPT4oMini:         decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
+	openai.GPT4o:             decimal.NewFromFloat(5).Div(decimal.NewFromInt(1000000)),
+	openai.GPT4Turbo:         decimal.NewFromFloat(10).Div(decimal.NewFromInt(1000000)),
+	openai.GPT4:              decimal.NewFromFloat(30).Div(decimal.NewFromInt(1000000)),
+	openai.GPT432K:           decimal.NewFromFloat(60).Div(decimal.NewFromInt(1000000)),
+	openai.GPT3Dot5Turbo:     decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
+	openai.GPT3Dot5TurboInstruct: decimal.NewFromFloat(1.5).Div(decimal.NewFromInt(1000000)),
 	"gemini-1.5-flash":       decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)), // the rate is halved if <= 128K input tokens, fixed below
 	"gemini-1.5-pro":         decimal.NewFromFloat(2.5).Div(decimal.NewFromInt(1000000)),    // the rate is halved if <= 128K input tokens, fixed below
 	"gemini-1.0-pro":         decimal.NewFromFloat(0.5).Div(decimal.NewFromInt(1000000)),
@@ -22,10 +25,10 @@ var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
 	"command-r":              decimal.NewFromFloat(0.15).Div(decimal.NewFromInt(1000000)),
 	"command-light":          decimal.NewFromFloat(0.3).Div(decimal.NewFromInt(1000000)),
 	"command":                decimal.NewFromFloat(1).Div(decimal.NewFromInt(1000000)),
-	"claude-3-5-sonnet":      decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
-	"claude-3-opus":          decimal.NewFromFloat(15).Div(decimal.NewFromInt(1000000)),
-	"claude-3-sonnet":        decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
-	"claude-3-haiku":         decimal.NewFromFloat(0.25).Div(decimal.NewFromInt(1000000)),
+	anthropic.ModelClaude_3_5_Sonnet_20240620:      decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
+	anthropic.ModelClaude_3_Opus_20240229:          decimal.NewFromFloat(15).Div(decimal.NewFromInt(1000000)),
+	anthropic.ModelClaude_3_Sonnet_20240229:        decimal.NewFromFloat(3).Div(decimal.NewFromInt(1000000)),
+	anthropic.ModelClaude_3_Haiku_20240307:         decimal.NewFromFloat(0.25).Div(decimal.NewFromInt(1000000)),
 }
 
 func numCentsFromTokens(numTokens int, model string) decimal.Decimal {
