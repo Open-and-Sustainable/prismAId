@@ -169,7 +169,46 @@ while **pay-as-you-go** users are subject to:
     </tbody>
 </table>
 
-In September 2024 Cohere does not impose rate limits on production keys while it limti trial keys to 20 API calls per minute (refer to the official [documentation](https://docs.cohere.com/docs/rate-limits)).
+In September 2024 Cohere does not impose rate limits on production keys but trial keys are limited to 20 API calls per minute (refer to the official [documentation](https://docs.cohere.com/docs/rate-limits)).
+
+Anthropic Tier 1 users have the following rate limits:
+<table class="table-spacing">
+    <thead>
+        <tr>
+            <th style="text-align: left;">Model</th>
+            <th style="text-align: right;">RPM</th>
+            <th style="text-align: right;">TPM</th>
+            <th style="text-align: right;">TPD</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left;">Claude 3.5 Sonnet</td>
+            <td style="text-align: right;">50</td>
+            <td style="text-align: right;">40,000</td>
+            <td style="text-align: right;">1,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Claude 3 Opus</td>
+            <td style="text-align: right;">50</td>
+            <td style="text-align: right;">20,000</td>
+            <td style="text-align: right;">1,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Claude 3 Sonnet</td>
+            <td style="text-align: right;">50</td>
+            <td style="text-align: right;">40,000</td>
+            <td style="text-align: right;">1,000,000</td>
+        </tr>
+        <tr>
+            <td style="text-align: left;">Claude 3 Haiku</td>
+            <td style="text-align: right;">50</td>
+            <td style="text-align: right;">50,000</td>
+            <td style="text-align: right;">5,000,000</td>
+        </tr>
+    </tbody>
+</table>
+
 
 **PLEASE NOTE**: If you choose the cost minimization approach described below you must report in the configuration file the smallest tpm and rpm limits of the models by the provider you selected. This is the only way to ensure respecting limits since there is no authomatic check on them by prismAId and the selected model varies because of number of tokens in requests and model use prices.
 
@@ -184,6 +223,7 @@ This feature allows to always automatically select the cheapest model for the jo
 - prismAId utilizes a [library](https://github.com/pkoukk/tiktoken-go) to compute the input tokens for each single-shot prompt before actually executing the call using another [library](https://github.com/sashabaranov/go-openai). Based on the information provided by OpenAI, the cost of each input token for the different models is used to compute the total cost of the inputs to be used in the review. This estimated cost is presented to the user, allowing them to decide whether to proceed with the analysis and incur the associated cost.
 - prismAId calls the Google CountTokens [API](https://cloud.google.com/vertex-ai/generative-ai/docs/model-reference/count-tokens) to compute the input tokens for each single-shot prompt before actually executing the call using a [library](https://github.com/google/generative-ai-go). Based on the information provided by Google AI, the cost of each input token for the different models is used to compute the total cost of the inputs to be used in the review.
 - prismAId calls the Cohere API to compute the input tokens for each single-shot prompt before actually executing the call using a [library](https://github.com/cohere-ai/cohere-go/). Please note that different Cohere models are trained with different tokenizers. This means also that the same prompt may be transformed into different number of input tokens depending on the model used. Based on the information provided by Cohere, the cost of each input token for the different models is used to compute the total cost of the inputs to be used in the review.
+- Anthropic does not release the tokenizer nor an API free endpoint for counting input tokens. Following suggestions from their own Anthropic models, prismAId estimate the number of input tokens using the OpenAI tokenizer.
 - Concise but complete prompts are both cost-effective and efficient in information extraction. Unnecessary text increases costs and may introduce noise, negatively affecting the performance of AI models. While additional explanations and definitions in the prompt engineering part may seem superfluous, they are generally limited in size and do not significantly impact costs.
 - By using a project API key, it is possible to track the cost of each project on the OpenAI [dashboard](https://platform.openai.com/usage), the Google AI [dashboard](https://console.cloud.google.com/billing/), or the Cohere [dashboard](https://dashboard.cohere.com/billing).
 - **The cost assessment function is indicative.**
