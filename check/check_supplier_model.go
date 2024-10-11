@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"prismAId/config"
+	"prismAId/cost"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	openai "github.com/sashabaranov/go-openai"
@@ -50,7 +51,7 @@ var modelProviderMap = map[string]string{
 }
 
 func IsModelInProvider(cfg *config.Config) error {
-	model := cfg.Project.LLM.Model
+	model := cost.GetModel("", cfg)
 	provider := cfg.Project.LLM.Provider
 
 	// Check if the provider exists in the supported providers map

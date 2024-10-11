@@ -40,7 +40,7 @@ func queryAnthropic(prompt string, config *config.Config) (string, string, error
 		log.Println("Failed to marshal response:", err)
 		return "", "", err
 	}
-	log.Printf("Full OpenAI response: %s\n", string(respJSON))
+	log.Printf("Full Anthropic response: %s\n", string(respJSON))
 
 	// Assuming the content response is what you typically use:
 	if len(respJSON) == 0 || respJSON == nil {
