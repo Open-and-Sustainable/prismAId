@@ -52,6 +52,7 @@ output_format = "json"
 log_level = "low"
 duplication = "no"
 cot_justification = "no"
+summary_length = 0
 ```
 - The subsection `[project.configuration]` contains settings related to the project's execution environment:
   - `input_directory`: The directory where the .txt files to be reviewed are located.
@@ -68,7 +69,8 @@ cot_justification = "no"
   - `cot_justification`: Printing of justifications for debugging and validation purposes:
     - `no`: The default value.
     - `yes`: Justifications will be asked to the model after results and saved manuscript by manuscript in the same directory.
-    
+  - `summary_length`: A non negative value defining the number of sentences to be used for summarizing each manuscript. The default value is `0`, which indicates that no summary will be generated. Summaries will be saved in a separate text file.
+
 ### LLM Configuration:
 ```toml
 [project.llm]

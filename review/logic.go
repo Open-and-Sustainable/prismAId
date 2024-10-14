@@ -70,6 +70,10 @@ func RunReview(cfg_path string) error {
 		debug.DuplicateInput(config)
 	}
 
+	if config.Project.Configuration.SummaryLength > 0 {
+		debug.Summarize(config)
+	}
+
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
