@@ -24,11 +24,13 @@ func Convert(config *config.Config) error {
 	for format := range formats {
 		for _, file := range files {
 			fullPath := filepath.Join(inputDir, file.Name())
+
 			if filepath.Ext(file.Name()) == "."+formats[format] {
 				txt_content, err := readText(fullPath, formats[format])
-				if err != nil {
+				if err == nil {
 					fileNameWithoutExt := strings.TrimSuffix(file.Name(), "."+formats[format])
 					txtPath := filepath.Join(inputDir, fileNameWithoutExt+".txt")
+					
 					err = writeText(txt_content, txtPath)
 					if err != nil {
 						log.Println("Error: ", err)
@@ -37,7 +39,7 @@ func Convert(config *config.Config) error {
 				}
 			} else if filepath.Ext(file.Name()) == ".htm" { // this is to treat the special case of html files svaed with .htm extension
 				txt_content, err := readText(fullPath, "html")
-				if err != nil {
+				if err == nil {
 					fileNameWithoutExt := strings.TrimSuffix(file.Name(), ".htm")
 					txtPath := filepath.Join(inputDir, fileNameWithoutExt+".txt")
 					err = writeText(txt_content, txtPath)
