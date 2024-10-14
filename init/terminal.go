@@ -10,6 +10,7 @@ import (
 	prompt "github.com/cqroot/prompt"
 	choose "github.com/cqroot/prompt/choose"
 	input "github.com/cqroot/prompt/input"
+	multichoose "github.com/cqroot/prompt/multichoose"
 )
 
 // ReviewItem stores a single review item's key and associated values
@@ -53,6 +54,21 @@ func RunInteractiveConfigCreation() {
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
 	CheckErr(err)
+
+	// inputConversion
+	val2, err := prompt.New().Ask("Do you need input file conversion from these formats to .txt? (leave empty if not needed)").
+		MultiChoose(
+			[]string{"pdf", "docx", "html"},
+			multichoose.WithDefaultIndexes(0, []int{0, 1, 2}),
+			multichoose.WithHelp(true),
+		)
+	CheckErr(err)
+	inputConversion := ""
+	if len(val2) == 1 {
+		inputConversion = val2[0]
+	} else if len(val2) > 1 {
+		inputConversion = strings.Join(val2, ",")
+	}
 
 	resultsFileName, err := prompt.New().Ask("Enter results directory (must exist):").Input(
 		"./", 
@@ -279,7 +295,7 @@ func RunInteractiveConfigCreation() {
 	// Generate TOML config from user inputs
 	config := generateTomlConfig(
 		projectName, author, version,
-		inputDir, resultsFileName, outputFormat, logLevel,
+		inputDir, inputConversion, resultsFileName, outputFormat, logLevel,
 		duplication, cotJustification, provider, apiKey, model, 
 		temperature, tpmLimit, rpmLimit, 
 		persona, task, expected_result,
@@ -407,7 +423,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 }
 
 // Helper function to generate the TOML configuration string
-func generateTomlConfig(projectName, author, version, inputDir, resultsFileName, outputFormat, 
+func generateTomlConfig(projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
 	logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
 	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
@@ -418,6 +434,7 @@ version = "%s"
 
 [project.configuration]
 input_directory = "%s"
+input_conversion = "%s"
 results_file_name = "%s"
 output_format = "%s"
 log_level = "%s"
@@ -442,7 +459,7 @@ example = "%s"
 
 [review]
 %s
-`, projectName, author, version, inputDir, resultsFileName, outputFormat, 
+`, projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
 logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
 persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
