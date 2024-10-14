@@ -87,6 +87,6 @@ func writeText(text string, txtPath string) error {
 		return fmt.Errorf("error writing to file: %v", err)
 	}
 
-	fmt.Printf("Successfully wrote to %s\n", txtPath)
+	log.Printf("Successfully wrote to %s\n", txtPath)
 	return nil
 }
