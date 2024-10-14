@@ -9,6 +9,13 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.5.2] - ongoing
+### Added
+- input file conversion from pdf, docx, and html
+### Fixed
+- updated documentation to include input document conversion
+- updated terminal init function to include input document conversion
+
 ## [0.5.1] - 2024-09-30
 ### Added
 - terminal app to create project configuration (.toml) file

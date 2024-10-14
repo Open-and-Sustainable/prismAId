@@ -5,6 +5,7 @@ version = "1.0"
 
 [project.configuration]
 input_directory = "/path/to/txt/files" # where the .txt files are
+input_conversion = "" # Could be non active with "" [default] or missing, "pdf", "docx", "html", or any comma separated combination of these formats, as in "pdf,docx"
 results_file_name = "/path/to/save/results" # where results will be saved, the path must exists, file extension will be added
 output_format = "json"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details

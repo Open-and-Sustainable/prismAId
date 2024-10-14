@@ -7,6 +7,7 @@ import (
 	"os"
 	"prismAId/check"
 	"prismAId/config"
+	"prismAId/convert"
 	"prismAId/cost"
 	"prismAId/debug"
 	"prismAId/llm"
@@ -46,6 +47,15 @@ func RunReview(cfg_path string) error {
 		debug.SetupLogging(debug.Stdout, cfg_path)
 	} else {
 		debug.SetupLogging(debug.Silent, cfg_path) // default value
+	}
+
+	// run input conversion if needed
+	if config.Project.Configuration.InputConversion != "no" {
+		err := convert.Convert(config)
+		if err != nil {
+			log.Printf("Error:\n%v", err)
+			os.Exit(ExitCodeErrorInReviewLogic)
+		}
 	}
 
 	// check consistency of supplier / model selections
