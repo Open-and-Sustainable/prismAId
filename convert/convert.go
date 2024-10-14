@@ -35,6 +35,17 @@ func Convert(config *config.Config) error {
 						return fmt.Errorf("error writing to file: %v", err)
 					}
 				}
+			} else if filepath.Ext(file.Name()) == ".htm" { // this is to treat the special case of html files svaed with .htm extension
+				txt_content, err := readText(fullPath, "html")
+				if err != nil {
+					fileNameWithoutExt := strings.TrimSuffix(file.Name(), ".htm")
+					txtPath := filepath.Join(inputDir, fileNameWithoutExt+".txt")
+					err = writeText(txt_content, txtPath)
+					if err != nil {
+						log.Println("Error: ", err)
+						return fmt.Errorf("error writing to file: %v", err)
+					}
+				}
 			}
 		}
 	}
