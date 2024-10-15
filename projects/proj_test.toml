@@ -10,7 +10,7 @@ output_format = "csv"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 duplication = "no" # Could be "yes" or "no" [default]. 
 cot_justification = "no" # Could be "yes" or "no" [default].
-summary = "yes"
+summary = "no" # Could be "yes" or "no" [default].
 
 [project.llm]
 provider = "OpenAI" # Could be 'OpenAI', 'GoogleAI', or 'Cohere'.
