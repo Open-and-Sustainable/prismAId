@@ -9,12 +9,13 @@ results_file_name = "../projects/output/test/output_test" # where results will b
 output_format = "csv"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 duplication = "no" # Could be "yes" or "no" [default]. 
-cot_justification = "no" # Could be "yes" or "no" [default]. 
+cot_justification = "no" # Could be "yes" or "no" [default].
+summary = "yes"
 
 [project.llm]
-provider = "Cohere" # Could be 'OpenAI', 'GoogleAI', or 'Cohere'.
+provider = "OpenAI" # Could be 'OpenAI', 'GoogleAI', or 'Cohere'.
 api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "command-r" #'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', 'command-r-plus', 'command-r', 'command-light', 'command'
+model = "gpt-4o-mini" #'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', 'command-r-plus', 'command-r', 'command-light', 'command'
 temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability
 tpm_limit = 0 # This is the maximin number of tokens per minute that can be processed by the model. 
 rpm_limit = 0 # This is the maximin number of requests per minute that can be processed by the model. 

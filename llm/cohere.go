@@ -74,11 +74,10 @@ func queryCohere(prompt string, config *config.Config) (string, string, string, 
 		justification = justificationResponse.Text
 	}
 
-	if config.Project.Configuration.SummaryLength > 0 {
+	if config.Project.Configuration.Summary == "yes" {
 		// Continue the conversation to ask for summary within the same chat
-		full_summary_query := summary_query + string(config.Project.Configuration.SummaryLength)
 		summarytRequest := &cohere.ChatRequest{
-			Message:        full_summary_query,             // The query for summary
+			Message:        summary_query,             // The query for summary
 			Model:          &model,                          // Same model
 			ConversationId: &chatID,                         // Continue with the same chat ID
 			Temperature:    &config.Project.LLM.Temperature, // Same temperature

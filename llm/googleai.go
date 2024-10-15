@@ -128,12 +128,11 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, e
 	}
 
 	// If summary is required, send a follow-up message
-	if cfg.Project.Configuration.SummaryLength > 0 {
-		full_summary_query := summary_query + string(cfg.Project.Configuration.SummaryLength)
+	if cfg.Project.Configuration.Summary == "yes" {
 		// Switch to text/plain MIME type for justification
 		model.ResponseMIMEType = "text/plain"
 		  
-		summaryResp, err := cs.SendMessage(ctx, genai.Text(full_summary_query))
+		summaryResp, err := cs.SendMessage(ctx, genai.Text(summary_query))
 		if err != nil || len(summaryResp.Candidates) == 0 {
 			log.Printf("Summary error: err:%v \n", err)
 			return resultText, "", "", fmt.Errorf("no summary response from Google AI: %v", err)

@@ -144,7 +144,7 @@ func RunReview(cfg_path string) error {
 		}
 		// save justifications
 		if config.Project.Configuration.CotJustification == "yes" {
-			justificationFilePath := resultsFileName + "_" + filenames[i] + "_justification.txt"
+			justificationFilePath := filenames[i] + "_justification.txt"
 			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
 			if err != nil {
 				log.Println("Error writing justification file:", err)
@@ -152,8 +152,8 @@ func RunReview(cfg_path string) error {
 			}
 		}
 		// save summaries
-		if config.Project.Configuration.SummaryLength > 0 {
-			summaryFilePath := resultsFileName + "_" + filenames[i] + "_summary.txt"
+		if config.Project.Configuration.Summary == "yes" {
+			summaryFilePath := filenames[i] + "_summary.txt"
 			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
 			if err != nil {
 				log.Println("Error writing summary file:", err)

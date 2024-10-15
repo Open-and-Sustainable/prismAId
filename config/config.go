@@ -30,7 +30,7 @@ type ProjectConfiguration struct {
 	BatchExecution  string  `toml:"batch_execution"`
 	CotJustification string  `toml:"cot_justification"`
 	Duplication      string  `toml:"duplication"`
-	SummaryLength    int     `toml:"summary_length"`
+	Summary    string     `toml:"summary"`
 }
 
 type LLMConfig struct {
@@ -88,10 +88,6 @@ func LoadConfig(path string) (*Config, error) {
 		config.Project.Configuration.LogLevel = "low"
 	}
 
-	if config.Project.Configuration.SummaryLength == 0 {
-		config.Project.Configuration.SummaryLength = 0
-	}
-
 	if config.Project.LLM.Temperature == 0 {
 		config.Project.LLM.Temperature = 0
 	}
@@ -102,6 +98,10 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.Configuration.CotJustification == "" {
 		config.Project.Configuration.CotJustification = "no"
+	}
+
+	if config.Project.Configuration.Summary == "" {
+		config.Project.Configuration.Summary = "no"
 	}
 
 	if config.Project.Configuration.Duplication == "" {

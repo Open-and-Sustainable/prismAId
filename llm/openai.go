@@ -79,10 +79,9 @@ func queryOpenAI(prompt string, config *config.Config) (string, string, string, 
 		}
 	}
 
-	if config.Project.Configuration.SummaryLength > 0 {
+	if config.Project.Configuration.Summary == "yes" {
 		// Continue the conversation to ask for summary within the same chat
-		full_summary_query := summary_query + string(config.Project.Configuration.SummaryLength)
-		messages = append(messages, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: full_summary_query})
+		messages = append(messages, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: summary_query})
 
 		summaryParams := openai.ChatCompletionRequest{
 			Model:       model,
