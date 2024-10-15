@@ -9,9 +9,9 @@ No coding skills are required to use prismAId.
 
 ---
 
-![GitHub Release](https://img.shields.io/github/v/release/Open-and-Sustainable/prismAId?sort=semver&display_name=tag&style=flat)
-![GitHub top language](https://img.shields.io/github/languages/top/Open-and-Sustainable/prismAId?style=flat)
-![GitHub License](https://img.shields.io/github/license/Open-and-Sustainable/prismAId?style=flat)
+[![GitHub Release](https://img.shields.io/github/v/release/Open-and-Sustainable/prismAId?sort=semver&display_name=tag&style=flat)](https://github.com/Open-and-Sustainable/prismAId/releases)
+[![GitHub top language](https://img.shields.io/github/languages/top/Open-and-Sustainable/prismAId?style=flat)](https://go.dev/)
+[![GitHub License](https://img.shields.io/github/license/Open-and-Sustainable/prismAId?style=flat)](https://www.gnu.org/licenses/agpl-3.0.en.html#license-text)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
 
 ---
@@ -47,7 +47,7 @@ This project was initiated with the generous support of a SIS internal project f
 ## License
 GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 
-![license](https://www.gnu.org/graphics/agplv3-155x51.png)
+[![license](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl-3.0.en.html#license-text)
 
 
 ---

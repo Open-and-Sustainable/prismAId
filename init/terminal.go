@@ -10,6 +10,7 @@ import (
 	prompt "github.com/cqroot/prompt"
 	choose "github.com/cqroot/prompt/choose"
 	input "github.com/cqroot/prompt/input"
+	multichoose "github.com/cqroot/prompt/multichoose"
 )
 
 // ReviewItem stores a single review item's key and associated values
@@ -54,6 +55,21 @@ func RunInteractiveConfigCreation() {
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
 	CheckErr(err)
 
+	// inputConversion
+	val2, err := prompt.New().Ask("Do you need input file conversion from these formats to .txt? (leave empty if not needed)").
+		MultiChoose(
+			[]string{"pdf", "docx", "html"},
+			multichoose.WithDefaultIndexes(0, []int{0, 1, 2}),
+			multichoose.WithHelp(true),
+		)
+	CheckErr(err)
+	inputConversion := ""
+	if len(val2) == 1 {
+		inputConversion = val2[0]
+	} else if len(val2) > 1 {
+		inputConversion = strings.Join(val2, ",")
+	}
+
 	resultsFileName, err := prompt.New().Ask("Enter results directory (must exist):").Input(
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
@@ -96,6 +112,16 @@ func RunInteractiveConfigCreation() {
 		[]choose.Choice{
 			{Text: "no", Note: "Do not enable chain-of-thought justification."},
 			{Text: "yes", Note: "Enable model justification for the answers in terms of chain of thought."},
+		},
+		choose.WithHelp(true),)
+	CheckErr(err)
+
+	// Manuscript summary
+	summary, err := prompt.New().Ask("Enable document summary (saved on file)?").
+	AdvancedChoose(
+		[]choose.Choice{
+			{Text: "no", Note: "Do not enable document summary."},
+			{Text: "yes", Note: "Enable the preparation fo a short summary for each document reviewed."},
 		},
 		choose.WithHelp(true),)
 	CheckErr(err)
@@ -279,8 +305,8 @@ func RunInteractiveConfigCreation() {
 	// Generate TOML config from user inputs
 	config := generateTomlConfig(
 		projectName, author, version,
-		inputDir, resultsFileName, outputFormat, logLevel,
-		duplication, cotJustification, provider, apiKey, model, 
+		inputDir, inputConversion, resultsFileName, outputFormat, logLevel,
+		duplication, cotJustification, summary, provider, apiKey, model, 
 		temperature, tpmLimit, rpmLimit, 
 		persona, task, expected_result,
 		failsafe, definitions, example, review,
@@ -407,8 +433,8 @@ func collectExamples(reviewItems []ReviewItem) string {
 }
 
 // Helper function to generate the TOML configuration string
-func generateTomlConfig(projectName, author, version, inputDir, resultsFileName, outputFormat, 
-	logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
+func generateTomlConfig(projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
+	logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
 	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
 [project]
@@ -418,11 +444,13 @@ version = "%s"
 
 [project.configuration]
 input_directory = "%s"
+input_conversion = "%s"
 results_file_name = "%s"
 output_format = "%s"
 log_level = "%s"
 duplication = "%s"
 cot_justification = "%s"
+summary = "%s"
 
 [project.llm]
 provider = "%s"
@@ -442,8 +470,8 @@ example = "%s"
 
 [review]
 %s
-`, projectName, author, version, inputDir, resultsFileName, outputFormat, 
-logLevel, duplication, cotJustification, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
+`, projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
+logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
 persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
 }

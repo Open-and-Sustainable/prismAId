@@ -23,12 +23,14 @@ type ProjectConfig struct {
 
 type ProjectConfiguration struct {
 	InputDirectory  string `toml:"input_directory"`
+	InputConversion string `toml:"input_conversion"`
 	ResultsFileName string `toml:"results_file_name"`
 	OutputFormat    string `toml:"output_format"`
 	LogLevel        string `toml:"log_level"`
 	BatchExecution  string  `toml:"batch_execution"`
 	CotJustification string  `toml:"cot_justification"`
 	Duplication      string  `toml:"duplication"`
+	Summary    string     `toml:"summary"`
 }
 
 type LLMConfig struct {
@@ -75,6 +77,11 @@ func LoadConfig(path string) (*Config, error) {
 	}
 
 	// Default values
+
+	if config.Project.Configuration.InputConversion == "" {
+		config.Project.Configuration.InputConversion = "no"
+	}
+
 	if config.Project.Configuration.OutputFormat == "" {
 		config.Project.Configuration.OutputFormat = "csv"
 	}
@@ -93,6 +100,10 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.Configuration.CotJustification == "" {
 		config.Project.Configuration.CotJustification = "no"
+	}
+
+	if config.Project.Configuration.Summary == "" {
+		config.Project.Configuration.Summary = "no"
 	}
 
 	if config.Project.Configuration.Duplication == "" {

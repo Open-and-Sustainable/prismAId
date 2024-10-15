@@ -13,8 +13,9 @@ import (
 	uuid "github.com/google/uuid"
 )
 
-func queryCohere(prompt string, config *config.Config) (string, string, error) {
+func queryCohere(prompt string, config *config.Config) (string, string, string, error) {
 	justification := ""
+	summary := ""
 
 	model := cost.GetModel(prompt, config)
 
@@ -35,20 +36,20 @@ func queryCohere(prompt string, config *config.Config) (string, string, error) {
 	response, err := client.Chat(context.TODO(), chatRequest)
 	if err != nil {
 		log.Printf("Completion error: err:%v len(generations):%v\n", err, len(response.Text))
-		return "", "", fmt.Errorf("no response from Cohere: %v", err)
+		return "", "", "", fmt.Errorf("no response from Cohere: %v", err)
 	}
 
 	// Print the entire response object on log
 	respJSON, err := json.MarshalIndent(response, "", "  ")
 	if err != nil {
 		log.Println("Failed to marshal response:", err)
-		return "", "", err
+		return "", "", "", err
 	}
 	log.Printf("Full Cohere response: %s\n", string(respJSON))
 
 	if len(response.Text) == 0 || response.Text == "" {
 		log.Println("No content found in response")
-		return "", "", fmt.Errorf("no content in response")
+		return "", "", "", fmt.Errorf("no content in response")
 	}
 
 	answer := response.Text
@@ -66,12 +67,32 @@ func queryCohere(prompt string, config *config.Config) (string, string, error) {
 		justificationResponse, err := client.Chat(context.TODO(), justificationRequest)
 		if err != nil || justificationResponse.Text == "" {
 			log.Printf("Justification error: err:%v len(text):%v\n", err, len(justificationResponse.Text))
-			return answer, "", fmt.Errorf("no justification response from Cohere: %v", err)
+			return answer, "", "", fmt.Errorf("no justification response from Cohere: %v", err)
 		}
 
 		// Assign the justification content from the response
 		justification = justificationResponse.Text
 	}
 
-	return answer, justification, nil
+	if config.Project.Configuration.Summary == "yes" {
+		// Continue the conversation to ask for summary within the same chat
+		summarytRequest := &cohere.ChatRequest{
+			Message:        summary_query,             // The query for summary
+			Model:          &model,                          // Same model
+			ConversationId: &chatID,                         // Continue with the same chat ID
+			Temperature:    &config.Project.LLM.Temperature, // Same temperature
+		}
+
+		// Make the API call to ask for justification
+		summaryResponse, err := client.Chat(context.TODO(), summarytRequest)
+		if err != nil || summaryResponse.Text == "" {
+			log.Printf("Summary error: err:%v len(text):%v\n", err, len(summaryResponse.Text))
+			return answer, "", "", fmt.Errorf("no summary response from Cohere: %v", err)
+		}
+
+		// Assign the justification content from the response
+		summary = summaryResponse.Text
+	}
+
+	return answer, justification, summary, nil
 }

@@ -14,7 +14,7 @@ layout: default
     - Download the appropriate executable for your operating system and platform.
 3. **Prepare Papers for Review:**
     - Ensure that all papers to be reviewed are in .txt format.
-    - Papers in html can be saved as text. To convert PDFs to .txt, there are many good options. A good one is the Python solution provided by pdfminer: instructions can be found [here](https://pdfminersix.readthedocs.io/en/latest/).
+    - prismAId offers the ability to automatically convert files in PDF, DOCX, and HTML formats into plain text. To enable this conversion, use the `input_conversion` flag in the `[project.configuration]` section of the review project configuration. Once activated, files are converted to `.txt` format, allowing for further processing and inspection. Since the conversion results are saved as `.txt` files, there is no need to rerun the conversion multiple times.
 
 ## Literature Review Requirements
 - Follow protocols for literature search and identification, for instance as outlined in [PRISMA 2020](https://doi.org/10.1136/bmj.n71).
@@ -46,14 +46,17 @@ version = "1.0"
 ```toml
 [project.configuration]
 input_directory = "/path/to/txt/files"
+input_conversion = ""
 results_file_name = "/path/to/save/results"
 output_format = "json"
 log_level = "low"
 duplication = "no"
 cot_justification = "no"
+summary = "no"
 ```
 - The subsection `[project.configuration]` contains settings related to the project's execution environment:
   - `input_directory`: The directory where the .txt files to be reviewed are located.
+  - `input_conversion` : Could be non active by specifyin the "" value [default] or by removing the key. Can be activated with `pdf`, `docx`, `html`, or any comma separated combination of these formats, as in `pdf,docx`.
   - `results_file_name`: The path where the results will be saved. Ensure the path exists in the filesystem.
   - `output_format`: The format of the output file, either `csv` or `json`.
   - `log_level`: The level of logging:
@@ -66,7 +69,10 @@ cot_justification = "no"
   - `cot_justification`: Printing of justifications for debugging and validation purposes:
     - `no`: The default value.
     - `yes`: Justifications will be asked to the model after results and saved manuscript by manuscript in the same directory.
-    
+  - `summary`: Printing of summary for debugging and validation purposes:
+    - `no`: The default value.
+    - `yes`: A summary will be asked to the model after results and saved manuscript by manuscript in the same directory.
+
 ### LLM Configuration:
 ```toml
 [project.llm]
