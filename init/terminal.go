@@ -116,10 +116,14 @@ func RunInteractiveConfigCreation() {
 		choose.WithHelp(true),)
 	CheckErr(err)
 
-	// Manuscript summary length
-	summaryLength, err := prompt.New().Ask("Enter the number of sentences to include in the summary for each manuscript (0 means no summary):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+	// Manuscript summary
+	summary, err := prompt.New().Ask("Enable document summary (saved on file)?").
+	AdvancedChoose(
+		[]choose.Choice{
+			{Text: "no", Note: "Do not enable document summary."},
+			{Text: "yes", Note: "Enable the preparation fo a short summary for each document reviewed."},
+		},
+		choose.WithHelp(true),)
 	CheckErr(err)
 
 	// LLM provider selection with help
@@ -302,7 +306,7 @@ func RunInteractiveConfigCreation() {
 	config := generateTomlConfig(
 		projectName, author, version,
 		inputDir, inputConversion, resultsFileName, outputFormat, logLevel,
-		duplication, cotJustification, summaryLength, provider, apiKey, model, 
+		duplication, cotJustification, summary, provider, apiKey, model, 
 		temperature, tpmLimit, rpmLimit, 
 		persona, task, expected_result,
 		failsafe, definitions, example, review,
@@ -430,7 +434,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 
 // Helper function to generate the TOML configuration string
 func generateTomlConfig(projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-	logLevel, duplication, cotJustification, summaryLength, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
+	logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
 	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
 [project]
@@ -446,7 +450,7 @@ output_format = "%s"
 log_level = "%s"
 duplication = "%s"
 cot_justification = "%s"
-summary_length = "%s"
+summary = "%s"
 
 [project.llm]
 provider = "%s"
@@ -467,7 +471,7 @@ example = "%s"
 [review]
 %s
 `, projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-logLevel, duplication, cotJustification, summaryLength, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
+logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
 persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
 }
