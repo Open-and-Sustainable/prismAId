@@ -70,10 +70,6 @@ func RunReview(cfg_path string) error {
 		debug.DuplicateInput(config)
 	}
 
-	if config.Project.Configuration.SummaryLength > 0 {
-		debug.Summarize(config)
-	}
-
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
@@ -128,7 +124,7 @@ func RunReview(cfg_path string) error {
 		log.Println("File: ", filenames[i], " Prompt: ", promptText)
 
 		// Query the LLM
-		response, justification, err := llm.QueryLLM(promptText, config)
+		response, justification, summary, err := llm.QueryLLM(promptText, config)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return err
@@ -146,12 +142,21 @@ func RunReview(cfg_path string) error {
 				results.WriteCSVData(response, filenames[i], writer, keys)
 			}
 		}
-
+		// save justifications
 		if config.Project.Configuration.CotJustification == "yes" {
 			justificationFilePath := resultsFileName + "_" + filenames[i] + "_justification.txt"
 			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
 			if err != nil {
 				log.Println("Error writing justification file:", err)
+				return err
+			}
+		}
+		// save summaries
+		if config.Project.Configuration.SummaryLength > 0 {
+			summaryFilePath := resultsFileName + "_" + filenames[i] + "_summary.txt"
+			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
+			if err != nil {
+				log.Println("Error writing summary file:", err)
 				return err
 			}
 		}

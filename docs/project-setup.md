@@ -69,7 +69,7 @@ summary_length = 0
   - `cot_justification`: Printing of justifications for debugging and validation purposes:
     - `no`: The default value.
     - `yes`: Justifications will be asked to the model after results and saved manuscript by manuscript in the same directory.
-  - `summary_length`: A non negative value defining the number of sentences to be used for summarizing each manuscript. The default value is `0`, which indicates that no summary will be generated. Summaries will be saved in a separate text file.
+  - `summary_length`: A non negative value defining the number of sentences to be used for summarizing each manuscript. The default value is `0`, which indicates that no summary will be generated. Summaries will be saved saved manuscript by manuscript in the same directory but in a separate text file.
 
 ### LLM Configuration:
 ```toml
