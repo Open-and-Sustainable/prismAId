@@ -11,6 +11,7 @@ output_format = "json"  # Could be "csv" [default] or "json"
 log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 duplication = "no" # Could be "yes" or "no" [default]. It duplicates the manuscripts to review, hence running model queries twice. It is a feature useful for debugging purposes.
 cot_justification = "no" # Could be "yes" or "no" [default]. It is the model justification in terms of chain of thought for the answers provided.
+summary = "no" # Could be "yes" or "no" [default].  If "no"" [default], summaries will not be generated.
 #batch_execution = "no"  # Could be "yes" or "no" [default]. Not yet implemented.
 
 [project.llm]

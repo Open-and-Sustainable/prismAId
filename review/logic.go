@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"prismAId/check"
 	"prismAId/config"
 	"prismAId/convert"
@@ -124,7 +125,7 @@ func RunReview(cfg_path string) error {
 		log.Println("File: ", filenames[i], " Prompt: ", promptText)
 
 		// Query the LLM
-		response, justification, err := llm.QueryLLM(promptText, config)
+		response, justification, summary, err := llm.QueryLLM(promptText, config)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return err
@@ -142,12 +143,21 @@ func RunReview(cfg_path string) error {
 				results.WriteCSVData(response, filenames[i], writer, keys)
 			}
 		}
-
+		// save justifications
 		if config.Project.Configuration.CotJustification == "yes" {
-			justificationFilePath := resultsFileName + "_" + filenames[i] + "_justification.txt"
+			justificationFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_justification.txt"
 			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
 			if err != nil {
 				log.Println("Error writing justification file:", err)
+				return err
+			}
+		}
+		// save summaries
+		if config.Project.Configuration.Summary == "yes" {
+			summaryFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_summary.txt"
+			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
+			if err != nil {
+				log.Println("Error writing summary file:", err)
 				return err
 			}
 		}
@@ -258,4 +268,14 @@ func waitWithStatus(waitTime int) {
 			break
 		}
 	}
+}
+
+func getDirectoryPath(resultsFileName string) string {
+	dir := filepath.Dir(resultsFileName)
+
+	// If the directory is ".", return an empty string
+	if dir == "." {
+		return ""
+	}
+	return dir
 }

@@ -30,6 +30,7 @@ type ProjectConfiguration struct {
 	BatchExecution  string  `toml:"batch_execution"`
 	CotJustification string  `toml:"cot_justification"`
 	Duplication      string  `toml:"duplication"`
+	Summary    string     `toml:"summary"`
 }
 
 type LLMConfig struct {
@@ -97,6 +98,10 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.Configuration.CotJustification == "" {
 		config.Project.Configuration.CotJustification = "no"
+	}
+
+	if config.Project.Configuration.Summary == "" {
+		config.Project.Configuration.Summary = "no"
 	}
 
 	if config.Project.Configuration.Duplication == "" {
