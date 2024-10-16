@@ -72,5 +72,5 @@ The only drawback is the higher cost incurred from using the model API. Separati
 
 **Further reading:** [OpenAI API Prices](https://openai.com/api/pricing/) - [https://doi.org/10.48550/arXiv.2404.08865](https://doi.org/10.48550/arXiv.2404.08865)
 
-<div id="wcb" class="carbonbadge wcb-d"></div>
+<div id="wcb" class="carbonbadge"></div>
 <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

@@ -230,5 +230,5 @@ This feature allows to always automatically select the cheapest model for the jo
   - We strive to maintain up-to-date data for cost estimation, though our estimations currently pertain only to the input aspect of AI model usage. As such, we cannot guarantee precise assessments.
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage) or the Google AI [dashboard](https://console.cloud.google.com/billing/).
 
-<div id="wcb" class="carbonbadge wcb-d"></div>
+<div id="wcb" class="carbonbadge"></div>
 <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

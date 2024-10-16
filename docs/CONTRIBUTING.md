@@ -57,5 +57,5 @@ Contributions that include new features or substantial changes should be discuss
 
 Thank you again for considering contributing to prismAId. We look forward to your contributions and are excited to see what we can achieve together!
 
-<div id="wcb" class="carbonbadge wcb-d"></div>
+<div id="wcb" class="carbonbadge"></div>
 <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
