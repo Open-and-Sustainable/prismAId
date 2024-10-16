@@ -4,6 +4,10 @@ import (
 	"fmt"
 
 	"prismAId/config"
+	"prismAId/cost"
+
+	anthropic "github.com/anthropics/anthropic-sdk-go"
+	openai "github.com/sashabaranov/go-openai"
 )
 
 const (
@@ -11,20 +15,22 @@ const (
 	GoogleAI = "GoogleAI"
 	OpenAI   = "OpenAI"
 	Cohere   = "Cohere"
+	Anthropic = "Anthropic"
 )
 
 var supportedProviders = map[string]bool{
 	GoogleAI: true,
 	OpenAI:   true,
 	Cohere:   true,
+	Anthropic: true,
 }
 
 var modelProviderMap = map[string]string{
     // OpenAI Models
-    "gpt-4o-mini":      OpenAI,
-    "gpt-4o":           OpenAI,
-    "gpt-4-turbo":      OpenAI,
-    "gpt-3.5-turbo":    OpenAI,
+    openai.GPT4oMini:      OpenAI,
+    openai.GPT4o:           OpenAI,
+    openai.GPT4Turbo:      OpenAI,
+    openai.GPT3Dot5Turbo:    OpenAI,
 
     // GoogleAI Models
     "gemini-1.5-flash": GoogleAI,
@@ -36,10 +42,16 @@ var modelProviderMap = map[string]string{
     "command-r":   	    Cohere,
 	"command-light":    Cohere,
 	"command":          Cohere,
+
+	// Anthropic Models
+	anthropic.ModelClaude_3_5_Sonnet_20240620:      Anthropic,
+	anthropic.ModelClaude_3_Sonnet_20240229:      Anthropic,
+	anthropic.ModelClaude_3_Opus_20240229:      Anthropic,
+	anthropic.ModelClaude_3_Haiku_20240307:      Anthropic,
 }
 
 func IsModelInProvider(cfg *config.Config) error {
-	model := cfg.Project.LLM.Model
+	model := cost.GetModel("", cfg)
 	provider := cfg.Project.LLM.Provider
 
 	// Check if the provider exists in the supported providers map

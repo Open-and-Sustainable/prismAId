@@ -43,6 +43,8 @@ func GetNumTokensFromPrompt(prompt string, cfg *config.Config) int {
 	case "Cohere":
 		model := GetModel(prompt, cfg)
 		numTokens = numTokensFromPromptCohere(prompt, model, cfg)
+	case "Anthropic":
+		numTokens = numTokensFromPromptOpenAI(prompt, "gpt-4o")
 	default:
 		log.Println("Unsupported LLM provider: ", cfg.Project.LLM.Provider)
 		return 0

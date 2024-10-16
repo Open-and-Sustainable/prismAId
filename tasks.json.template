@@ -1,4 +1,6 @@
-// put this in your .vscode folder, remove the .template extension, and remove this line
+// this is to compile the binaries
+// put this in project .vscode folder, remove the .template extension 
+// remove these lines -- excute with ctrl+shift+B
 {
     "version": "2.0.0",
     "tasks": [

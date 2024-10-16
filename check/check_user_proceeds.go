@@ -12,6 +12,8 @@ import (
 func RunUserCheck(totalCost string, cfg *config.Config) error {
 	if  cfg.Project.LLM.Provider == "GoogleAI" {
 		fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)
+	} else if cfg.Project.LLM.Provider == "Anthropic" {
+		fmt.Println("Anthropic tokenizer is not available, hence the estimation of the number of token is very imprecise.\nThe total cost (USD - $) to run this review should be at least:", totalCost)
 	} else {
 		fmt.Println("The total cost (USD - $) to run this review is at least:", totalCost)
 	}

@@ -14,7 +14,8 @@ prismAId uses generative AI models to extract data from scientific literature. I
 - **Supported LLMs**: 
     1. **OpenAI**: GPT-3.5 Turbo, GPT-4 Turbo, GPT-4o, and GPT-4o Mini.
     2. **GoogleAI**: Gemini 1.0 Pro, Gemini 1.5 Pro, and Gemini 1.5 Flash.
-    3. **Cohere**: Command R+, Command R, Command Light, and Command.
+    3. **Cohere**: Command, Command Light, Command R, and Command R+.
+    4. **Anthropic**: Claude 3 Sonnet, Claude 3 Opus, Claude 3 Haiku, Claude 3.5 Sonnet
 - **Output format**: Outputs data in CSV or JSON formats.
 - **Performance**: Designed to process extensive datasets efficiently with minimal user setup and **no coding** required.
 - **Programming Language**: Developed in Go.
@@ -45,3 +46,6 @@ GNU AFFERO GENERAL PUBLIC LICENSE, Version 3
 Boero, R. (2024). prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews. Zenodo. https://doi.org/10.5281/zenodo.11210796
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11210796.svg)](https://doi.org/10.5281/zenodo.11210796)
+
+<div id="wcb" class="carbonbadge wcb-d"></div>
+<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

@@ -33,3 +33,6 @@ prismAId supports Open Science in many aspects:
    - This formalization makes methods and procedures reusable and extendable, allowing researchers to build upon previous analyses and adapt methods to new contexts.
    - By facilitating incremental discoveries, prismAId supports the cumulative advancement of science, where each study contributes to a larger body of knowledge.
    - prismAId's commitment to open science principles ensures that all tools, methods, and data are openly accessible, fostering collaboration and rapid dissemination of innovations.
+
+<div id="wcb" class="carbonbadge wcb-d"></div>
+<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

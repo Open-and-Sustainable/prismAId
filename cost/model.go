@@ -4,7 +4,8 @@ import (
 	"log"
 	"prismAId/config"
 
-	"github.com/sashabaranov/go-openai"
+	openai "github.com/sashabaranov/go-openai"
+	anthropic "github.com/anthropics/anthropic-sdk-go"
 )
 
 func GetModel(prompt string, cfg *config.Config) string {
@@ -16,6 +17,8 @@ func GetModel(prompt string, cfg *config.Config) string {
 		modelFunc = getGoogleAIModel
 	case "Cohere":
 		modelFunc = getCohereModel
+	case "Anthropic":
+		modelFunc = getAnthropicModel
 	default:
 		log.Println("Unsupported LLM provider: ", cfg.Project.LLM.Provider)
 		return ""
@@ -83,6 +86,26 @@ func getCohereModel(prompt string, cfg *config.Config) string {
 		model = cfg.Project.LLM.Model
 	case "command-r-plus":
 		model = cfg.Project.LLM.Model
+	default:
+		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
+		return ""
+	}
+	return model
+}
+
+func getAnthropicModel(prompt string, cfg *config.Config) string {
+	model := anthropic.ModelClaude_3_Haiku_20240307
+	switch cfg.Project.LLM.Model {
+	case "": // cost optimization
+		// all models have the same context window size, hence leave to haiku as the cheapest
+	case "claude-3-5-sonnet":
+		model = anthropic.ModelClaude_3_5_Sonnet_20240620
+	case "claude-3-opus":
+		model = anthropic.ModelClaude_3_Opus_20240229
+	case "claude-3-sonnet":
+		model = anthropic.ModelClaude_3_Sonnet_20240229
+	case "claude-3-haiku":
+		model = anthropic.ModelClaude_3_Haiku_20240307
 	default:
 		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
 		return ""

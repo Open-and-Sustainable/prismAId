@@ -1,4 +1,6 @@
-// put this in your .vscode folder, remove the .template extension, add the API key, and remove this line -- excute with ctrl+shift+B
+// this is to run the command within the vscode terminal and environment
+// put this in project .vscode folder, remove the .template extension, add the API key(s)
+// remove these lines -- start-stop with buttons
 {
     "version": "0.2.0",
     "configurations": [
@@ -11,7 +13,8 @@
             "env": {
                 "OPENAI_API_KEY": "PUT_THE_API_KEY_HERE",
                 "GOOGLE_AI_API_KEY": "PUT_GOOGLE_AI_API_KEY_HERE",
-                "CO_API_KEY": "PUT_COHERE_API_KEY_HERE"
+                "CO_API_KEY": "PUT_COHERE_API_KEY_HERE",
+                "ANTHROPIC_API_KEY": "PUT_ANTHROPIC_API_KEY_HERE"
             },
             "args": ["--project", "../projects/proj_test.toml"], // Relative path to the project config
             //"args": ["--init"],
