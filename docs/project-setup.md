@@ -221,3 +221,5 @@ Each model has different limits on the size of inputs and a different cost:
     </tbody>
 </table>
 
+<div id="wcb" class="carbonbadge wcb-d"></div>
+<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

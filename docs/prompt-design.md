@@ -89,3 +89,6 @@ values = ["world", "continent", "river basin"]
     - The concept or topic to be extracted.
   - `values`: ["world", "continent", "river basin"]
     - The key "geographical scale" can take one of these specific values, indicating the scale of the geographical analysis.
+
+<div id="wcb" class="carbonbadge wcb-d"></div>
+<script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>
