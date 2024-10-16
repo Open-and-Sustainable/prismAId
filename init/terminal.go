@@ -130,9 +130,10 @@ func RunInteractiveConfigCreation() {
 	provider, err := prompt.New().Ask("Choose LLM provider:").
 		AdvancedChoose(
 			[]choose.Choice{
-				{Text: "OpenAI", Note: "OpenAI's GPT-3 or GPT-4 models."},
-				{Text: "GoogleAI", Note: "GoogleAI's Gemini models."},
-				{Text: "Cohere", Note: "Cohere's language models."},
+				{Text: "OpenAI", Note: "OpenAI GPT-3 or GPT-4 models."},
+				{Text: "GoogleAI", Note: "GoogleAI Gemini models."},
+				{Text: "Cohere", Note: "Cohere language models."},
+				{Text: "Anthropic", Note: "Anthropic Claude models."},
 			},
 			choose.WithHelp(true),)
 	CheckErr(err)
@@ -171,6 +172,16 @@ func RunInteractiveConfigCreation() {
 				{Text: "command-light", Note: "Command Light."},
 				{Text: "command-r", Note: "Command R."},
 				{Text: "command-r-plus", Note: "Command R+."},
+			},
+			choose.WithHelp(true),)
+	} else if provider == "Anthropic" {
+		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+			[]choose.Choice{
+				{Text: "", Note: "Model chosen automatically to minimize costs."},
+				{Text: "claude-3-haiku", Note: "Claude 3 Haiku."},
+				{Text: "claude-3-sonnet", Note: "Claude 3 Sonnet."},
+				{Text: "claude-3-opus", Note: "Claude 3 Opus."},
+				{Text: "claude-3-5-sonnet", Note: "Claude 3.5 Sonnet."},
 			},
 			choose.WithHelp(true),)
 	}

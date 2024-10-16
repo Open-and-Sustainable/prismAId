@@ -9,6 +9,12 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.5.3] - forthcoming
+### Added
+- full support for Anthropic AI models through Anthropic API
+### Fixed
+- updated documentation to include Anthropic
+
 ## [0.5.2] - 2024-10-15
 ### Added
 - input file conversion from pdf, docx, and html
@@ -22,8 +28,9 @@ Security: For vulnerabilities.
 - terminal app to create project configuration (.toml) file
 - reference in documentation
 ### Fixed
-- changed parameters of main class to accept activation of terminal app
 - new costs and TPM limits on on GoogleAI Gemini 1.5 pro and flash
+### Changed
+- changed parameters of main class to accept activation of terminal app
 
 ## [0.5.0] - 2024-09-20
 ### Added
