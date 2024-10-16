@@ -7,10 +7,10 @@ version = "0.2"
 input_directory = "../projects/input/test" # where the .txt files are
 results_file_name = "../projects/output/test/output_test" # where results will be saved, the path must exists, file extension will be added
 output_format = "csv"  # Could be "csv" [default] or "json"
-log_level = "high" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
+log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
 duplication = "no" # Could be "yes" or "no" [default]. 
 cot_justification = "no" # Could be "yes" or "no" [default].
-summary = "yes" # Could be "yes" or "no" [default].
+summary = "noi" # Could be "yes" or "no" [default].
 
 [project.llm]
 provider = "Anthropic" # Could be 'OpenAI', 'GoogleAI', 'Cohere', or 'Anthropic'.
