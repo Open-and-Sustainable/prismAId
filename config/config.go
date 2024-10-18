@@ -27,7 +27,7 @@ type ProjectConfiguration struct {
 	ResultsFileName string `toml:"results_file_name"`
 	OutputFormat    string `toml:"output_format"`
 	LogLevel        string `toml:"log_level"`
-	BatchExecution  string  `toml:"batch_execution"`
+	Ensemble		string	`toml:"ensemble"`
 	CotJustification string  `toml:"cot_justification"`
 	Duplication      string  `toml:"duplication"`
 	Summary    string     `toml:"summary"`
@@ -38,8 +38,8 @@ type LLMConfig struct {
 	ApiKey         string  `toml:"api_key"`
 	Model          string  `toml:"model"`
 	Temperature    float64 `toml:"temperature"`
-	TpmLimit       int     `toml:"tpm_limit"`
-	RpmLimit       int     `toml:"rpm_limit"`
+	TpmLimit       int64   `toml:"tpm_limit"`
+	RpmLimit       int64   `toml:"rpm_limit"`
 }
 
 type PromptConfig struct {
@@ -92,10 +92,6 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.LLM.Temperature == 0 {
 		config.Project.LLM.Temperature = 0
-	}
-
-	if config.Project.Configuration.BatchExecution == "" {
-		config.Project.Configuration.BatchExecution = "no"
 	}
 
 	if config.Project.Configuration.CotJustification == "" {

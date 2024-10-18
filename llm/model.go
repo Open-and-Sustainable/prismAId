@@ -1,16 +1,15 @@
-package cost
+package llm
 
 import (
 	"log"
-	"prismAId/config"
 
-	openai "github.com/sashabaranov/go-openai"
 	anthropic "github.com/anthropics/anthropic-sdk-go"
+	openai "github.com/sashabaranov/go-openai"
 )
 
-func GetModel(prompt string, cfg *config.Config) string {
-	var modelFunc func(string, *config.Config) string
-	switch cfg.Project.LLM.Provider {
+func getModel(prompt string, providerName string, modelName string, key string) string {
+	var modelFunc func(string, string, string) string
+	switch providerName {
 	case "OpenAI":
 		modelFunc = getOpenAIModel
 	case "GoogleAI":
@@ -20,15 +19,15 @@ func GetModel(prompt string, cfg *config.Config) string {
 	case "Anthropic":
 		modelFunc = getAnthropicModel
 	default:
-		log.Println("Unsupported LLM provider: ", cfg.Project.LLM.Provider)
+		log.Println("Unsupported LLM provider: ", providerName)
 		return ""
 	}
-	return modelFunc(prompt, cfg)
+	return modelFunc(prompt, modelName, key)
 }
 
-func getOpenAIModel(prompt string, cfg *config.Config) string {
+func getOpenAIModel(prompt string, modelName string, key string) string {
 	model := openai.GPT4oMini
-	switch cfg.Project.LLM.Model {
+	switch modelName {
 	case "": // cost optimization
 		// old code before GPT 4 Omni mini model availability -- now the only solution to minimize the cost
 		/*numTokens := numTokensFromMessages([]openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}, model)
@@ -44,58 +43,58 @@ func getOpenAIModel(prompt string, cfg *config.Config) string {
 	case "gpt-4o-mini":
 		model = openai.GPT4oMini
 	default:
-		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
+		log.Println("Unsopported model: ", modelName)
 		return ""
 	}
 	return model
 }
 
-func getGoogleAIModel(prompt string, cfg *config.Config) string {
+func getGoogleAIModel(prompt string, modelName string, key string) string {
 	model := "gemini-1.0-pro"
-	switch cfg.Project.LLM.Model {
+	switch modelName {
 	case "": // cost optimization, input token limit values: gemini-1.0-pro 30720, gemini-1.5-flash 1048576, gemini-1.5-pro 2097152
-		numTokens := numTokensFromPromptGoogleAI(prompt, model, cfg)
+		numTokens := numTokensFromPromptGoogleAI(prompt, model, key)
 		if numTokens > 30720 && numTokens <= 1048576 {
 			model = "gemini-1.5-flash"
 		} else if numTokens > 1048576 {
 			model = "gemini-1.5-pro"
 		}
 	case "gemini-1.0-pro": // leave the model selected by the user, but chek if supported
-		model = cfg.Project.LLM.Model
+		model = modelName
 	case "gemini-1.5-flash":
-		model = cfg.Project.LLM.Model
+		model = modelName
 	case "gemini-1.5-pro":
-		model = cfg.Project.LLM.Model
+		model = modelName
 	default:
-		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
+		log.Println("Unsopported model: ", modelName)
 		return ""
 	}
 	return model
 }
 
-func getCohereModel(prompt string, cfg *config.Config) string {
+func getCohereModel(prompt string, modelName string, key string) string {
 	model := "command-r"
-	switch cfg.Project.LLM.Model {
+	switch modelName {
 	case "": 
 		// cost optimization, command-r is currently the cheapest and with the most input tokens allowed
 	case "command": // leave the model selected by the user, but chek if supported
-		model = cfg.Project.LLM.Model
+		model = modelName
 	case "command-light":
-		model = cfg.Project.LLM.Model
+		model = modelName
 	case "command-r":
-		model = cfg.Project.LLM.Model
+		model = modelName
 	case "command-r-plus":
-		model = cfg.Project.LLM.Model
+		model = modelName
 	default:
-		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
+		log.Println("Unsopported model: ", modelName)
 		return ""
 	}
 	return model
 }
 
-func getAnthropicModel(prompt string, cfg *config.Config) string {
+func getAnthropicModel(prompt string, modelName string, key string) string {
 	model := anthropic.ModelClaude_3_Haiku_20240307
-	switch cfg.Project.LLM.Model {
+	switch modelName {
 	case "": // cost optimization
 		// all models have the same context window size, hence leave to haiku as the cheapest
 	case "claude-3-5-sonnet":
@@ -107,7 +106,7 @@ func getAnthropicModel(prompt string, cfg *config.Config) string {
 	case "claude-3-haiku":
 		model = anthropic.ModelClaude_3_Haiku_20240307
 	default:
-		log.Println("Unsopported model: ", cfg.Project.LLM.Model)
+		log.Println("Unsopported model: ", modelName)
 		return ""
 	}
 	return model

@@ -2,20 +2,20 @@ package cost
 
 import (
 	"log"
-	"prismAId/config"
+	"prismAId/llm"
 
 	"github.com/shopspring/decimal"
 )
 
-func ComputeCosts(prompts []string, config *config.Config) string {
+func ComputeCosts(prompts []string, llm *llm.LLM) string {
 	// assess and report costs
 	totalCost := decimal.NewFromInt(0)
 	counter := 0
 	for _, prompt := range prompts {
 		counter++
-		cost, model, err := assessPromptCost(prompt, config)
+		cost, err := assessPromptCost(prompt, llm)
 		if err == nil {
-			log.Println("File: ", counter, "Model: ", model, " Cost: ", cost)
+			log.Println("File: ", counter, "Model: ", llm.Model, " Cost: ", cost)
 			totalCost = totalCost.Add(cost)
 		} else {
 			log.Println("Error: ", err)
@@ -24,29 +24,25 @@ func ComputeCosts(prompts []string, config *config.Config) string {
 	return totalCost.String()
 }
 
-func assessPromptCost(prompt string, config *config.Config) (decimal.Decimal, string, error) {
-	model := GetModel(prompt, config)
-	numTokens := GetNumTokensFromPrompt(prompt, config)
-	numCents := numCentsFromTokens(numTokens, model)
-	return numCents, model, nil
+func assessPromptCost(prompt string, llm *llm.LLM) (decimal.Decimal, error) {
+	numTokens := GetNumTokensFromPrompt(prompt, llm)
+	numCents := numCentsFromTokens(numTokens, llm)
+	return numCents, nil
 }
 
-func GetNumTokensFromPrompt(prompt string, cfg *config.Config) int {
+func GetNumTokensFromPrompt(prompt string, llm *llm.LLM) int {
 	var numTokens int
-	switch cfg.Project.LLM.Provider {
+	switch llm.Provider {
 	case "OpenAI":
-		model := GetModel(prompt, cfg)
-		numTokens = numTokensFromPromptOpenAI(prompt, model)
+		numTokens = numTokensFromPromptOpenAI(prompt, llm.Model, llm.APIKey)
 	case "GoogleAI":
-		model := GetModel(prompt, cfg)
-		numTokens = numTokensFromPromptGoogleAI(prompt, model, cfg)
+		numTokens = numTokensFromPromptGoogleAI(prompt, llm.Model, llm.APIKey)
 	case "Cohere":
-		model := GetModel(prompt, cfg)
-		numTokens = numTokensFromPromptCohere(prompt, model, cfg)
+		numTokens = numTokensFromPromptCohere(prompt, llm.Model, llm.APIKey)
 	case "Anthropic":
-		numTokens = numTokensFromPromptOpenAI(prompt, "gpt-4o")
+		numTokens = numTokensFromPromptOpenAI(prompt, "gpt-4o", llm.APIKey)
 	default:
-		log.Println("Unsupported LLM provider: ", cfg.Project.LLM.Provider)
+		log.Println("Unsupported LLM provider: ", llm.Provider)
 		return 0
 	}
 	return numTokens

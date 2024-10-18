@@ -2,6 +2,7 @@ package cost
 
 import (
 	"log"
+	"prismAId/llm"
 
 	"github.com/shopspring/decimal"
 
@@ -31,14 +32,14 @@ var modelRates = map[string]decimal.Decimal{ // dollar prices per input M token
 	anthropic.ModelClaude_3_Haiku_20240307:         decimal.NewFromFloat(0.25).Div(decimal.NewFromInt(1000000)),
 }
 
-func numCentsFromTokens(numTokens int, model string) decimal.Decimal {
-	rate, ok := modelRates[model]
+func numCentsFromTokens(numTokens int, llm *llm.LLM) decimal.Decimal {
+	rate, ok := modelRates[llm.Model]
 	if !ok {
 		rate = decimal.Zero
-		log.Println("Cost estimation unavailable because model not found:", model)
+		log.Println("Cost estimation unavailable because model not found:", llm.Model)
 	}
 	// halve the rate if the number of tokens is less than 128K and using Google AI Gemini 1.5 flash
-	if numTokens <= 128000 && ((model == "gemini-1.5-flash") || (model == "gemini-1.5-pro")) {
+	if numTokens <= 128000 && ((llm.Model == "gemini-1.5-flash") || (llm.Model == "gemini-1.5-pro")) {
 		//if model == "gemini-1.5-flash" {
 			rate = rate.Div(decimal.NewFromInt(2))	
 		//} else if model == "gemini-1.5-pro" {

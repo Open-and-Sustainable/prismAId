@@ -5,31 +5,27 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"prismAId/config"
-	"prismAId/cost"
 
 	cohere "github.com/cohere-ai/cohere-go/v2"
 	cohereclient "github.com/cohere-ai/cohere-go/v2/client"
 	uuid "github.com/google/uuid"
 )
 
-func queryCohere(prompt string, config *config.Config) (string, string, string, error) {
+func queryCohere(prompt string, llm LLM) (string, string, string, error) {
 	justification := ""
 	summary := ""
-
-	model := cost.GetModel(prompt, config)
 
 	chatID := uuid.New().String()
 
 	// Create a new Cohere client
-	client := cohereclient.NewClient(cohereclient.WithToken(config.Project.LLM.ApiKey))
+	client := cohereclient.NewClient(cohereclient.WithToken(llm.APIKey))
 
 	// Define your input data and create a prompt
 	chatRequest := &cohere.ChatRequest{
 		Message:        prompt,
-		Model:          &model,
+		Model:          &llm.Model,
 		ConversationId: &chatID,
-		Temperature:    &config.Project.LLM.Temperature,
+		Temperature:    &llm.Temperature,
 	}
 
 	// Make the API call
@@ -53,7 +49,7 @@ func queryCohere(prompt string, config *config.Config) (string, string, string, 
 	}
 
 	answer := response.Text
-
+/*
 	if config.Project.Configuration.CotJustification == "yes" {
 		// Continue the conversation to ask for justification within the same chat
 		justificationRequest := &cohere.ChatRequest{
@@ -93,6 +89,6 @@ func queryCohere(prompt string, config *config.Config) (string, string, string, 
 		// Assign the justification content from the response
 		summary = summaryResponse.Text
 	}
-
+*/
 	return answer, justification, summary, nil
 }

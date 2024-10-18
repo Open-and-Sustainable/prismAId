@@ -2,16 +2,25 @@ package llm
 
 import (
 	"fmt"
-	"prismAId/config"
 )
 
 const justification_query = "For each one of the keys and answers you provided, provide a justification for your answer as a chain of thought. In particular, I want a textual description of the few stages of the chin of thought that lead you to the answer you provided and the sentences in the text you analyzes that support your decision. If the value of a key was 'no' or empty '' because of lack of information on that topic in the text analyzed, explicitly report this reason. Please provide only th einformation requested, neither introductory nor concluding remarks."
 const summary_query = "Summarize in very few sentences the text provided before for your review."
 
-func QueryLLM(prompt string, cfg *config.Config) (string, string, string, error) {
-	var queryFunc func(string, *config.Config) (string, string, string, error)
+// LLM defines the structure for a large language model configuration
+type LLM struct {
+	Provider    string  // The provider of the LLM (e.g., "OpenAI", "Anthropic")
+	Model       string  // The specific name of the model (e.g., "gpt-4", "claude-v1")
+	APIKey      string  // API key for accessing the model
+	Temperature float64 // Controls the randomness in the model's output
+	TPM         int64   // Tokens per minute limit
+	RPM         int64   // Requests per minute limit
+}
 
-	switch cfg.Project.LLM.Provider {
+func QueryLLM(prompt string, llm LLM) (string, string, string, error) {
+	var queryFunc func(string, LLM) (string, string, string, error)
+
+	switch llm.Provider {
 	case "OpenAI":
 		queryFunc = queryOpenAI
 	case "GoogleAI":
@@ -21,8 +30,25 @@ func QueryLLM(prompt string, cfg *config.Config) (string, string, string, error)
 	case "Anthropic":
 		queryFunc = queryAnthropic
 	default:
-		return "", "", "", fmt.Errorf("unsupported LLM provider: %s", cfg.Project.LLM.Provider)
+		return "", "", "", fmt.Errorf("unsupported LLM provider: %s", llm.Provider)
 	}
 
-	return queryFunc(prompt, cfg)
+	return queryFunc(prompt, llm)
 }
+
+// Constructor-like function to create a cleaned and validated LLM object
+func NewLLM(providerName, modelName, apiKey string, temperature float64, tpm, rpm int64) (*LLM, error) {
+	// get clean model name, an din the meanwhile check provider and model consistency
+	modelName = getModel("", providerName, modelName, apiKey)
+
+	// Create and return the LLM object after validation
+	return &LLM{
+		Provider:    providerName,
+		Model:       modelName,
+		APIKey:      apiKey,
+		Temperature: temperature,
+		TPM:         tpm,
+		RPM:         rpm,
+	}, nil
+}
+

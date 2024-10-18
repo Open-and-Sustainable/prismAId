@@ -4,27 +4,23 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"prismAId/config"
-	"prismAId/cost"
 	"strings"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	option "github.com/anthropics/anthropic-sdk-go/option"
 )
 
-func queryAnthropic(prompt string, config *config.Config) (string, string, string, error) {
+func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
-	model := cost.GetModel(prompt, config)
-
 	// Create a new Anthropic client
 	client := anthropic.NewClient(
-		option.WithAPIKey(config.Project.LLM.ApiKey), 
+		option.WithAPIKey(llm.APIKey), 
 	)
 	// Temperature?? float32(config.Project.LLM.Temperature)
 	message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-		Model:     anthropic.F(model),
+		Model:     anthropic.F(llm.Model),
 		MaxTokens: anthropic.F(int64(4096)),
 		Messages: anthropic.F([]anthropic.MessageParam{
 			anthropic.NewUserMessage(anthropic.NewTextBlock(prompt)),
@@ -48,7 +44,7 @@ func queryAnthropic(prompt string, config *config.Config) (string, string, strin
 		return "", "", "", fmt.Errorf("no valid JSON review response from Anthropic: %v", err)
 	}
 	answer = "{\n"+answer+"\n}"
-
+/*
 	if config.Project.Configuration.CotJustification == "yes" {
 		justification, err = extractSubstringFrom(textBlock, "Explanation:")
 		if err != nil {
@@ -91,6 +87,7 @@ func queryAnthropic(prompt string, config *config.Config) (string, string, strin
 			}
 		}
 	}
+*/
 	return answer, justification, summary, nil
 }
 

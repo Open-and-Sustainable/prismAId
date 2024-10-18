@@ -59,13 +59,6 @@ func RunReview(cfg_path string) error {
 		}
 	}
 
-	// check consistency of supplier / model selections
-	checkModelInProvider := check.IsModelInProvider(config)
-	if checkModelInProvider != nil {
-		log.Printf("Error:\n%v", checkModelInProvider)
-		os.Exit(ExitCodeInputSupplierModelError)
-	}
-
 	// setup other debugging features
 	if config.Project.Configuration.Duplication == "yes" {
 		debug.DuplicateInput(config)
@@ -74,105 +67,24 @@ func RunReview(cfg_path string) error {
 	// generate prompts
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
-	// check if prompts resepct input tokens limits for selected models
-	problem, checkInputLimits := check.RunInputLimitsCheck(prompts, filenames, config)
-	if checkInputLimits != nil {
-		fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models:", problem)
-		log.Println("Max input tokens limits violation:", problem)
-		log.Printf("Error:\n%v", checkInputLimits)
-		os.Exit(ExitCodeInputTokenError)	
-	}
-	// ask if continuing given the total cost
-	check := check.RunUserCheck(cost.ComputeCosts(prompts, config), config)
-	if check != nil {
-		log.Printf("Error:\n%v", check)
-		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
-	}
-	// proceed with the execution
-	// get desired output format
-	output_format := "csv"
-	if config.Project.Configuration.OutputFormat == "json" {
-		output_format = "json"
-	}
 
-	// start writer for results.. the file will be project_name[.csv or .json] in the path where the toml is
-	resultsFileName := config.Project.Configuration.ResultsFileName
-	outputFilePath := resultsFileName + "." + output_format
-	outputFile, err := os.Create(outputFilePath)
-	if err != nil {
-		log.Println("Error creating output file:", err)
-		return err
-	}
-	defer outputFile.Close() // Ensure the file is closed after all operations are done
-
-	var writer *csv.Writer
-	keys := []string{}
-	if config.Project.Configuration.OutputFormat == "csv" {
-		keys = prompt.GetResultsKeys(config)
-		writer = results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
-		defer writer.Flush()                                // Ensure data is flushed after all writes	
-	} else if config.Project.Configuration.OutputFormat == "json" {
-		err = results.StartJSONArray(outputFile)
+	// differentiate logic if simgle model review or ensemble
+	if config.Project.Configuration.Ensemble == "no" {
+		single, err := llm.NewLLM(config.Project.LLM.Provider, config.Project.LLM.Model, config.Project.LLM.ApiKey, config.Project.LLM.Temperature, config.Project.LLM.TpmLimit, config.Project.LLM.RpmLimit)
 		if err != nil {
-			log.Println("Error starting JSON array:", err)
-			return err
-		}
-	}
-
-	// Loop through the prompts
-	for i, promptText := range prompts {
-		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
-		log.Println("File: ", filenames[i], " Prompt: ", promptText)
-
-		// Query the LLM
-		response, justification, summary, err := llm.QueryLLM(promptText, config)
-		if err != nil {
-			log.Println("Error querying LLM:", err)
+			log.Printf("Error:\n%v", err)
 			return err
 		}
 
-		// Handle the output format
-		if output_format == "json" {
-			results.WriteJSONData(response, filenames[i], outputFile) // Write formatted JSON to file
-			// add comma if it's not the last element
-			if i < len(prompts)-1 {
-				results.WriteCommaInJSONArray(outputFile)
-			}
-		} else {
-			if output_format == "csv" {
-				results.WriteCSVData(response, filenames[i], writer, keys)
-			}
-		}
-		// save justifications
-		if config.Project.Configuration.CotJustification == "yes" {
-			justificationFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_justification.txt"
-			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
-			if err != nil {
-				log.Println("Error writing justification file:", err)
-				return err
-			}
-		}
-		// save summaries
-		if config.Project.Configuration.Summary == "yes" {
-			summaryFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_summary.txt"
-			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
-			if err != nil {
-				log.Println("Error writing summary file:", err)
-				return err
-			}
-		}
-
-		// Sleep before the next prompt if it's not the last one
-		if i < len(prompts)-1 {
-			waitWithStatus(getWaitTime(promptText, config))
-		}
-	}
-
-	// close JSON array if needed
-	if config.Project.Configuration.OutputFormat == "json" {
-		err = results.CloseJSONArray(outputFile)
+		err = runSingleModelReview(single, "", prompts, filenames)
 		if err != nil {
-			log.Println("Error closing JSON array:", err)
+			log.Printf("Error:\n%v", err)
+			return err
+		}
+	} else if config.Project.Configuration.Ensemble == "yes" {
+		err = runEnsembleReview(prompts, filenames, config)
+		if err != nil {
+			log.Printf("Error:\n%v", err)
 			return err
 		}
 	}
@@ -278,4 +190,117 @@ func getDirectoryPath(resultsFileName string) string {
 		return ""
 	}
 	return dir
+}
+
+func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filenames []string) error {
+
+	// check if prompts resepct input tokens limits for selected models
+	problem, checkInputLimits := check.RunInputLimitsCheck(prompts, filenames, config)
+	if checkInputLimits != nil {
+		fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models:", problem)
+		log.Println("Max input tokens limits violation:", problem)
+		log.Printf("Error:\n%v", checkInputLimits)
+		os.Exit(ExitCodeInputTokenError)	
+	}
+	// ask if continuing given the total cost
+	check := check.RunUserCheck(cost.ComputeCosts(prompts, llm), config)
+	if check != nil {
+		log.Printf("Error:\n%v", check)
+		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
+	}
+	// proceed with the execution
+	// get desired output format
+	output_format := "csv"
+	if config.Project.Configuration.OutputFormat == "json" {
+		output_format = "json"
+	}
+
+	// start writer for results.. the file will be project_name[.csv or .json] in the path where the toml is
+	resultsFileName := config.Project.Configuration.ResultsFileName
+	outputFilePath := resultsFileName + "." + output_format
+	outputFile, err := os.Create(outputFilePath)
+	if err != nil {
+		log.Println("Error creating output file:", err)
+		return err
+	}
+	defer outputFile.Close() // Ensure the file is closed after all operations are done
+
+	var writer *csv.Writer
+	keys := []string{}
+	if config.Project.Configuration.OutputFormat == "csv" {
+		keys = prompt.GetResultsKeys(config)
+		writer = results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
+		defer writer.Flush()                                // Ensure data is flushed after all writes	
+	} else if config.Project.Configuration.OutputFormat == "json" {
+		err = results.StartJSONArray(outputFile)
+		if err != nil {
+			log.Println("Error starting JSON array:", err)
+			return err
+		}
+	}
+
+	// Loop through the prompts
+	for i, promptText := range prompts {
+		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
+		log.Println("File: ", filenames[i], " Prompt: ", promptText)
+
+		// Query the LLM
+		response, justification, summary, err := llm.QueryLLM(promptText, config)
+		if err != nil {
+			log.Println("Error querying LLM:", err)
+			return err
+		}
+
+		// Handle the output format
+		if output_format == "json" {
+			results.WriteJSONData(response, filenames[i], outputFile) // Write formatted JSON to file
+			// add comma if it's not the last element
+			if i < len(prompts)-1 {
+				results.WriteCommaInJSONArray(outputFile)
+			}
+		} else {
+			if output_format == "csv" {
+				results.WriteCSVData(response, filenames[i], writer, keys)
+			}
+		}
+		// save justifications
+		if config.Project.Configuration.CotJustification == "yes" {
+			justificationFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_justification.txt"
+			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
+			if err != nil {
+				log.Println("Error writing justification file:", err)
+				return err
+			}
+		}
+		// save summaries
+		if config.Project.Configuration.Summary == "yes" {
+			summaryFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_summary.txt"
+			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
+			if err != nil {
+				log.Println("Error writing summary file:", err)
+				return err
+			}
+		}
+
+		// Sleep before the next prompt if it's not the last one
+		if i < len(prompts)-1 {
+			waitWithStatus(getWaitTime(promptText, config))
+		}
+	}
+
+	// close JSON array if needed
+	if config.Project.Configuration.OutputFormat == "json" {
+		err = results.CloseJSONArray(outputFile)
+		if err != nil {
+			log.Println("Error closing JSON array:", err)
+			return err
+		}
+	}	
+	
+	return nil
+}
+
+func runEnsembleReview(prompts []string, filenames []string, config *config.Config) error {
+
+	return nil
 }

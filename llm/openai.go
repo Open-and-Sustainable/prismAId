@@ -5,31 +5,27 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"prismAId/config"
-	"prismAId/cost"
 
 	openai "github.com/sashabaranov/go-openai"
 )
 
-func queryOpenAI(prompt string, config *config.Config) (string, string, string, error) {
+func queryOpenAI(prompt string, llm LLM) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
-	model := cost.GetModel(prompt, config)
-
 	// Create a new OpenAI client
-	client := openai.NewClient(config.Project.LLM.ApiKey)
+	client := openai.NewClient(llm.APIKey)
 
 	// Define your input data and create a prompt.
 	messages := []openai.ChatCompletionMessage{{Role: openai.ChatMessageRoleUser, Content: prompt}}
 
 	completionParams := openai.ChatCompletionRequest{
-		Model:    model,
+		Model:    llm.Model,
 		Messages: messages,
 		ResponseFormat: &openai.ChatCompletionResponseFormat{
 			Type: openai.ChatCompletionResponseFormatTypeJSONObject,
 		},
-		Temperature: float32(config.Project.LLM.Temperature),
+		Temperature: float32(llm.Temperature),
 	}
 
 	// Make the API call
@@ -54,7 +50,7 @@ func queryOpenAI(prompt string, config *config.Config) (string, string, string, 
 	}
 
 	answer := resp.Choices[0].Message.Content
-
+/*
 	if config.Project.Configuration.CotJustification == "yes" {
 		// Continue the conversation to ask for justification within the same chat
 		messages = append(messages, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: justification_query})
@@ -101,7 +97,7 @@ func queryOpenAI(prompt string, config *config.Config) (string, string, string, 
 		} else {
 			log.Println("No content found in summary response")
 		}
-	}
+	}*/
 
 	return answer, justification, summary, nil
 }
