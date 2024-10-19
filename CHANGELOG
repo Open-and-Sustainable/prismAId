@@ -9,11 +9,14 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
-## [0.5.3] - forthcoming
+## [0.6.0] - forthcoming
 ### Added
 - full support for Anthropic AI models through Anthropic API
 ### Fixed
 - updated documentation to include Anthropic
+### Changed
+- deep code refactoring
+- multiple package reorganization
 
 ## [0.5.2] - 2024-10-15
 ### Added
