@@ -8,6 +8,22 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
+// GetModel selects the appropriate model for the given provider based on user input and internal logic.
+//
+// Parameters:
+//   - prompt: The input prompt provided by the user.
+//   - providerName: The name of the AI provider (e.g., "OpenAI", "Cohere").
+//   - modelName: The name of the specific model, if any. If empty, cost optimization is attempted.
+//   - key: A string representing a key for the provider's service.
+//
+// Returns:
+//   - A string representing the selected model name. An empty string is returned if the model is unsupported.
+//
+// Example:
+//   > selectedModel := GetModel("some prompt", "OpenAI", "gpt-4-turbo", "api-key")
+//   > if selectedModel == "" {
+//   >     log.Println("No supported model selected")
+//   > }
 func GetModel(prompt string, providerName string, modelName string, key string) string {
 	var modelFunc func(string, string, string) string
 	switch providerName {

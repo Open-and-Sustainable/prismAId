@@ -10,6 +10,22 @@ import (
 	"prismAId/config"
 )
 
+// Convert processes files from the input directory specified in the configuration and converts them into plain text files.
+//
+// It reads the configuration settings to identify supported formats and input directory paths. The function attempts to
+// convert each file into a .txt file based on its format.
+//
+// Parameters:
+//   - config: A pointer to a config.Config instance containing configuration details.
+//
+// Returns:
+//   - An error if any issue occurs during reading, processing, or writing the files.
+//
+// Example:
+//   > err := convert.Convert(config)
+//   > if err != nil {
+//   >     log.Fatalf("Conversion failed: %v", err)
+//   > }
 func Convert(config *config.Config) error {
 	// Load files from the input directory
 	inputDir := config.Project.Configuration.InputDirectory
@@ -70,7 +86,6 @@ func readText(file string, format string) (string, error) {
 	return modelFunc(file)
 }
 
-// writeText writes the given text to the specified file path
 func writeText(text string, txtPath string) error {
 	// Open the file for writing. If the file doesn't exist, it will be created.
 	// The os.O_WRONLY flag opens the file for writing, and os.O_CREATE creates the file if it doesn't exist.

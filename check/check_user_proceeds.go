@@ -7,6 +7,20 @@ import (
 	"strings"
 )
 
+// RunUserCheck interacts with the user to confirm whether they want to proceed given an estimated cost.
+//
+// Parameters:
+//   - totalCost: A string representation of the estimated cost.
+//   - provider: The name of the AI provider (e.g., "GoogleAI", "Anthropic").
+//
+// Returns:
+//   - An error if the user chooses not to proceed or if an input reading error occurs.
+//
+// Example:
+//   > err := RunUserCheck("100", "GoogleAI")
+//   > if err != nil {
+//   >     log.Println("Operation aborted:", err)
+//   > }
 func RunUserCheck(totalCost string, provider string) error {
 	if  provider == "GoogleAI" {
 		fmt.Println("Unless you are using a free tier with Google AI, the total cost (USD - $) to run this review is at least:", totalCost)

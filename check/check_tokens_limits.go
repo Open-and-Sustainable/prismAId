@@ -46,6 +46,24 @@ var ModelMaxTokens = map[string]int{
     anthropic.ModelClaude_3_Haiku_20240307:      AnthropicMaxTokens,
 }
 
+// RunInputLimitsCheck verifies if the number of tokens in given prompts exceed the allowed limits for a specified model.
+//
+// Parameters:
+//   - prompts: A slice of strings containing the prompts to be checked.
+//   - filenames: A slice of strings containing filenames associated with each prompt.
+//   - provider: The name of the AI provider (e.g., "OpenAI", "GoogleAI").
+//   - model: The name of the model to use for limit checks.
+//   - key: A string representing a key for the provider's service.
+//
+// Returns:
+//   - A string indicating the problem if a token limit is exceeded or an error occurred, otherwise an empty string.
+//   - An error if any token limit is exceeded or if the model is not found.
+//
+// Example:
+//   > problem, err := RunInputLimitsCheck(prompts, filenames, "OpenAI", "gpt-4-turbo", "api-key")
+//   > if err != nil {
+//   >     log.Println("Error:", err)
+//   > }
 func RunInputLimitsCheck(prompts []string, filenames []string, provider string, model string, key string) (string, error) {
 	for i, promptText := range prompts {
 		nofTokens := tokens.GetNumTokensFromPrompt(promptText, provider, model, key)
