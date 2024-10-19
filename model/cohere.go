@@ -1,17 +1,18 @@
-package llm
+package model
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"prismAId/review"
 
 	cohere "github.com/cohere-ai/cohere-go/v2"
 	cohereclient "github.com/cohere-ai/cohere-go/v2/client"
 	uuid "github.com/google/uuid"
 )
 
-func queryCohere(prompt string, llm LLM) (string, string, string, error) {
+func queryCohere(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
@@ -49,14 +50,14 @@ func queryCohere(prompt string, llm LLM) (string, string, string, error) {
 	}
 
 	answer := response.Text
-/*
-	if config.Project.Configuration.CotJustification == "yes" {
+
+	if options.Justification {
 		// Continue the conversation to ask for justification within the same chat
 		justificationRequest := &cohere.ChatRequest{
 			Message:        justification_query,             // The query for justification
-			Model:          &model,                          // Same model
+			Model:          &llm.Model,                          // Same model
 			ConversationId: &chatID,                         // Continue with the same chat ID
-			Temperature:    &config.Project.LLM.Temperature, // Same temperature
+			Temperature:    &llm.Temperature, // Same temperature
 		}
 
 		// Make the API call to ask for justification
@@ -70,13 +71,13 @@ func queryCohere(prompt string, llm LLM) (string, string, string, error) {
 		justification = justificationResponse.Text
 	}
 
-	if config.Project.Configuration.Summary == "yes" {
+	if options.Summary {
 		// Continue the conversation to ask for summary within the same chat
 		summarytRequest := &cohere.ChatRequest{
 			Message:        summary_query,             // The query for summary
-			Model:          &model,                          // Same model
+			Model:          &llm.Model,                          // Same model
 			ConversationId: &chatID,                         // Continue with the same chat ID
-			Temperature:    &config.Project.LLM.Temperature, // Same temperature
+			Temperature:    &llm.Temperature, // Same temperature
 		}
 
 		// Make the API call to ask for justification
@@ -89,6 +90,6 @@ func queryCohere(prompt string, llm LLM) (string, string, string, error) {
 		// Assign the justification content from the response
 		summary = summaryResponse.Text
 	}
-*/
+
 	return answer, justification, summary, nil
 }

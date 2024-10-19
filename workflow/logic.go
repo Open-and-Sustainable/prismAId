@@ -1,4 +1,4 @@
-package review
+package workflow
 
 import (
 	"encoding/csv"
@@ -11,9 +11,11 @@ import (
 	"prismAId/convert"
 	"prismAId/cost"
 	"prismAId/debug"
-	"prismAId/llm"
+	"prismAId/model"
 	"prismAId/prompt"
 	"prismAId/results"
+	"prismAId/review"
+	"prismAId/tokens"
 	"sync"
 	"time"
 )
@@ -68,21 +70,35 @@ func RunReview(cfg_path string) error {
 	prompts, filenames := prompt.ParsePrompts(config)
 	log.Println("Found", len(prompts), "files")
 
+	// build options object
+	options, err := review.NewOptions(config.Project.Configuration.ResultsFileName, config.Project.Configuration.OutputFormat, config.Project.Configuration.CotJustification, config.Project.Configuration.Summary)
+	if err != nil {
+		log.Printf("Error:\n%v", err)
+		return err
+	}
+
+	// build query object
+	query, err := review.NewQuery(prompts, prompt.GetResultsKeys(config))
+	if err != nil {
+		log.Printf("Error:\n%v", err)
+		return err
+	}
+
 	// differentiate logic if simgle model review or ensemble
 	if config.Project.Configuration.Ensemble == "no" {
-		single, err := llm.NewLLM(config.Project.LLM.Provider, config.Project.LLM.Model, config.Project.LLM.ApiKey, config.Project.LLM.Temperature, config.Project.LLM.TpmLimit, config.Project.LLM.RpmLimit)
+		single, err := model.NewLLM(config.Project.LLM.Provider, config.Project.LLM.Model, config.Project.LLM.ApiKey, config.Project.LLM.Temperature, config.Project.LLM.TpmLimit, config.Project.LLM.RpmLimit, "")
 		if err != nil {
 			log.Printf("Error:\n%v", err)
 			return err
 		}
 
-		err = runSingleModelReview(single, "", prompts, filenames)
+		err = runSingleModelReview(single, options, query, filenames)
 		if err != nil {
 			log.Printf("Error:\n%v", err)
 			return err
 		}
 	} else if config.Project.Configuration.Ensemble == "yes" {
-		err = runEnsembleReview(prompts, filenames, config)
+		err = runEnsembleReview(options, query, filenames, config)
 		if err != nil {
 			log.Printf("Error:\n%v", err)
 			return err
@@ -99,7 +115,7 @@ func RunReview(cfg_path string) error {
 }
 
 // Method that returns the number of seconds to wait to respect TPM limits
-func getWaitTime(prompt string, config *config.Config) int {
+func getWaitTime(prompt string, llm *model.LLM) int {
 	// Locking to ensure thread-safety when accessing the requestTimestamps slice
 	mutex.Lock()
 	defer mutex.Unlock()
@@ -126,10 +142,10 @@ func getWaitTime(prompt string, config *config.Config) int {
 	// Analyze TPM limits
 	tpm_wait_seconds := 0
 	// Get the TPM limit from the configuration
-	tpmLimit := config.Project.LLM.TpmLimit
+	tpmLimit := llm.TPM
 	if tpmLimit > 0 {
 		// Get the number of tokens from the prompt
-		tokens := cost.GetNumTokensFromPrompt(prompt, config)
+		tokens := tokens.GetNumTokensFromPrompt(prompt, llm.Provider, llm.Model, llm.APIKey)
 		tpm_wait_seconds = remainingSeconds
 		// Calculate the number of tokens per second allowed
 		tokensPerSecond := float64(tpmLimit) / 60.0
@@ -148,10 +164,10 @@ func getWaitTime(prompt string, config *config.Config) int {
 	}
 	// Analyze RPM limits
 	rpm_wait_seconds := 0
-	rpmLimit := config.Project.LLM.RpmLimit
+	rpmLimit := llm.RPM
 	if rpmLimit > 0 {
 		// If the number of requests risks to exceed the RPM limit, we need to wait
-		if numRequests >= rpmLimit-1 {
+		if numRequests >= int(rpmLimit-1) {
 			rpm_wait_seconds = remainingSeconds
 		}
 	}
@@ -171,12 +187,12 @@ func waitWithStatus(waitTime int) {
 	for range ticker.C {
 		// Print the status only when the remaining time modulo 5 equals 0
 		if remainingTime%5 == 0 {
-			fmt.Printf("Waiting... %d seconds remaining\n", remainingTime)
+			log.Printf("Waiting... %d seconds remaining\n", remainingTime)
 		}
 		remainingTime--
 		// Break the loop when no time is left
 		if remainingTime <= 0 {
-			fmt.Println("Wait completed.")
+			log.Println("Wait completed.")
 			break
 		}
 	}
@@ -192,10 +208,10 @@ func getDirectoryPath(resultsFileName string) string {
 	return dir
 }
 
-func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filenames []string) error {
+func runSingleModelReview(llm *model.LLM, options *review.Options, query *review.Query, filenames []string) error {
 
 	// check if prompts resepct input tokens limits for selected models
-	problem, checkInputLimits := check.RunInputLimitsCheck(prompts, filenames, config)
+	problem, checkInputLimits := check.RunInputLimitsCheck(query.Prompts, filenames, llm.Provider, llm.Model, llm.APIKey)
 	if checkInputLimits != nil {
 		fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models:", problem)
 		log.Println("Max input tokens limits violation:", problem)
@@ -203,21 +219,16 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 		os.Exit(ExitCodeInputTokenError)	
 	}
 	// ask if continuing given the total cost
-	check := check.RunUserCheck(cost.ComputeCosts(prompts, llm), config)
+	check := check.RunUserCheck(cost.ComputeCosts(query.Prompts, llm.Provider, llm.Model, llm.APIKey), llm.Provider)
 	if check != nil {
 		log.Printf("Error:\n%v", check)
 		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
 	}
-	// proceed with the execution
-	// get desired output format
-	output_format := "csv"
-	if config.Project.Configuration.OutputFormat == "json" {
-		output_format = "json"
-	}
 
 	// start writer for results.. the file will be project_name[.csv or .json] in the path where the toml is
-	resultsFileName := config.Project.Configuration.ResultsFileName
-	outputFilePath := resultsFileName + "." + output_format
+	resultsFileName := options.ResultsFileName
+	outputFilePath := resultsFileName + "." + options.OutputFormat
+	if llm.ID != "" {outputFilePath = resultsFileName + "_" + llm.ID + "." + options.OutputFormat}
 	outputFile, err := os.Create(outputFilePath)
 	if err != nil {
 		log.Println("Error creating output file:", err)
@@ -226,12 +237,10 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 	defer outputFile.Close() // Ensure the file is closed after all operations are done
 
 	var writer *csv.Writer
-	keys := []string{}
-	if config.Project.Configuration.OutputFormat == "csv" {
-		keys = prompt.GetResultsKeys(config)
-		writer = results.CreateCSVWriter(outputFile, keys) // Pass the file to CreateWriter
+	if options.OutputFormat == "csv" {
+		writer = results.CreateCSVWriter(outputFile, query.Keys) // Pass the file to CreateWriter
 		defer writer.Flush()                                // Ensure data is flushed after all writes	
-	} else if config.Project.Configuration.OutputFormat == "json" {
+	} else if options.OutputFormat == "json" {
 		err = results.StartJSONArray(outputFile)
 		if err != nil {
 			log.Println("Error starting JSON array:", err)
@@ -240,32 +249,33 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 	}
 
 	// Loop through the prompts
-	for i, promptText := range prompts {
-		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(prompts), filenames[i])
+	for i, promptText := range query.Prompts {
+		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(query.Prompts), filenames[i])
 		log.Println("File: ", filenames[i], " Prompt: ", promptText)
 
 		// Query the LLM
-		response, justification, summary, err := llm.QueryLLM(promptText, config)
+		response, justification, summary, err := model.QueryLLM(promptText, llm, options)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return err
 		}
 
 		// Handle the output format
-		if output_format == "json" {
+		if options.OutputFormat == "json" {
 			results.WriteJSONData(response, filenames[i], outputFile) // Write formatted JSON to file
 			// add comma if it's not the last element
-			if i < len(prompts)-1 {
+			if i < len(query.Prompts)-1 {
 				results.WriteCommaInJSONArray(outputFile)
 			}
 		} else {
-			if output_format == "csv" {
-				results.WriteCSVData(response, filenames[i], writer, keys)
+			if options.OutputFormat == "csv" {
+				results.WriteCSVData(response, filenames[i], writer, query.Keys)
 			}
 		}
 		// save justifications
-		if config.Project.Configuration.CotJustification == "yes" {
+		if options.Justification {
 			justificationFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_justification.txt"
+			if llm.ID != "" {justificationFilePath = getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_justification_"+llm.ID+".txt"}
 			err := os.WriteFile(justificationFilePath, []byte(justification), 0644)
 			if err != nil {
 				log.Println("Error writing justification file:", err)
@@ -273,8 +283,9 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 			}
 		}
 		// save summaries
-		if config.Project.Configuration.Summary == "yes" {
+		if options.Summary {
 			summaryFilePath := getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_summary.txt"
+			if llm.ID != "" {summaryFilePath = getDirectoryPath(resultsFileName) + "/" + filenames[i] + "_summary_"+llm.ID+".txt"}
 			err := os.WriteFile(summaryFilePath, []byte(summary), 0644)
 			if err != nil {
 				log.Println("Error writing summary file:", err)
@@ -283,13 +294,13 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 		}
 
 		// Sleep before the next prompt if it's not the last one
-		if i < len(prompts)-1 {
-			waitWithStatus(getWaitTime(promptText, config))
+		if i < len(query.Prompts)-1 {
+			waitWithStatus(getWaitTime(promptText, llm))
 		}
 	}
 
 	// close JSON array if needed
-	if config.Project.Configuration.OutputFormat == "json" {
+	if options.OutputFormat == "json" {
 		err = results.CloseJSONArray(outputFile)
 		if err != nil {
 			log.Println("Error closing JSON array:", err)
@@ -300,7 +311,7 @@ func runSingleModelReview(llm *llm.LLM, modelID string, prompts []string, filena
 	return nil
 }
 
-func runEnsembleReview(prompts []string, filenames []string, config *config.Config) error {
+func runEnsembleReview(options *review.Options, query *review.Query, filenames []string, config *config.Config) error {
 
 	return nil
 }

@@ -1,16 +1,17 @@
-package llm
+package model
 
 import (
 	"context"
 	"fmt"
 	"log"
 	"strings"
+	"prismAId/review"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	option "github.com/anthropics/anthropic-sdk-go/option"
 )
 
-func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
+func queryAnthropic(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
@@ -44,8 +45,8 @@ func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
 		return "", "", "", fmt.Errorf("no valid JSON review response from Anthropic: %v", err)
 	}
 	answer = "{\n"+answer+"\n}"
-/*
-	if config.Project.Configuration.CotJustification == "yes" {
+
+	if options.Justification {
 		justification, err = extractSubstringFrom(textBlock, "Explanation:")
 		if err != nil {
 			log.Printf("Justification error: err:%v \n", err)
@@ -55,7 +56,7 @@ func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
 		}
 	}
 
-	if config.Project.Configuration.Summary == "yes" {
+	if options.Summary {
 		// Build the conversation history by appending both user and assistant messages
 		// Starting with the original prompt and the assistant's response
 		messages := []anthropic.MessageParam{
@@ -71,7 +72,7 @@ func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
 
 		// Send the new query with the full conversation history
 		summaryMessage, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-			Model:     anthropic.F(model),
+			Model:     anthropic.F(llm.Model),
 			MaxTokens: anthropic.F(int64(4096)), // Adjust MaxTokens as needed
 			Messages:  anthropic.F(messages),
 		})
@@ -87,7 +88,7 @@ func queryAnthropic(prompt string, llm LLM) (string, string, string, error) {
 			}
 		}
 	}
-*/
+
 	return answer, justification, summary, nil
 }
 

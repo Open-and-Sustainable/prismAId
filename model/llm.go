@@ -1,7 +1,10 @@
-package llm
+package model
 
 import (
 	"fmt"
+
+	"prismAId/check"
+	"prismAId/review"
 )
 
 const justification_query = "For each one of the keys and answers you provided, provide a justification for your answer as a chain of thought. In particular, I want a textual description of the few stages of the chin of thought that lead you to the answer you provided and the sentences in the text you analyzes that support your decision. If the value of a key was 'no' or empty '' because of lack of information on that topic in the text analyzed, explicitly report this reason. Please provide only th einformation requested, neither introductory nor concluding remarks."
@@ -15,10 +18,11 @@ type LLM struct {
 	Temperature float64 // Controls the randomness in the model's output
 	TPM         int64   // Tokens per minute limit
 	RPM         int64   // Requests per minute limit
+	ID			string  // ID of the LLM, for ensemble purposes
 }
 
-func QueryLLM(prompt string, llm LLM) (string, string, string, error) {
-	var queryFunc func(string, LLM) (string, string, string, error)
+func QueryLLM(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
+	var queryFunc func(string, *LLM, *review.Options) (string, string, string, error)
 
 	switch llm.Provider {
 	case "OpenAI":
@@ -33,13 +37,13 @@ func QueryLLM(prompt string, llm LLM) (string, string, string, error) {
 		return "", "", "", fmt.Errorf("unsupported LLM provider: %s", llm.Provider)
 	}
 
-	return queryFunc(prompt, llm)
+	return queryFunc(prompt, llm, options)
 }
 
 // Constructor-like function to create a cleaned and validated LLM object
-func NewLLM(providerName, modelName, apiKey string, temperature float64, tpm, rpm int64) (*LLM, error) {
+func NewLLM(providerName, modelName, apiKey string, temperature float64, tpm, rpm int64, id string) (*LLM, error) {
 	// get clean model name, an din the meanwhile check provider and model consistency
-	modelName = getModel("", providerName, modelName, apiKey)
+	modelName = check.GetModel("", providerName, modelName, apiKey)
 
 	// Create and return the LLM object after validation
 	return &LLM{
@@ -49,6 +53,7 @@ func NewLLM(providerName, modelName, apiKey string, temperature float64, tpm, rp
 		Temperature: temperature,
 		TPM:         tpm,
 		RPM:         rpm,
+		ID:			 id,
 	}, nil
 }
 

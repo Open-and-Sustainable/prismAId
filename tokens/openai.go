@@ -1,4 +1,4 @@
-package cost
+package tokens
 
 import (
 	"fmt"

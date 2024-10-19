@@ -1,15 +1,16 @@
-package llm
+package model
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"prismAId/review"
 
 	openai "github.com/sashabaranov/go-openai"
 )
 
-func queryOpenAI(prompt string, llm LLM) (string, string, string, error) {
+func queryOpenAI(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
@@ -50,15 +51,15 @@ func queryOpenAI(prompt string, llm LLM) (string, string, string, error) {
 	}
 
 	answer := resp.Choices[0].Message.Content
-/*
-	if config.Project.Configuration.CotJustification == "yes" {
+
+	if options.Justification {
 		// Continue the conversation to ask for justification within the same chat
 		messages = append(messages, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: justification_query})
 
 		justificationParams := openai.ChatCompletionRequest{
-			Model:       model,
+			Model:       llm.Model,
 			Messages:    messages, // Continue with the same conversation
-			Temperature: float32(config.Project.LLM.Temperature),
+			Temperature: float32(llm.Temperature),
 		}
 
 		justificationResp, err := client.CreateChatCompletion(context.Background(), justificationParams)
@@ -75,14 +76,14 @@ func queryOpenAI(prompt string, llm LLM) (string, string, string, error) {
 		}
 	}
 
-	if config.Project.Configuration.Summary == "yes" {
+	if options.Summary {
 		// Continue the conversation to ask for summary within the same chat
 		messages = append(messages, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: summary_query})
 
 		summaryParams := openai.ChatCompletionRequest{
-			Model:       model,
+			Model:       llm.Model,
 			Messages:    messages, // Continue with the same conversation
-			Temperature: float32(config.Project.LLM.Temperature),
+			Temperature: float32(llm.Temperature),
 		}
 
 		summaryResp, err := client.CreateChatCompletion(context.Background(), summaryParams)
@@ -97,7 +98,7 @@ func queryOpenAI(prompt string, llm LLM) (string, string, string, error) {
 		} else {
 			log.Println("No content found in summary response")
 		}
-	}*/
+	}
 
 	return answer, justification, summary, nil
 }

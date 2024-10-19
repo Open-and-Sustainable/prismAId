@@ -3,8 +3,7 @@ package check
 import (
 	"fmt"
 
-	"prismAId/llm"
-	"prismAId/cost"
+    "prismAId/tokens"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	openai "github.com/sashabaranov/go-openai"
@@ -47,9 +46,9 @@ var ModelMaxTokens = map[string]int{
     anthropic.ModelClaude_3_Haiku_20240307:      AnthropicMaxTokens,
 }
 
-func RunInputLimitsCheck(prompts []string, filenames []string, llm *llm.LLM) (string, error) {
+func RunInputLimitsCheck(prompts []string, filenames []string, provider string, model string, key string) (string, error) {
 	for i, promptText := range prompts {
-		nofTokens := cost.GetNumTokensFromPrompt(promptText, cfg)
+		nofTokens := tokens.GetNumTokensFromPrompt(promptText, provider, model, key)
 		errOnLimits := checkIfTokensExceedsLimits(nofTokens, model)
 		if errOnLimits != nil {
 			problem := filenames[i] + "," + model

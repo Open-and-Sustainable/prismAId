@@ -1,16 +1,17 @@
-package llm
+package model
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"prismAId/review"
 
 	genai "github.com/google/generative-ai-go/genai"
 	option "google.golang.org/api/option"
 )
 
-func queryGoogleAI(prompt string, llm LLM) (string, string, string, error) {
+func queryGoogleAI(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
@@ -81,9 +82,9 @@ func queryGoogleAI(prompt string, llm LLM) (string, string, string, error) {
 		log.Println("No text content found in parts")
 		return "", "", "", fmt.Errorf("no text content in response")
 	}
-/*
+
 	// If justification is required, send a follow-up message
-	if cfg.Project.Configuration.CotJustification == "yes" {
+	if options.Justification {
 		// Switch to text/plain MIME type for justification
 		model.ResponseMIMEType = "text/plain"
 		  
@@ -126,7 +127,7 @@ func queryGoogleAI(prompt string, llm LLM) (string, string, string, error) {
 	}
 
 	// If summary is required, send a follow-up message
-	if cfg.Project.Configuration.Summary == "yes" {
+	if options.Summary {
 		// Switch to text/plain MIME type for justification
 		model.ResponseMIMEType = "text/plain"
 		  
@@ -167,6 +168,6 @@ func queryGoogleAI(prompt string, llm LLM) (string, string, string, error) {
 			return resultText, "", "", fmt.Errorf("no text content in summary response")
 		}
 	}
-*/
+
 	return resultText, justification, summary, nil
 }
