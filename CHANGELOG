@@ -12,6 +12,7 @@ Security: For vulnerabilities.
 ## [0.6.0] - forthcoming
 ### Added
 - full support for Anthropic AI models through Anthropic API
+- inline documentation for package and public functions
 ### Fixed
 - updated documentation to include Anthropic
 ### Changed
