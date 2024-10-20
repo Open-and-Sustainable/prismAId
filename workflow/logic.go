@@ -35,6 +35,15 @@ const (
 var requestTimestamps []time.Time
 var mutex sync.Mutex
 
+// RunReview executes the review process based on the provided configuration file path.
+// This function loads the configuration, manages prompts, and coordinates the various modules to complete 
+// the review workflow.
+//
+// Arguments:
+// - cfg_path: A string representing the file path to the configuration file.
+//
+// Returns:
+// - An error if there is a problem with the configuration or during the review execution.
 func RunReview(cfg_path string) error {
 	// load project configuration
 	config, err := config.LoadConfig(cfg_path)

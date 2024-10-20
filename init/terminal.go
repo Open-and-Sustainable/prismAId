@@ -19,41 +19,46 @@ type ReviewItem struct {
 	Values []string
 }
 
-// Function to interactively collect project configuration information with advanced prompt features
+// RunInteractiveConfig launches an interactive terminal session to collect project configuration information 
+// from the user. It utilizes advanced prompt features to provide a user-friendly way of setting key project 
+// settings.
+//
+// This function offers different types of prompts such as single and multiple choices, allowing the user 
+// to customize configurations based on project requirements.
 func RunInteractiveConfigCreation() {
 	fmt.Println("Running interactive project configuration initialization...")
 
 	// Ask for file path to save the configuration
 	filePath, err := prompt.New().Ask("Enter file path to save the configuration:").Input(
 		"./config.toml", input.WithHelp(true), input.WithValidateFunc(validatePath))
-	CheckErr(err)
+	checkErr(err)
 	
 	// Prompt for project name with help text
 	projectName, err := prompt.New().Ask("Enter project name:").Input(
 		"Test project",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for author name with help
 	author, err := prompt.New().Ask("Enter author name:").Input(
 		"Name Lastname",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for version
 	version, err := prompt.New().Ask("Enter project version:").Input(
 		"0.1",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Configuration details with help for each choice
 	inputDir, err := prompt.New().Ask("Enter input directory (must exist):").Input(
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
-	CheckErr(err)
+	checkErr(err)
 
 	// inputConversion
 	val2, err := prompt.New().Ask("Do you need input file conversion from these formats to .txt? (leave empty if not needed)").
@@ -62,7 +67,7 @@ func RunInteractiveConfigCreation() {
 			multichoose.WithDefaultIndexes(0, []int{0, 1, 2}),
 			multichoose.WithHelp(true),
 		)
-	CheckErr(err)
+	checkErr(err)
 	inputConversion := ""
 	if len(val2) == 1 {
 		inputConversion = val2[0]
@@ -73,7 +78,7 @@ func RunInteractiveConfigCreation() {
 	resultsFileName, err := prompt.New().Ask("Enter results directory (must exist):").Input(
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
-	CheckErr(err)
+	checkErr(err)
 
 	// Advanced choose with help
 	outputFormat, err := prompt.New().Ask("Choose output format:").
@@ -83,7 +88,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "json", Note: "JavaScript Object Notation format for structured data."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Log level with help 
 	logLevel, err := prompt.New().Ask("Choose log level:").
@@ -94,7 +99,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "high", Note: "High verbosity: logs saved to a file for detailed review."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Duplication option with help
 	duplication, err := prompt.New().Ask("Enable duplication (for debugging)?").
@@ -104,7 +109,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "yes", Note: "Duplicate the manuscripts to review, and the cost, useful for consistency checks."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Chain-of-thought justification option
 	cotJustification, err := prompt.New().Ask("Enable chain-of-thought justification (saved on file)?").
@@ -114,7 +119,7 @@ func RunInteractiveConfigCreation() {
 			{Text: "yes", Note: "Enable model justification for the answers in terms of chain of thought."},
 		},
 		choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Manuscript summary
 	summary, err := prompt.New().Ask("Enable document summary (saved on file)?").
@@ -124,7 +129,7 @@ func RunInteractiveConfigCreation() {
 			{Text: "yes", Note: "Enable the preparation fo a short summary for each document reviewed."},
 		},
 		choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// LLM provider selection with help
 	provider, err := prompt.New().Ask("Choose LLM provider:").
@@ -136,11 +141,11 @@ func RunInteractiveConfigCreation() {
 				{Text: "Anthropic", Note: "Anthropic Claude models."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for API key with input mask (for security)
 	apiKey, err := prompt.New().Ask("Enter LLM API key (leave it empty to use environment variable):").Input("", input.WithEchoMode(input.EchoPassword))
-	CheckErr(err)
+	checkErr(err)
 
 	// Model choice for the selected LLM provider
 	model := ""
@@ -185,25 +190,25 @@ func RunInteractiveConfigCreation() {
 			},
 			choose.WithHelp(true),)
 	}
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for model temperature
 	temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
 		"0",
 		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for tpm limit
 	tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
 		"0",
 		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for rpm limit
 	rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
 		"0",
 		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for persona part of prompt
 	persona := ""
@@ -214,12 +219,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_persona == "yes" {
 		persona = "You are an experienced scientist working on a systematic review of the literature."
 	} else {
 		persona, err = prompt.New().Ask("Enter your persona description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", persona)
 
@@ -232,12 +237,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_task == "yes" {
 		task = "You are asked to map the concepts discussed in a scientific paper attached here."
 	} else {
 		task, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", task)
 
@@ -250,12 +255,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_exp_result == "yes" {
 		expected_result = "You should output a JSON object with the following keys and possible values:"
 	} else {
 		expected_result, err = prompt.New().Ask("Enter your expected_result description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", expected_result)
 	
@@ -282,13 +287,13 @@ func RunInteractiveConfigCreation() {
 					{Text: "yes, as a whole", Note: "I will ask you to provide a single text example."},
 				},
 				choose.WithHelp(true),)
-		CheckErr(err)
+		checkErr(err)
 		if choice_example == "yes, one by one" {
 			example = collectExamples(review_items)
 		} else {
 			if choice_example == "yes, as a whole" {
 				example, err = prompt.New().Ask("Enter your example:").Input("The text 'Lorem ipsum' once reviewed should provide the JSON object [language = \"latin\", if_empty = \"yes\"]", input.WithHelp(true))
-				CheckErr(err)
+				checkErr(err)
 			}
 		}
 	} else {
@@ -304,12 +309,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_failsafe == "yes" {
 		failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
 	} else {
 		failsafe, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", failsafe)
 
@@ -342,7 +347,7 @@ func collectReviewItems() []ReviewItem {
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add review item #%d? (yes/no)", count)).
 			Choose([]string{"yes", "no"},
 			choose.WithHelp(true),)
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -351,11 +356,11 @@ func collectReviewItems() []ReviewItem {
 
 		// Prompt for the key
 		key, err := prompt.New().Ask(fmt.Sprintf("Enter key for review item #%d:", count)).Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Prompt for the list of values (comma-separated)
 		valuesInput, err := prompt.New().Ask(fmt.Sprintf("Enter possible values for review item #%d (comma-separated, e.g.: '1, 2, 3'):", count)).Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Split the values by comma and store them in a slice
 		values := strings.Split(valuesInput, ",")
@@ -400,7 +405,7 @@ func collectDefinitions(reviewItems []ReviewItem) string {
 		// Ask if the user wants to define a review item
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add a definition for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
 			Choose([]string{"yes", "no"})
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -409,7 +414,7 @@ func collectDefinitions(reviewItems []ReviewItem) string {
 
 		// Prompt for the example
 		def, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' definition:", rev.Key)).Input(fmt.Sprintf("As '%s' we intend ...", rev.Key), input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Add the definition to the definitions string
 		definitions +=  def + " "
@@ -425,7 +430,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 		// Ask if the user wants to make an example for a review item
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to make an example for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
 			Choose([]string{"yes", "no"})
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -434,7 +439,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 
 		// Prompt for the example
 		exa, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' example:", rev.Key)).Input(fmt.Sprintf("'%s' takes value .. if reviewing the sentence ..", rev.Key), input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Add the definition to the definitions string
 		examples +=  exa + " "	
@@ -500,7 +505,7 @@ func writeTomlConfigToFile(config, filePath string) error {
 }
 
 // CheckErr is a helper to check and handle errors
-func CheckErr(err error) {
+func checkErr(err error) {
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)

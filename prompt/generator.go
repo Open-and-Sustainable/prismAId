@@ -12,6 +12,16 @@ import (
 	"strings"
 )
 
+// ParsePrompts reads the configuration and generates a list of prompts along with their corresponding filenames.
+// The function combines different parts of the prompts to create a structured list of inputs.
+//
+// Arguments:
+// - config: A pointer to the application's configuration which specifies how prompts should be parsed and organized.
+//
+// Returns:
+// - Two slices of strings: 
+//   - The first slice contains the generated prompts.
+//   - The second slice contains the filenames associated with each prompt.
 func ParsePrompts(config *config.Config) ([]string, []string) {
 	// This slice will store all combined prompts
 	var prompts []string
@@ -76,6 +86,15 @@ func parseExpectedResults(config *config.Config) string {
 	return fullSummary
 }
 
+// GetResultsKeysOrdered retrieves the keys from the results configuration in a specific, sorted order.
+// This function ensures that the keys are returned in a consistent order, which is useful for generating 
+// organized outputs.
+//
+// Arguments:
+// - config: A pointer to the application's configuration that specifies the result keys to be retrieved.
+//
+// Returns:
+// - A slice of strings containing the ordered result keys.
 func GetResultsKeysOrdered(config *config.Config) []string {
 	// Collect keys for sorting based on numeric keys to maintain order
 	keys := make([]string, 0, len(config.Review))
@@ -86,6 +105,14 @@ func GetResultsKeysOrdered(config *config.Config) []string {
 	return keys
 }
 
+// GetResultsKeys retrieves the keys from the results configuration without enforcing a specific order.
+// This function is useful when the order of the keys is not critical.
+//
+// Arguments:
+// - config: A pointer to the application's configuration that specifies the result keys to be retrieved.
+//
+// Returns:
+// - A slice of strings containing the result keys.
 func GetResultsKeys(config *config.Config) []string {
 	var keys []string
 	for _, item := range config.Review {

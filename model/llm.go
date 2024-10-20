@@ -21,6 +21,17 @@ type LLM struct {
 	ID			string  // ID of the LLM, for ensemble purposes
 }
 
+// QueryLLM sends a prompt to a specified LLM (Large Language Model) and retrieves the model's response,
+// including justifications and summaries if applicable.
+//
+// Arguments:
+// - prompt: A string containing the input prompt to be processed.
+// - llm: A pointer to the LLM configuration being used.
+// - options: A pointer to the review.Options configuration that specifies additional processing options.
+//
+// Returns:
+// - Three strings representing the justification, summary, and full response from the model.
+// - An error if the interaction with the LLM fails or if processing issues occur.
 func QueryLLM(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
 	var queryFunc func(string, *LLM, *review.Options) (string, string, string, error)
 
@@ -40,7 +51,21 @@ func QueryLLM(prompt string, llm *LLM, options *review.Options) (string, string,
 	return queryFunc(prompt, llm, options)
 }
 
-// Constructor-like function to create a cleaned and validated LLM object
+// NewLLM creates and returns a new LLM instance configured with the specified provider, model, and settings.
+// This function initializes the LLM with API credentials and rate limits to interact with the respective provider.
+//
+// Arguments:
+// - providerName: The name of the LLM service provider (e.g., "OpenAI", "Anthropic").
+// - modelName: The specific name of the model to be used (e.g., "GPT-3", "Claude").
+// - apiKey: A string containing the API key required for authenticating with the provider's service.
+// - temperature: A float64 value representing the desired level of randomness in the model's responses.
+// - tpm: The maximum number of tokens allowed per minute (Tokens Per Minute) for rate-limiting purposes.
+// - rpm: The maximum number of requests allowed per minute (Requests Per Minute) for rate-limiting purposes.
+// - id: A unique identifier for the created LLM instance.
+//
+// Returns:
+// - A pointer to an LLM instance with the provided settings.
+// - An error if the initialization fails.
 func NewLLM(providerName, modelName, apiKey string, temperature float64, tpm, rpm int64, id string) (*LLM, error) {
 	// get clean model name, an din the meanwhile check provider and model consistency
 	modelName = check.GetModel("", providerName, modelName, apiKey)

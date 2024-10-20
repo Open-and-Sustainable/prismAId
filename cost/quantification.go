@@ -7,6 +7,18 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+// ComputeCosts processes a list of input prompts and calculates the total cost based on the specified 
+// model and provider. The function uses predefined rates for each model and computes the cost by 
+// iterating through each prompt.
+//
+// Arguments:
+// - prompts: A slice of strings containing the input prompts to process.
+// - provider: The name of the service provider (e.g., OpenAI).
+// - model: The model being used to process the prompts.
+// - key: An authentication key used for accessing the service.
+//
+// Returns:
+// - A string containing the total cost information as a formatted output.
 func ComputeCosts(prompts []string, provider string, model string, key string) string {
 	// assess and report costs
 	totalCost := decimal.NewFromInt(0)
