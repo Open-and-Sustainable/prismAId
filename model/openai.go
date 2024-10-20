@@ -10,7 +10,7 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-func queryOpenAI(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
+func queryOpenAI(prompt string, llm review.Model, options review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 

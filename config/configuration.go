@@ -6,7 +6,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-
 // Config defines the top-level configuration structure, matching the TOML file layout.
 type Config struct {
 	Project ProjectConfig         `toml:"project"`
@@ -83,7 +82,7 @@ func LoadConfig(path string) (*Config, error) {
 		return nil, err
 	}
 
-	for _, llm := range config.Project.LLM {
+	for key, llm := range config.Project.LLM {
 		if llm.ApiKey == "" {  // If API key is empty, look for it in environment variables
 			switch llm.Provider {
 			case "OpenAI":
@@ -96,6 +95,7 @@ func LoadConfig(path string) (*Config, error) {
 				llm.ApiKey = os.Getenv("ANTHROPIC_API_KEY")
 			}
 		}
+
 		if llm.Temperature < 0 {
 			llm.Temperature = 0
 		}
@@ -105,10 +105,11 @@ func LoadConfig(path string) (*Config, error) {
 		if llm.RpmLimit < 0 {
 			llm.RpmLimit = 0 
 		}
+		// Update the map directly with the modified llm
+		config.Project.LLM[key] = llm
 	}
 
 	// Default values
-
 	if config.Project.Configuration.InputConversion == "" {
 		config.Project.Configuration.InputConversion = "no"
 	}

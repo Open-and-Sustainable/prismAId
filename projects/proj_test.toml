@@ -8,47 +8,17 @@ input_directory = "../projects/input/test"
 results_file_name = "../projects/output/test/output_test"
 output_format = "csv"
 log_level = "low"
-ensemble = "yes"
 duplication = "no"
 cot_justification = "no"
 summary = "no"
 
 [project.llm]
-provider = "Anthropic"
-api_key = ""
-model = "claude-3-haiku" 
-temperature = 0.0001
-tpm_limit = 0
-rpm_limit = 0
-
-[project.multi-model] 
-[project.multi-model.1]
+[project.llm.1]
 provider = "OpenAI"
-api_key = "" 
-model = "gpt-4o-mini" 
-temperature = 0.001 
-tpm_limit = 0 
-rpm_limit = 0
-[project.multi-model.2]
-provider = "GoogleAI"
-api_key = "" 
-model = "gemini-1.5-flash"
-temperature = 0.001 
-tpm_limit = 0 
-rpm_limit = 0
-[project.multi-model.3]
-provider = "Cohere"
-api_key = "" 
-model = "command-light"
-temperature = 0.001 
-tpm_limit = 0 
-rpm_limit = 0
-[project.multi-model.4]
-provider = "Anthropic"
-api_key = "" 
-model = "claude-3-haiku"
-temperature = 0.001 
-tpm_limit = 0 
+api_key = ""
+model = "gpt-4o-mini"
+temperature = 0.001
+tpm_limit = 0
 rpm_limit = 0
 
 [prompt]

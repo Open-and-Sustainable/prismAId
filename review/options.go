@@ -21,15 +21,15 @@ type Options struct {
 // - summary: A string that should be "yes" or "no" to determine if summaries are included.
 //
 // Returns:
-// - A pointer to an Options instance with the specified settings.
+// - An Options instance with the specified settings.
 // - An error if the creation fails, although the current implementation does not anticipate errors.
-func NewOptions(resultsFilename string, outputFormat string, justification string, summary string) (*Options, error) {
+func NewOptions(resultsFilename string, outputFormat string, justification string, summary string) (Options, error) {
 	boolJustification := false
 	if justification == "yes" {boolJustification = true}
 	boolSummary := false
 	if summary == "yes" {boolSummary = true}
 
-	return &Options{
+	return Options{
 		ResultsFileName: resultsFilename,
 		OutputFormat:    outputFormat,
 		Justification:   boolJustification,

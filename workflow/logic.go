@@ -93,38 +93,30 @@ func RunReview(cfg_path string) error {
 		return err
 	}
 
+	// build models object
+	models, err := review.NewModels(config.Project.LLM)
+	if err != nil {
+		log.Printf("Error:\n%v", err)
+		return err
+	}
+	
 	// differentiate logic if simgle model review or ensemble
 	ensemble := false
-	if len(config.Project.LLM) > 1 {ensemble = true}
-	if !ensemble {
-		key := getKeys(config.Project.LLM)[0]
-		single, err := model.NewLLM(config.Project.LLM[key].Provider, config.Project.LLM[key].Model, config.Project.LLM[key].ApiKey, config.Project.LLM[key].Temperature, config.Project.LLM[key].TpmLimit, config.Project.LLM[key].RpmLimit, "")
-		if err != nil {
-			log.Printf("Error:\n%v", err)
-			return err
-		}
+	if len(models) > 1 {ensemble = true}
 
-		err = runSingleModelReview(single, options, query, filenames)
-		if err != nil {
-			log.Printf("Error:\n%v", err)
-			return err
-		}
-	} else {
-		for key, llm := range config.Project.LLM {
-			run, err := model.NewLLM(llm.Provider, llm.Model, llm.ApiKey, llm.Temperature, llm.TpmLimit, llm.RpmLimit, key)
-			if err != nil {
-				log.Printf("Error:\n%v", err)
-				return err
-			}
-	
-			err = runSingleModelReview(run, options, query, filenames)
-			if err != nil {
-				log.Printf("Error:\n%v", err)
-				return err
-			}	
-		}
+	if ensemble {
+		fmt.Println("Cost estimates are available for single model reviews only.")
 	}
-
+	
+	for _, model := range models {
+		if !ensemble {model.ID = ""}
+		err = runSingleModelReview(model, options, query, filenames)
+		if err != nil {
+			log.Printf("Error:\n%v", err)
+			return err
+		}	
+	}
+	
 	// cleanup eventual debugging temporary files
 	if config.Project.Configuration.Duplication == "yes" {
 		debug.RemoveDuplicateInput(config)
@@ -135,7 +127,7 @@ func RunReview(cfg_path string) error {
 }
 
 // Method that returns the number of seconds to wait to respect TPM limits
-func getWaitTime(prompt string, llm *model.LLM) int {
+func getWaitTime(prompt string, llm review.Model) int {
 	// Locking to ensure thread-safety when accessing the requestTimestamps slice
 	mutex.Lock()
 	defer mutex.Unlock()
@@ -228,33 +220,7 @@ func getDirectoryPath(resultsFileName string) string {
 	return dir
 }
 
-func getKeys(llmMap map[string]config.LLMItem) []string {
-    var keys []string  // Slice to store the keys
-
-    // Loop through the map to collect keys
-    for key := range llmMap {
-        keys = append(keys, key)
-    }
-
-    return keys
-}
-
-func runSingleModelReview(llm *model.LLM, options *review.Options, query *review.Query, filenames []string) error {
-
-	// check if prompts resepct input tokens limits for selected models
-	problem, checkInputLimits := check.RunInputLimitsCheck(query.Prompts, filenames, llm.Provider, llm.Model, llm.APIKey)
-	if checkInputLimits != nil {
-		fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models:", problem)
-		log.Println("Max input tokens limits violation:", problem)
-		log.Printf("Error:\n%v", checkInputLimits)
-		os.Exit(ExitCodeInputTokenError)	
-	}
-	// ask if continuing given the total cost
-	check := check.RunUserCheck(cost.ComputeCosts(query.Prompts, llm.Provider, llm.Model, llm.APIKey), llm.Provider)
-	if check != nil {
-		log.Printf("Error:\n%v", check)
-		os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
-	}
+func runSingleModelReview(llm review.Model, options review.Options, query review.Query, filenames []string) error {
 
 	// start writer for results.. the file will be project_name[.csv or .json] in the path where the toml is
 	resultsFileName := options.ResultsFileName
@@ -281,8 +247,27 @@ func runSingleModelReview(llm *model.LLM, options *review.Options, query *review
 
 	// Loop through the prompts
 	for i, promptText := range query.Prompts {
-		fmt.Printf("Processing file #%d/%d: %s\n", i+1, len(query.Prompts), filenames[i])
 		log.Println("File: ", filenames[i], " Prompt: ", promptText)
+
+		// clean model names
+		llm.Model = check.GetModel(promptText, llm.Provider, llm.Model, llm.APIKey)
+		fmt.Println("Processing file "+string(i+1)+"/"+string(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
+		
+		// check if prompts resepct input tokens limits for selected models
+		checkInputLimits := check.RunInputLimitsCheck(promptText, llm.Provider, llm.Model, llm.APIKey)
+		if checkInputLimits != nil {
+			fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models.")
+			log.Printf("Error:\n%v", checkInputLimits)
+			os.Exit(ExitCodeInputTokenError)	
+		}
+		if llm.ID == "" {			
+			// ask if continuing given the total cost
+			check := check.RunUserCheck(cost.ComputeCosts(query.Prompts, llm.Provider, llm.Model, llm.APIKey), llm.Provider)
+			if check != nil {
+				log.Printf("Error:\n%v", check)
+				os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
+			}
+		}
 
 		// Query the LLM
 		response, justification, summary, err := model.QueryLLM(promptText, llm, options)

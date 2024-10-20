@@ -39,7 +39,7 @@ rpm_limit = 0
 [project.llm.3]
 provider = "Cohere"
 api_key = "" 
-model = "command-light"
+model = "command-r"
 temperature = 0.01 
 tpm_limit = 0 
 rpm_limit = 0

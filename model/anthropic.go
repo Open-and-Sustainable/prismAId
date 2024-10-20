@@ -11,7 +11,7 @@ import (
 	option "github.com/anthropics/anthropic-sdk-go/option"
 )
 
-func queryAnthropic(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
+func queryAnthropic(prompt string, llm review.Model, options review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 

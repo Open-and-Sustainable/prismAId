@@ -12,7 +12,7 @@ import (
 	uuid "github.com/google/uuid"
 )
 
-func queryCohere(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
+func queryCohere(prompt string, llm review.Model, options review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 

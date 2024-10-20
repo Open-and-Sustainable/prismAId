@@ -17,11 +17,11 @@ type Query struct {
 // - keys: A slice of strings containing the keys associated with the prompts.
 //
 // Returns:
-// - A pointer to a Query instance with the specified prompts and keys.
+// - A Query instance with the specified prompts and keys.
 // - An error if the creation fails, although the current implementation does not anticipate errors.
-func NewQuery(prompts []string, keys []string) (*Query, error) {
+func NewQuery(prompts []string, keys []string) (Query, error) {
 	// Create and return the object
-	return &Query{
+	return Query{
 		Prompts: prompts,
 		Keys:    keys,
 	}, nil

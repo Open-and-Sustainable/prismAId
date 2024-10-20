@@ -11,7 +11,7 @@ import (
 	option "google.golang.org/api/option"
 )
 
-func queryGoogleAI(prompt string, llm *LLM, options *review.Options) (string, string, string, error) {
+func queryGoogleAI(prompt string, llm review.Model, options review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
