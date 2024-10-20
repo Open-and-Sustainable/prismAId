@@ -94,8 +94,11 @@ func RunReview(cfg_path string) error {
 	}
 
 	// differentiate logic if simgle model review or ensemble
-	if config.Project.Configuration.Ensemble == "no" {
-		single, err := model.NewLLM(config.Project.LLM.Provider, config.Project.LLM.Model, config.Project.LLM.ApiKey, config.Project.LLM.Temperature, config.Project.LLM.TpmLimit, config.Project.LLM.RpmLimit, "")
+	ensemble := false
+	if len(config.Project.LLM) > 1 {ensemble = true}
+	if !ensemble {
+		key := getKeys(config.Project.LLM)[0]
+		single, err := model.NewLLM(config.Project.LLM[key].Provider, config.Project.LLM[key].Model, config.Project.LLM[key].ApiKey, config.Project.LLM[key].Temperature, config.Project.LLM[key].TpmLimit, config.Project.LLM[key].RpmLimit, "")
 		if err != nil {
 			log.Printf("Error:\n%v", err)
 			return err
@@ -106,11 +109,19 @@ func RunReview(cfg_path string) error {
 			log.Printf("Error:\n%v", err)
 			return err
 		}
-	} else if config.Project.Configuration.Ensemble == "yes" {
-		err = runEnsembleReview(options, query, filenames, config)
-		if err != nil {
-			log.Printf("Error:\n%v", err)
-			return err
+	} else {
+		for key, llm := range config.Project.LLM {
+			run, err := model.NewLLM(llm.Provider, llm.Model, llm.ApiKey, llm.Temperature, llm.TpmLimit, llm.RpmLimit, key)
+			if err != nil {
+				log.Printf("Error:\n%v", err)
+				return err
+			}
+	
+			err = runSingleModelReview(run, options, query, filenames)
+			if err != nil {
+				log.Printf("Error:\n%v", err)
+				return err
+			}	
 		}
 	}
 
@@ -217,6 +228,17 @@ func getDirectoryPath(resultsFileName string) string {
 	return dir
 }
 
+func getKeys(llmMap map[string]config.LLMItem) []string {
+    var keys []string  // Slice to store the keys
+
+    // Loop through the map to collect keys
+    for key := range llmMap {
+        keys = append(keys, key)
+    }
+
+    return keys
+}
+
 func runSingleModelReview(llm *model.LLM, options *review.Options, query *review.Query, filenames []string) error {
 
 	// check if prompts resepct input tokens limits for selected models
@@ -317,10 +339,5 @@ func runSingleModelReview(llm *model.LLM, options *review.Options, query *review
 		}
 	}	
 	
-	return nil
-}
-
-func runEnsembleReview(options *review.Options, query *review.Query, filenames []string, config *config.Config) error {
-
 	return nil
 }

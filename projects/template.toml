@@ -11,53 +11,39 @@ input_conversion = ""                       # Can be NON ACTIVE if set to "" [de
 results_file_name = "/path/to/save/results" # Location and filename for storing outputs, the path must exists, file extension will be added
 output_format = "json"                      # Can be "csv" [default] or "json"
 log_level = "low"                           # Can be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
-ensemble = "no"                             # Can be "yes" or "no" [default].
-################### The following entries are relevant only if [project.configuration] ensemble = "no"
 duplication = "no"                          # Can be "yes" or "no" [default]. It duplicates the manuscripts to review, hence running model queries twice, for debugging.
 cot_justification = "no"                    # Can be "yes" or "no" [default]. It requests and saves the model justification in terms of chain of thought for the answers provided.
-summary = "no"                              # an be "yes" or "no" [default].  If positive, manuscript summaries will be generated adn saved.
-##################
+summary = "no"                              # Can be "yes" or "no" [default].  If positive, manuscript summaries will be generated an saved.
 
-                                            ### The [project.llm] section 
-################### The [project.llm] section must be filled in only if ensemble = "no" in [project.configuration]
+                                            ### The [project.llm] section, if more than 1 will be an ensemble project
 [project.llm]
+[project.llm.1]
 provider = "OpenAI"                         # Can be 'OpenAI', 'GoogleAI', 'Cohere', or 'Anthropic'.
 api_key = ""                                # If left empty, the tool will look for API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = ""                                  # Depending on provider, options are (empty '' string indicate to dynamically choose the model that minimize the reviewing cost):
+model = "gpt-4o-mini"                       # Depending on provider, options are (empty '' string indicate to dynamically choose the model that minimize the reviewing cost):
                                             # OpenAI: 'gpt-3.5-turbo', 'gpt-4-turbo', 'gpt-4o', 'gpt-4o-mini', or '' [default].
                                             # GoogleAI: 'gemini-1.5-flash', 'gemini-1.5-pro', or 'gemini-1.0-pro', or '' [default].
                                             # Cohere: 'command-r-plus', 'command-r', 'command-light', 'command', or '' [default].
                                             # Antrhopic: 'claude-3-5-sonnet', 'claude-3-opus', 'claude-3-sonnet', 'claude-3-haiku', or '' [default].
-temperature = 0.2                           # Between 0 and 1 for all but between 0 and 2 on GoogleAI. Lower model temperature to decrease randomness and ensure replicability
+temperature = 0.01                          # Between 0 and 1 for all but between 0 and 2 on GoogleAI. Lower model temperature to decrease randomness and ensure replicability
 tpm_limit = 0                               # The maximum number of Tokens Per Minute before delaying prompts. If 0 [default], no delay in prompts.
 rpm_limit = 0                               # The maximin number of Requests Per Minute before delaying prompts. If 0 [default], no delay in prompts.
-##################
-
-                                            ### The [project.multi-model] section 
-################### The [project.multi-model] section must be filled in only if ensemble = "yes" in [project.configuration]
-[project.multi-model] 
-[project.multi-model.1]
-provider = "OpenAI"
-api_key = "" 
-model = "gpt-4o-mini" 
-temperature = 0.01 
-tpm_limit = 0 
-rpm_limit = 0
-[project.multi-model.2]
+##################                          # If more than 1 'llm' is specified, an ensemble review will be run
+[project.llm.2]
 provider = "GoogleAI"
 api_key = "" 
 model = "gemini-1.5-flash"
 temperature = 0.01 
 tpm_limit = 0 
 rpm_limit = 0
-[project.multi-model.3]
+[project.llm.3]
 provider = "Cohere"
 api_key = "" 
 model = "command-light"
 temperature = 0.01 
 tpm_limit = 0 
 rpm_limit = 0
-[project.multi-model.4]
+[project.llm.4]
 provider = "Anthropic"
 api_key = "" 
 model = "claude-3-haiku"

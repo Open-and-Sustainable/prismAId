@@ -20,7 +20,7 @@ type ProjectConfig struct {
 	Author        string               `toml:"author"`
 	Version       string               `toml:"version"`
 	Configuration ProjectConfiguration `toml:"configuration"`
-	LLM           LLMConfig            `toml:"llm"`
+	LLM           map[string]LLMItem   `toml:"llm"`
 }
 
 // ProjectConfiguration defines various settings related to project input and output.
@@ -30,14 +30,13 @@ type ProjectConfiguration struct {
 	ResultsFileName string `toml:"results_file_name"`
 	OutputFormat    string `toml:"output_format"`
 	LogLevel        string `toml:"log_level"`
-	Ensemble		string	`toml:"ensemble"`
 	CotJustification string  `toml:"cot_justification"`
 	Duplication      string  `toml:"duplication"`
 	Summary    string     `toml:"summary"`
 }
 
 // LLMConfig holds the configuration settings specific to the AI model being used.
-type LLMConfig struct {
+type LLMItem struct {
 	Provider       string  `toml:"provider"`
 	ApiKey         string  `toml:"api_key"`
 	Model          string  `toml:"model"`
@@ -84,16 +83,27 @@ func LoadConfig(path string) (*Config, error) {
 		return nil, err
 	}
 
-	// API keys
-	if config.Project.LLM.ApiKey == "" {
-		if config.Project.LLM.Provider == "OpenAI" {
-			config.Project.LLM.ApiKey = os.Getenv("OPENAI_API_KEY")
-		} else if config.Project.LLM.Provider == "GoogleAI" {
-			config.Project.LLM.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
-		} else if config.Project.LLM.Provider == "Cohere" {
-			config.Project.LLM.ApiKey = os.Getenv("CO_API_KEY")
-		} else if config.Project.LLM.Provider == "Anthropic" {
-			config.Project.LLM.ApiKey = os.Getenv("ANTHROPIC_API_KEY")
+	for _, llm := range config.Project.LLM {
+		if llm.ApiKey == "" {  // If API key is empty, look for it in environment variables
+			switch llm.Provider {
+			case "OpenAI":
+				llm.ApiKey = os.Getenv("OPENAI_API_KEY")
+			case "GoogleAI":
+				llm.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
+			case "Cohere":
+				llm.ApiKey = os.Getenv("CO_API_KEY")
+			case "Anthropic":
+				llm.ApiKey = os.Getenv("ANTHROPIC_API_KEY")
+			}
+		}
+		if llm.Temperature < 0 {
+			llm.Temperature = 0
+		}
+		if llm.TpmLimit < 0 {
+			llm.TpmLimit = 0
+		}
+		if llm.RpmLimit < 0 {
+			llm.RpmLimit = 0 
 		}
 	}
 
@@ -111,10 +121,6 @@ func LoadConfig(path string) (*Config, error) {
 		config.Project.Configuration.LogLevel = "low"
 	}
 
-	if config.Project.LLM.Temperature == 0 {
-		config.Project.LLM.Temperature = 0
-	}
-
 	if config.Project.Configuration.CotJustification == "" {
 		config.Project.Configuration.CotJustification = "no"
 	}
@@ -125,14 +131,6 @@ func LoadConfig(path string) (*Config, error) {
 
 	if config.Project.Configuration.Duplication == "" {
 		config.Project.Configuration.Duplication = "no"
-	}
-
-	if config.Project.LLM.TpmLimit == 0 {
-		config.Project.LLM.TpmLimit = 0 // This would mean no delay is applied
-	}
-
-	if config.Project.LLM.RpmLimit == 0 {
-		config.Project.LLM.RpmLimit = 0 // This would mean no delay is applied
 	}
 
 	return &config, nil
