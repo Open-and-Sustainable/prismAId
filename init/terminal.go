@@ -19,6 +19,16 @@ type ReviewItem struct {
 	Values []string
 }
 
+// ModelItem stores a single model configuration
+type ModelItem struct {
+	Provider    string
+	APIKey		string
+	Model 		string
+	Temperature string
+	TpmLimit	string	
+	RpmLimit	string
+}
+
 // RunInteractiveConfig launches an interactive terminal session to collect project configuration information 
 // from the user. It utilizes advanced prompt features to provide a user-friendly way of setting key project 
 // settings.
@@ -64,7 +74,7 @@ func RunInteractiveConfigCreation() {
 	val2, err := prompt.New().Ask("Do you need input file conversion from these formats to .txt? (leave empty if not needed)").
 		MultiChoose(
 			[]string{"pdf", "docx", "html"},
-			multichoose.WithDefaultIndexes(0, []int{0, 1, 2}),
+			multichoose.WithDefaultIndexes(1, []int{}),
 			multichoose.WithHelp(true),
 		)
 	checkErr(err)
@@ -80,7 +90,7 @@ func RunInteractiveConfigCreation() {
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
 	checkErr(err)
 
-	// Advanced choose with help
+	// Output format
 	outputFormat, err := prompt.New().Ask("Choose output format:").
 		AdvancedChoose(
 			[]choose.Choice{
@@ -131,84 +141,14 @@ func RunInteractiveConfigCreation() {
 		choose.WithHelp(true),)
 	checkErr(err)
 
-	// LLM provider selection with help
-	provider, err := prompt.New().Ask("Choose LLM provider:").
-		AdvancedChoose(
-			[]choose.Choice{
-				{Text: "OpenAI", Note: "OpenAI GPT-3 or GPT-4 models."},
-				{Text: "GoogleAI", Note: "GoogleAI Gemini models."},
-				{Text: "Cohere", Note: "Cohere language models."},
-				{Text: "Anthropic", Note: "Anthropic Claude models."},
-			},
-			choose.WithHelp(true),)
-	checkErr(err)
-
-	// Prompt for API key with input mask (for security)
-	apiKey, err := prompt.New().Ask("Enter LLM API key (leave it empty to use environment variable):").Input("", input.WithEchoMode(input.EchoPassword))
-	checkErr(err)
-
-	// Model choice for the selected LLM provider
-	model := ""
-	if provider == "OpenAI" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "gpt-3.5-turbo", Note: "GPT-3.5 Turbo."},
-				{Text: "gpt-4-turbo", Note: "GPT-4 Turbo."},
-				{Text: "gpt-4o", Note: "GPT-4 Omni."},
-				{Text: "gpt-4o-mini", Note: "GPT-4 Omni Mini."},
-			},
-			choose.WithHelp(true),)
-
-	} else if provider == "GoogleAI" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "gemini-1.0-pro", Note: "Gemini 1.0 Pro."},
-				{Text: "gemini-1.5-pro", Note: "Gemini 1.5 Pro."},
-				{Text: "gemini-1.5-flash", Note: "Gemini 1.5 Flash."},
-			},
-			choose.WithHelp(true),)
-	} else if provider == "Cohere" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "command", Note: "Command."},
-				{Text: "command-light", Note: "Command Light."},
-				{Text: "command-r", Note: "Command R."},
-				{Text: "command-r-plus", Note: "Command R+."},
-			},
-			choose.WithHelp(true),)
-	} else if provider == "Anthropic" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "claude-3-haiku", Note: "Claude 3 Haiku."},
-				{Text: "claude-3-sonnet", Note: "Claude 3 Sonnet."},
-				{Text: "claude-3-opus", Note: "Claude 3 Opus."},
-				{Text: "claude-3-5-sonnet", Note: "Claude 3.5 Sonnet."},
-			},
-			choose.WithHelp(true),)
+	// Build models object
+	models_items := collectModelItems()
+	models := ""
+	if len(models_items) > 0 {
+		models = generateModelToml(models_items)
+	} else {
+		fmt.Println("You will have to specify the LLM parameters in your project configuration file.")
 	}
-	checkErr(err)
-
-	// Prompt for model temperature
-	temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	checkErr(err)
-
-	// Prompt for tpm limit
-	tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	checkErr(err)
-
-	// Prompt for rpm limit
-	rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	checkErr(err)
 
 	// Prompt for persona part of prompt
 	persona := ""
@@ -297,7 +237,7 @@ func RunInteractiveConfigCreation() {
 			}
 		}
 	} else {
-		fmt.Println("You will have to fill in review items, definitions and examples in your project configuraiton file.")
+		fmt.Println("You will have to fill in review items, definitions and examples in your project configuration file.")
 	}
 	
 	// Prompt for failsafe part of prompt
@@ -322,8 +262,7 @@ func RunInteractiveConfigCreation() {
 	config := generateTomlConfig(
 		projectName, author, version,
 		inputDir, inputConversion, resultsFileName, outputFormat, logLevel,
-		duplication, cotJustification, summary, provider, apiKey, model, 
-		temperature, tpmLimit, rpmLimit, 
+		duplication, cotJustification, summary, models, 
 		persona, task, expected_result,
 		failsafe, definitions, example, review,
 	)
@@ -336,6 +275,137 @@ func RunInteractiveConfigCreation() {
 		fmt.Println("Configuration file created successfully at:", filePath)
 	}
 }
+
+func collectModelItems() []ModelItem {
+	var modelItems []ModelItem
+	count := 1
+
+	for {
+		// Ask if the user wants to define a review item
+		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add the configuration of generative AI model #%d? (yes/no)", count)).
+			Choose([]string{"yes", "no"},
+			choose.WithHelp(true),)
+		checkErr(err)
+
+		// Break the loop if the user doesn't want to add more models
+		if addItem == "no" {
+			break
+		}
+
+		// LLM provider selection with help
+		provider, err := prompt.New().Ask("Choose LLM provider:").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "OpenAI", Note: "OpenAI GPT-3 or GPT-4 models."},
+				{Text: "GoogleAI", Note: "GoogleAI Gemini models."},
+				{Text: "Cohere", Note: "Cohere language models."},
+				{Text: "Anthropic", Note: "Anthropic Claude models."},
+			},
+			choose.WithHelp(true),)
+		checkErr(err)
+
+		// Prompt for API key with input mask (for security)
+		apiKey, err := prompt.New().Ask("Enter LLM API key (leave it empty to use environment variable):").Input("", input.WithEchoMode(input.EchoPassword))
+		checkErr(err)
+
+		// Model choice for the selected LLM provider
+		model := ""
+		if provider == "OpenAI" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "gpt-3.5-turbo", Note: "GPT-3.5 Turbo."},
+					{Text: "gpt-4-turbo", Note: "GPT-4 Turbo."},
+					{Text: "gpt-4o", Note: "GPT-4 Omni."},
+					{Text: "gpt-4o-mini", Note: "GPT-4 Omni Mini."},
+				},
+				choose.WithHelp(true),)
+
+		} else if provider == "GoogleAI" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "gemini-1.0-pro", Note: "Gemini 1.0 Pro."},
+					{Text: "gemini-1.5-pro", Note: "Gemini 1.5 Pro."},
+					{Text: "gemini-1.5-flash", Note: "Gemini 1.5 Flash."},
+				},
+				choose.WithHelp(true),)
+		} else if provider == "Cohere" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "command", Note: "Command."},
+					{Text: "command-light", Note: "Command Light."},
+					{Text: "command-r", Note: "Command R."},
+					{Text: "command-r-plus", Note: "Command R+."},
+				},
+				choose.WithHelp(true),)
+		} else if provider == "Anthropic" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "claude-3-haiku", Note: "Claude 3 Haiku."},
+					{Text: "claude-3-sonnet", Note: "Claude 3 Sonnet."},
+					{Text: "claude-3-opus", Note: "Claude 3 Opus."},
+					{Text: "claude-3-5-sonnet", Note: "Claude 3.5 Sonnet."},
+				},
+				choose.WithHelp(true),)
+		}
+		checkErr(err)
+
+		// Prompt for model temperature
+		temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Prompt for tpm limit
+		tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Prompt for rpm limit
+		rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Create a new ReviewItem and append it to the list
+		modelItems = append(modelItems, ModelItem{
+			Provider:    provider,
+			APIKey: apiKey,
+			Model: model,
+			Temperature: temperature,
+			TpmLimit: tpmLimit,
+			RpmLimit: rpmLimit,
+		})
+
+		count++
+	}
+
+	return modelItems
+}
+
+func generateModelToml(modelsItems []ModelItem) string {
+	var tomlModelsSection strings.Builder
+
+	// Loop through the review items and append each one to the TOML string
+	for i, item := range modelsItems {
+		tomlModelsSection.WriteString(fmt.Sprintf("[project.llm.%d]\n", i+1))
+		tomlModelsSection.WriteString(fmt.Sprintf("provider = \"%s\"\n", item.Provider))
+		tomlModelsSection.WriteString(fmt.Sprintf("api_key = \"%s\"\n", item.APIKey))
+		tomlModelsSection.WriteString(fmt.Sprintf("model = \"%s\"\n", item.Model))
+		tomlModelsSection.WriteString(fmt.Sprintf("temperature = \"%s\"\n", item.Temperature))
+		tomlModelsSection.WriteString(fmt.Sprintf("tpm_limit = \"%s\"\n", item.TpmLimit))
+		tomlModelsSection.WriteString(fmt.Sprintf("rpm_limit = \"%s\"\n", item.RpmLimit))
+		tomlModelsSection.WriteString("\n")
+	}
+
+	return tomlModelsSection.String()
+}
+
+
 
 // Function to interactively collect review items and generate the [review] section of the TOML file
 func collectReviewItems() []ReviewItem {
@@ -450,7 +520,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 
 // Helper function to generate the TOML configuration string
 func generateTomlConfig(projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-	logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
+	logLevel, duplication, cotJustification, summary, models, 
 	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
 [project]
@@ -469,13 +539,7 @@ cot_justification = "%s"
 summary = "%s"
 
 [project.llm]
-provider = "%s"
-api_key = "%s"
-model = "%s"
-temperature = "%s"
-tpm_limit = "%s"
-rpm_limit = "%s"
-
+%s
 [prompt]
 persona = "%s"
 task = "%s"
@@ -487,7 +551,7 @@ example = "%s"
 [review]
 %s
 `, projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
+logLevel, duplication, cotJustification, summary, models,
 persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
 }

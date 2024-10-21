@@ -76,6 +76,7 @@ summary = "no"
 ### LLM Configuration:
 ```toml
 [project.llm]
+[project.llm.1]
 provider = "OpenAI"
 api_key = ""
 model = ""
@@ -83,17 +84,21 @@ temperature = 0.2
 tpm_limit = 0
 rpm_limit = 0
 ```
-- The `[project.llm]` section includes parameters for managing the use of the LLM:
-  - `provider`: Currently supported providers are `OpenAI`, `GoogleAI`, `Cohere`, and `Anthropic`.
-  - `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
-  - `model`: Determines the model to use. Options are:
+The `[project.llm]` section includes the specifications of the models used in the review. At least one model must be selected and configured. If more than one models are configured, the project will generate multiple 'ensemble' results.
+
+The cost estimation of the review project is conducted and presented to the user only in the case of single model reviews.
+
+The `[project.llm.#]` section includes parameters for managing the use of the LLM:
+- `provider`: Currently supported providers are `OpenAI`, `GoogleAI`, `Cohere`, and `Anthropic`.
+- `api_key`: The API key can be specified here for tracking project-specific keys. If not provided, the software will look for the key in environment variables.
+- `model`: Determines the model to use. Options are:
     - Leave empty - or mit the key - `''` for cost optimization (automatically selects the cheapest model based on token limits depending on provider).
     - **OpenAI** as provider: `gpt-4o-mini`, `gpt-4o`, `gpt-4-turbo`, or `gpt-3.5-turbo` for specific model selection.
     - **GoogleAI**: `gemini-1.5-flash`, `gemini-1.5-pro`, or `gemini-1.0-pro`.
     - **Cohere**: `command-r-plus`, `command-r`, `command-light`, or `command`.
     - **Anthropic**: `claude-3-5-sonnet`, `claude-3-opus`, `claude-3-sonnet`, `claude-3-haiku`
-  - `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
-  - `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits webpage for your provider or the summary tables on Rate Limits in [Advanced Features](advanced-features).
+- `temperature`: A value between 0 and 1 to control randomness. A lower value ensures replicability and accurate responses.
+- `tpm_limit`: Specifies the maximum number of tokens per minute that can be processed. The default value is `0`, which indicates that there is no delay in processing prompts by prismAId. If set to a non-zero value, this parameter should reflect the minimum tokens per minute allowed by the OpenAI API for your specific model(s) and user tier. To determine the appropriate TPM limit for your use case, consult the TPM limits webpage for your provider or the summary tables on Rate Limits in [Advanced Features](advanced-features).
 - `rpm_limits`: Maximum number of API requests per minute. The default value is `0`, which indicates that there is no limit. Check the summary tables on Rate Limits in [Advanced Features](advanced-features).
 
 ### Supported Models
