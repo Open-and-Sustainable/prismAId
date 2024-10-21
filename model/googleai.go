@@ -1,18 +1,17 @@
-package llm
+package model
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
-
-	"prismAId/config"
+	"prismAId/review"
 
 	genai "github.com/google/generative-ai-go/genai"
 	option "google.golang.org/api/option"
 )
 
-func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, error) {
+func queryGoogleAI(prompt string, llm review.Model, options review.Options) (string, string, string, error) {
 	justification := ""
 	summary := ""
 
@@ -20,7 +19,7 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, e
 	ctx := context.Background()
 
 	// Create a new Google Generative AI client using the API key
-	client, err := genai.NewClient(ctx, option.WithAPIKey(cfg.Project.LLM.ApiKey))
+	client, err := genai.NewClient(ctx, option.WithAPIKey(llm.APIKey))
 	if err != nil {
 		log.Printf("Failed to create Google AI client: %v", err)
 		return "", "", "", err
@@ -28,8 +27,8 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, e
 	defer client.Close() // Ensure the client is closed when the function exits
 
 	// Select and configure the generative model
-	model := client.GenerativeModel(cfg.Project.LLM.Model)
-	model.SetTemperature(float32(cfg.Project.LLM.Temperature)) // Set temperature
+	model := client.GenerativeModel(llm.Model)
+	model.SetTemperature(float32(llm.Temperature)) // Set temperature
 	model.SetCandidateCount(1)                                 // Set candidate count to 1
 	cs := model.StartChat() // Start a new chat session
 	model.ResponseMIMEType = "application/json"   
@@ -85,7 +84,7 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, e
 	}
 
 	// If justification is required, send a follow-up message
-	if cfg.Project.Configuration.CotJustification == "yes" {
+	if options.Justification {
 		// Switch to text/plain MIME type for justification
 		model.ResponseMIMEType = "text/plain"
 		  
@@ -128,7 +127,7 @@ func queryGoogleAI(prompt string, cfg *config.Config) (string, string, string, e
 	}
 
 	// If summary is required, send a follow-up message
-	if cfg.Project.Configuration.Summary == "yes" {
+	if options.Summary {
 		// Switch to text/plain MIME type for justification
 		model.ResponseMIMEType = "text/plain"
 		  

@@ -1,20 +1,18 @@
-package cost
+package tokens
 
 import (
 	"context"
 	"log"
 
-	"prismAId/config"
-
 	genai "github.com/google/generative-ai-go/genai"
 	option "google.golang.org/api/option"
 )
 
-func numTokensFromPromptGoogleAI(prompt string, modelName string, cfg *config.Config) (numTokens int) {
+func numTokensFromPromptGoogleAI(prompt string, modelName string, key string) (numTokens int) {
 	// Create a new context
 	ctx := context.Background()
 	// Create a new Google Generative AI client using the API key
-	client, err := genai.NewClient(ctx, option.WithAPIKey(cfg.Project.LLM.ApiKey))
+	client, err := genai.NewClient(ctx, option.WithAPIKey(key))
 	if err != nil {
 		log.Printf("Failed to create Google AI client: %v", err)
 		return 0

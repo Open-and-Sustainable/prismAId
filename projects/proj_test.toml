@@ -1,24 +1,25 @@
 [project]
 name = "Test of prismAId"
 author = "Riccardo Boero"
-version = "0.2"
+version = "0.3"
 
 [project.configuration]
-input_directory = "../projects/input/test" # where the .txt files are
-results_file_name = "../projects/output/test/output_test" # where results will be saved, the path must exists, file extension will be added
-output_format = "csv"  # Could be "csv" [default] or "json"
-log_level = "low" # Could be "low" [default], "medium" showing entries on stdout, or "high" saving entries on file, see user manual for details
-duplication = "no" # Could be "yes" or "no" [default]. 
-cot_justification = "no" # Could be "yes" or "no" [default].
-summary = "noi" # Could be "yes" or "no" [default].
+input_directory = "../projects/input/test"
+results_file_name = "../projects/output/test/output_test"
+output_format = "csv"
+log_level = "low"
+duplication = "no"
+cot_justification = "no"
+summary = "no"
 
 [project.llm]
-provider = "Anthropic" # Could be 'OpenAI', 'GoogleAI', 'Cohere', or 'Anthropic'.
-api_key = "" # If left empty, it will search for an API key in env variables. Adding a key here is useful for tracking costs per prokect through project keys
-model = "claude-3-haiku" 
-temperature = 0.0001  # Between 0 and 1 on OpenAI or 2 on GoogleAI. Low model temperature to decrease randomness and ensure replicability
-tpm_limit = 0 # This is the maximin number of tokens per minute that can be processed by the model. 
-rpm_limit = 0 # This is the maximin number of requests per minute that can be processed by the model. 
+[project.llm.1]
+provider = "OpenAI"
+api_key = ""
+model = "gpt-4o-mini"
+temperature = 0.001
+tpm_limit = 0
+rpm_limit = 0
 
 [prompt]
 persona = "You are an experienced scientist reviewing scientific literature to map the methods used by other scientists in the field." 
@@ -28,7 +29,7 @@ failsafe = "For the key 'historical period studied', provide any relevant period
 definitions = "'Historical data analysis' refers to the examination and interpretation of past observed or modeled data to identify patterns, trends, and insights. 'Forecasting' refers to using models to predict future scenarios or variables of interest. 'Copulas' refer to statistical methods used to join multiple statistical distributions to model their dependencies. 'Regression models' refer to statistical models that utilize linear and nonlinear regression techniques to analyze relationships between variables. 'Clustering' refers to statistical methods for defining groups or patterns of similar data points based on similarities, distances, or multinomial characteristics. 'Bayesian approach' refers to a statistical method that incorporates prior knowledge or beliefs, updating them with new data to form posterior probabilities. 'Geographical scale' refers to the spatial level at which analysis is conducted. 'Historical period studied' refers to the time period of interest in historical data analysis."
 example = ""
 
-[review] # Review items -- defining the knowledge map that needs to be filled in
+[review]
 [review.1]
 key = "historical data analysis"
 values = ["yes", "no"]

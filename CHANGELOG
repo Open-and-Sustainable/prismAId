@@ -9,6 +9,18 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+
+## [0.6.0] - forthcoming
+### Added
+- inline documentation for package and public functions
+- support for ensemble reviews
+### Changed
+- deep code refactoring
+- multiple package reorganization
+### Fixed
+- updated documentation to include model ensemble
+- updated terminal init app to include model ensemble
+
 ## [0.5.3] - 2024-10-21
 ### Added
 - full support for Anthropic AI models through Anthropic API

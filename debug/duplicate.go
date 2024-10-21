@@ -10,6 +10,15 @@ import (
 
 const duplication_extension = "duplicate"
 
+// DuplicateInput reads all text files from the configured input directory and creates copies of them with a 
+// specified duplication extension. This function is useful for creating backup copies of input data or for 
+// testing purposes.
+//
+// Arguments:
+// - config: A pointer to the application’s configuration which holds the input directory details.
+//
+// Returns:
+// - An error if the directory cannot be read or if a file operation fails, otherwise returns nil.
 func DuplicateInput(config *config.Config) error {
 	// Load text files from the input directory
 	files, err := os.ReadDir(config.Project.Configuration.InputDirectory)

@@ -3,8 +3,7 @@ package check
 import (
 	"fmt"
 
-	"prismAId/config"
-	"prismAId/cost"
+    "prismAId/tokens"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	openai "github.com/sashabaranov/go-openai"
@@ -47,17 +46,24 @@ var ModelMaxTokens = map[string]int{
     anthropic.ModelClaude_3_Haiku_20240307:      AnthropicMaxTokens,
 }
 
-func RunInputLimitsCheck(prompts []string, filenames []string, cfg *config.Config) (string, error) {
-	for i, promptText := range prompts {
-		model := cost.GetModel(promptText, cfg)
-		nofTokens := cost.GetNumTokensFromPrompt(promptText, cfg)
-		errOnLimits := checkIfTokensExceedsLimits(nofTokens, model)
-		if errOnLimits != nil {
-			problem := filenames[i] + "," + model
-			return problem, fmt.Errorf("error on input tokens limits: %v", errOnLimits)
-		}
-	}
-	return "", nil
+// RunInputLimitsCheck verifies if the number of tokens in given prompts exceed the allowed limits for a specified model.
+//
+// Parameters:
+//   - prompt: A string containing the prompt to be checked.
+//   - provider: The name of the AI provider (e.g., "OpenAI", "GoogleAI").
+//   - model: The name of the model to use for limit checks.
+//   - key: A string representing a key for the provider's service.
+//
+// Returns:
+//   - A string indicating the problem if a token limit is exceeded or an error occurred, otherwise an empty string.
+//   - An error if any token limit is exceeded or if the model is not found.
+func RunInputLimitsCheck(prompt string, provider string, model string, key string) (error) {
+    nofTokens := tokens.GetNumTokensFromPrompt(prompt, provider, model, key)
+    errOnLimits := checkIfTokensExceedsLimits(nofTokens, model)
+    if errOnLimits != nil {
+        return errOnLimits
+    }
+	return nil
 }
 
 func checkIfTokensExceedsLimits(nofTokens int, model string) error {

@@ -15,7 +15,15 @@ const (
 	File
 )
 
-// Setup logging based on log level
+// SetupLogging configures the logging output based on the specified log level. The function supports multiple 
+// output destinations, including silent (no logging), standard output, and file logging.
+//
+// Arguments:
+// - level: A LogLevel value that determines the output destination. It can be Silent, Stdout, or File.
+// - filename: The name of the file where logs should be stored if the File log level is selected.
+//
+// This function creates or appends to a log file with the same name as the specified filename (excluding its
+// extension) but with a ".log" extension.
 func SetupLogging(level LogLevel, filename string) {
 	var logOutput io.Writer
 	switch level {

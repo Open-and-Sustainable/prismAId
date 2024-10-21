@@ -19,50 +19,65 @@ type ReviewItem struct {
 	Values []string
 }
 
-// Function to interactively collect project configuration information with advanced prompt features
+// ModelItem stores a single model configuration
+type ModelItem struct {
+	Provider    string
+	APIKey		string
+	Model 		string
+	Temperature string
+	TpmLimit	string	
+	RpmLimit	string
+}
+
+// RunInteractiveConfig launches an interactive terminal session to collect project configuration information 
+// from the user. It utilizes advanced prompt features to provide a user-friendly way of setting key project 
+// settings.
+//
+// This function offers different types of prompts such as single and multiple choices, allowing the user 
+// to customize configurations based on project requirements.
 func RunInteractiveConfigCreation() {
 	fmt.Println("Running interactive project configuration initialization...")
 
 	// Ask for file path to save the configuration
 	filePath, err := prompt.New().Ask("Enter file path to save the configuration:").Input(
 		"./config.toml", input.WithHelp(true), input.WithValidateFunc(validatePath))
-	CheckErr(err)
+	checkErr(err)
 	
 	// Prompt for project name with help text
 	projectName, err := prompt.New().Ask("Enter project name:").Input(
 		"Test project",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for author name with help
 	author, err := prompt.New().Ask("Enter author name:").Input(
 		"Name Lastname",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Prompt for version
 	version, err := prompt.New().Ask("Enter project version:").Input(
 		"0.1",
 		input.WithHelp(true),
 	)
-	CheckErr(err)
+	checkErr(err)
 
 	// Configuration details with help for each choice
 	inputDir, err := prompt.New().Ask("Enter input directory (must exist):").Input(
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
-	CheckErr(err)
+	checkErr(err)
 
 	// inputConversion
 	val2, err := prompt.New().Ask("Do you need input file conversion from these formats to .txt? (leave empty if not needed)").
 		MultiChoose(
 			[]string{"pdf", "docx", "html"},
-			multichoose.WithDefaultIndexes(0, []int{0, 1, 2}),
+			multichoose.WithDefaultIndexes(1, []int{}),
 			multichoose.WithHelp(true),
 		)
-	CheckErr(err)
+	checkErr(err)
 	inputConversion := ""
 	if len(val2) == 1 {
 		inputConversion = val2[0]
@@ -73,9 +88,9 @@ func RunInteractiveConfigCreation() {
 	resultsFileName, err := prompt.New().Ask("Enter results directory (must exist):").Input(
 		"./", 
 		input.WithHelp(true), input.WithValidateFunc(validateDirectory))
-	CheckErr(err)
+	checkErr(err)
 
-	// Advanced choose with help
+	// Output format
 	outputFormat, err := prompt.New().Ask("Choose output format:").
 		AdvancedChoose(
 			[]choose.Choice{
@@ -83,7 +98,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "json", Note: "JavaScript Object Notation format for structured data."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Log level with help 
 	logLevel, err := prompt.New().Ask("Choose log level:").
@@ -94,7 +109,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "high", Note: "High verbosity: logs saved to a file for detailed review."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Duplication option with help
 	duplication, err := prompt.New().Ask("Enable duplication (for debugging)?").
@@ -104,7 +119,7 @@ func RunInteractiveConfigCreation() {
 				{Text: "yes", Note: "Duplicate the manuscripts to review, and the cost, useful for consistency checks."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Chain-of-thought justification option
 	cotJustification, err := prompt.New().Ask("Enable chain-of-thought justification (saved on file)?").
@@ -114,7 +129,7 @@ func RunInteractiveConfigCreation() {
 			{Text: "yes", Note: "Enable model justification for the answers in terms of chain of thought."},
 		},
 		choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
 	// Manuscript summary
 	summary, err := prompt.New().Ask("Enable document summary (saved on file)?").
@@ -124,86 +139,16 @@ func RunInteractiveConfigCreation() {
 			{Text: "yes", Note: "Enable the preparation fo a short summary for each document reviewed."},
 		},
 		choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 
-	// LLM provider selection with help
-	provider, err := prompt.New().Ask("Choose LLM provider:").
-		AdvancedChoose(
-			[]choose.Choice{
-				{Text: "OpenAI", Note: "OpenAI GPT-3 or GPT-4 models."},
-				{Text: "GoogleAI", Note: "GoogleAI Gemini models."},
-				{Text: "Cohere", Note: "Cohere language models."},
-				{Text: "Anthropic", Note: "Anthropic Claude models."},
-			},
-			choose.WithHelp(true),)
-	CheckErr(err)
-
-	// Prompt for API key with input mask (for security)
-	apiKey, err := prompt.New().Ask("Enter LLM API key (leave it empty to use environment variable):").Input("", input.WithEchoMode(input.EchoPassword))
-	CheckErr(err)
-
-	// Model choice for the selected LLM provider
-	model := ""
-	if provider == "OpenAI" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "gpt-3.5-turbo", Note: "GPT-3.5 Turbo."},
-				{Text: "gpt-4-turbo", Note: "GPT-4 Turbo."},
-				{Text: "gpt-4o", Note: "GPT-4 Omni."},
-				{Text: "gpt-4o-mini", Note: "GPT-4 Omni Mini."},
-			},
-			choose.WithHelp(true),)
-
-	} else if provider == "GoogleAI" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "gemini-1.0-pro", Note: "Gemini 1.0 Pro."},
-				{Text: "gemini-1.5-pro", Note: "Gemini 1.5 Pro."},
-				{Text: "gemini-1.5-flash", Note: "Gemini 1.5 Flash."},
-			},
-			choose.WithHelp(true),)
-	} else if provider == "Cohere" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "command", Note: "Command."},
-				{Text: "command-light", Note: "Command Light."},
-				{Text: "command-r", Note: "Command R."},
-				{Text: "command-r-plus", Note: "Command R+."},
-			},
-			choose.WithHelp(true),)
-	} else if provider == "Anthropic" {
-		model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
-			[]choose.Choice{
-				{Text: "", Note: "Model chosen automatically to minimize costs."},
-				{Text: "claude-3-haiku", Note: "Claude 3 Haiku."},
-				{Text: "claude-3-sonnet", Note: "Claude 3 Sonnet."},
-				{Text: "claude-3-opus", Note: "Claude 3 Opus."},
-				{Text: "claude-3-5-sonnet", Note: "Claude 3.5 Sonnet."},
-			},
-			choose.WithHelp(true),)
+	// Build models object
+	models_items := collectModelItems()
+	models := ""
+	if len(models_items) > 0 {
+		models = generateModelToml(models_items)
+	} else {
+		fmt.Println("You will have to specify the LLM parameters in your project configuration file.")
 	}
-	CheckErr(err)
-
-	// Prompt for model temperature
-	temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
-
-	// Prompt for tpm limit
-	tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
-
-	// Prompt for rpm limit
-	rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
-		"0",
-		input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
-	CheckErr(err)
 
 	// Prompt for persona part of prompt
 	persona := ""
@@ -214,12 +159,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_persona == "yes" {
 		persona = "You are an experienced scientist working on a systematic review of the literature."
 	} else {
 		persona, err = prompt.New().Ask("Enter your persona description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", persona)
 
@@ -232,12 +177,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_task == "yes" {
 		task = "You are asked to map the concepts discussed in a scientific paper attached here."
 	} else {
 		task, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", task)
 
@@ -250,12 +195,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_exp_result == "yes" {
 		expected_result = "You should output a JSON object with the following keys and possible values:"
 	} else {
 		expected_result, err = prompt.New().Ask("Enter your expected_result description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", expected_result)
 	
@@ -282,17 +227,17 @@ func RunInteractiveConfigCreation() {
 					{Text: "yes, as a whole", Note: "I will ask you to provide a single text example."},
 				},
 				choose.WithHelp(true),)
-		CheckErr(err)
+		checkErr(err)
 		if choice_example == "yes, one by one" {
 			example = collectExamples(review_items)
 		} else {
 			if choice_example == "yes, as a whole" {
 				example, err = prompt.New().Ask("Enter your example:").Input("The text 'Lorem ipsum' once reviewed should provide the JSON object [language = \"latin\", if_empty = \"yes\"]", input.WithHelp(true))
-				CheckErr(err)
+				checkErr(err)
 			}
 		}
 	} else {
-		fmt.Println("You will have to fill in review items, definitions and examples in your project configuraiton file.")
+		fmt.Println("You will have to fill in review items, definitions and examples in your project configuration file.")
 	}
 	
 	// Prompt for failsafe part of prompt
@@ -304,12 +249,12 @@ func RunInteractiveConfigCreation() {
 				{Text: "no", Note: "I will ask you to provide a new text."},
 			},
 			choose.WithHelp(true),)
-	CheckErr(err)
+	checkErr(err)
 	if choice_failsafe == "yes" {
 		failsafe = "If the concepts neither are clearly discussed in the document nor they can be deduced from the text, respond with an empty '' value."
 	} else {
 		failsafe, err = prompt.New().Ask("Enter your task description:").Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 	}
 	fmt.Printf("You selected: %s\n", failsafe)
 
@@ -317,8 +262,7 @@ func RunInteractiveConfigCreation() {
 	config := generateTomlConfig(
 		projectName, author, version,
 		inputDir, inputConversion, resultsFileName, outputFormat, logLevel,
-		duplication, cotJustification, summary, provider, apiKey, model, 
-		temperature, tpmLimit, rpmLimit, 
+		duplication, cotJustification, summary, models, 
 		persona, task, expected_result,
 		failsafe, definitions, example, review,
 	)
@@ -332,6 +276,137 @@ func RunInteractiveConfigCreation() {
 	}
 }
 
+func collectModelItems() []ModelItem {
+	var modelItems []ModelItem
+	count := 1
+
+	for {
+		// Ask if the user wants to define a review item
+		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add the configuration of generative AI model #%d? (yes/no)", count)).
+			Choose([]string{"yes", "no"},
+			choose.WithHelp(true),)
+		checkErr(err)
+
+		// Break the loop if the user doesn't want to add more models
+		if addItem == "no" {
+			break
+		}
+
+		// LLM provider selection with help
+		provider, err := prompt.New().Ask("Choose LLM provider:").
+		AdvancedChoose(
+			[]choose.Choice{
+				{Text: "OpenAI", Note: "OpenAI GPT-3 or GPT-4 models."},
+				{Text: "GoogleAI", Note: "GoogleAI Gemini models."},
+				{Text: "Cohere", Note: "Cohere language models."},
+				{Text: "Anthropic", Note: "Anthropic Claude models."},
+			},
+			choose.WithHelp(true),)
+		checkErr(err)
+
+		// Prompt for API key with input mask (for security)
+		apiKey, err := prompt.New().Ask("Enter LLM API key (leave it empty to use environment variable):").Input("", input.WithEchoMode(input.EchoPassword))
+		checkErr(err)
+
+		// Model choice for the selected LLM provider
+		model := ""
+		if provider == "OpenAI" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "gpt-3.5-turbo", Note: "GPT-3.5 Turbo."},
+					{Text: "gpt-4-turbo", Note: "GPT-4 Turbo."},
+					{Text: "gpt-4o", Note: "GPT-4 Omni."},
+					{Text: "gpt-4o-mini", Note: "GPT-4 Omni Mini."},
+				},
+				choose.WithHelp(true),)
+
+		} else if provider == "GoogleAI" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "gemini-1.0-pro", Note: "Gemini 1.0 Pro."},
+					{Text: "gemini-1.5-pro", Note: "Gemini 1.5 Pro."},
+					{Text: "gemini-1.5-flash", Note: "Gemini 1.5 Flash."},
+				},
+				choose.WithHelp(true),)
+		} else if provider == "Cohere" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "command", Note: "Command."},
+					{Text: "command-light", Note: "Command Light."},
+					{Text: "command-r", Note: "Command R."},
+					{Text: "command-r-plus", Note: "Command R+."},
+				},
+				choose.WithHelp(true),)
+		} else if provider == "Anthropic" {
+			model, err = prompt.New().Ask("Enter model to be used:").AdvancedChoose(
+				[]choose.Choice{
+					{Text: "", Note: "Model chosen automatically to minimize costs."},
+					{Text: "claude-3-haiku", Note: "Claude 3 Haiku."},
+					{Text: "claude-3-sonnet", Note: "Claude 3 Sonnet."},
+					{Text: "claude-3-opus", Note: "Claude 3 Opus."},
+					{Text: "claude-3-5-sonnet", Note: "Claude 3.5 Sonnet."},
+				},
+				choose.WithHelp(true),)
+		}
+		checkErr(err)
+
+		// Prompt for model temperature
+		temperature, err := prompt.New().Ask("Enter model temperature (usually between 0 and 1 or 2):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Prompt for tpm limit
+		tpmLimit, err := prompt.New().Ask("Enter maximum token per minute (0 to disable):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Prompt for rpm limit
+		rpmLimit, err := prompt.New().Ask("Enter maximum request per minute (0 to disable):").Input(
+			"0",
+			input.WithHelp(true), input.WithValidateFunc(validateNonNegative))
+		checkErr(err)
+
+		// Create a new ReviewItem and append it to the list
+		modelItems = append(modelItems, ModelItem{
+			Provider:    provider,
+			APIKey: apiKey,
+			Model: model,
+			Temperature: temperature,
+			TpmLimit: tpmLimit,
+			RpmLimit: rpmLimit,
+		})
+
+		count++
+	}
+
+	return modelItems
+}
+
+func generateModelToml(modelsItems []ModelItem) string {
+	var tomlModelsSection strings.Builder
+
+	// Loop through the review items and append each one to the TOML string
+	for i, item := range modelsItems {
+		tomlModelsSection.WriteString(fmt.Sprintf("[project.llm.%d]\n", i+1))
+		tomlModelsSection.WriteString(fmt.Sprintf("provider = \"%s\"\n", item.Provider))
+		tomlModelsSection.WriteString(fmt.Sprintf("api_key = \"%s\"\n", item.APIKey))
+		tomlModelsSection.WriteString(fmt.Sprintf("model = \"%s\"\n", item.Model))
+		tomlModelsSection.WriteString(fmt.Sprintf("temperature = \"%s\"\n", item.Temperature))
+		tomlModelsSection.WriteString(fmt.Sprintf("tpm_limit = \"%s\"\n", item.TpmLimit))
+		tomlModelsSection.WriteString(fmt.Sprintf("rpm_limit = \"%s\"\n", item.RpmLimit))
+		tomlModelsSection.WriteString("\n")
+	}
+
+	return tomlModelsSection.String()
+}
+
+
+
 // Function to interactively collect review items and generate the [review] section of the TOML file
 func collectReviewItems() []ReviewItem {
 	var reviewItems []ReviewItem
@@ -342,7 +417,7 @@ func collectReviewItems() []ReviewItem {
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add review item #%d? (yes/no)", count)).
 			Choose([]string{"yes", "no"},
 			choose.WithHelp(true),)
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -351,11 +426,11 @@ func collectReviewItems() []ReviewItem {
 
 		// Prompt for the key
 		key, err := prompt.New().Ask(fmt.Sprintf("Enter key for review item #%d:", count)).Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Prompt for the list of values (comma-separated)
 		valuesInput, err := prompt.New().Ask(fmt.Sprintf("Enter possible values for review item #%d (comma-separated, e.g.: '1, 2, 3'):", count)).Input("", input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Split the values by comma and store them in a slice
 		values := strings.Split(valuesInput, ",")
@@ -400,7 +475,7 @@ func collectDefinitions(reviewItems []ReviewItem) string {
 		// Ask if the user wants to define a review item
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to add a definition for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
 			Choose([]string{"yes", "no"})
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -409,7 +484,7 @@ func collectDefinitions(reviewItems []ReviewItem) string {
 
 		// Prompt for the example
 		def, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' definition:", rev.Key)).Input(fmt.Sprintf("As '%s' we intend ...", rev.Key), input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Add the definition to the definitions string
 		definitions +=  def + " "
@@ -425,7 +500,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 		// Ask if the user wants to make an example for a review item
 		addItem, err := prompt.New().Ask(fmt.Sprintf("Do you want to make an example for review item #%d with key = '%s'? (yes/no)", i, rev.Key)).
 			Choose([]string{"yes", "no"})
-		CheckErr(err)
+		checkErr(err)
 
 		// Break the loop if the user doesn't want to add more items
 		if addItem == "no" {
@@ -434,7 +509,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 
 		// Prompt for the example
 		exa, err := prompt.New().Ask(fmt.Sprintf("Enter '%s' example:", rev.Key)).Input(fmt.Sprintf("'%s' takes value .. if reviewing the sentence ..", rev.Key), input.WithHelp(true))
-		CheckErr(err)
+		checkErr(err)
 
 		// Add the definition to the definitions string
 		examples +=  exa + " "	
@@ -445,7 +520,7 @@ func collectExamples(reviewItems []ReviewItem) string {
 
 // Helper function to generate the TOML configuration string
 func generateTomlConfig(projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-	logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit, 
+	logLevel, duplication, cotJustification, summary, models, 
 	persona, task, expected_result, failsafe, definitions, example, review string) string {
 	config := fmt.Sprintf(`
 [project]
@@ -464,13 +539,7 @@ cot_justification = "%s"
 summary = "%s"
 
 [project.llm]
-provider = "%s"
-api_key = "%s"
-model = "%s"
-temperature = "%s"
-tpm_limit = "%s"
-rpm_limit = "%s"
-
+%s
 [prompt]
 persona = "%s"
 task = "%s"
@@ -482,7 +551,7 @@ example = "%s"
 [review]
 %s
 `, projectName, author, version, inputDir, inputConversion, resultsFileName, outputFormat, 
-logLevel, duplication, cotJustification, summary, provider, apiKey, model, temperature, tpmLimit, rpmLimit,
+logLevel, duplication, cotJustification, summary, models,
 persona, task, expected_result, failsafe, definitions, example, review)
 	return strings.TrimSpace(config)
 }
@@ -500,7 +569,7 @@ func writeTomlConfigToFile(config, filePath string) error {
 }
 
 // CheckErr is a helper to check and handle errors
-func CheckErr(err error) {
+func checkErr(err error) {
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(1)
