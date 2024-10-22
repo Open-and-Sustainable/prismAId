@@ -39,11 +39,11 @@ jobs:
         run: |
           zip -j bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}
 
-      - name: Upload release assets
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
-          asset_name: prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
-          asset_content_type: application/zip
-  
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+
+      - name: Upload release asset using GitHub CLI
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ github.event.release.tag_name }} bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
