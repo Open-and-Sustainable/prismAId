@@ -157,7 +157,8 @@ func getWaitTime(prompt string, llm review.Model) int {
 	tpmLimit := llm.TPM
 	if tpmLimit > 0 {
 		// Get the number of tokens from the prompt
-		tokens := tokens.GetNumTokensFromPrompt(prompt, llm.Provider, llm.Model, llm.APIKey)
+		counter := tokens.RealTokenCounter{}
+		tokens := counter.GetNumTokensFromPrompt(prompt, llm.Provider, llm.Model, llm.APIKey)
 		tpm_wait_seconds = remainingSeconds
 		// Calculate the number of tokens per second allowed
 		tokensPerSecond := float64(tpmLimit) / 60.0
@@ -254,7 +255,8 @@ func runSingleModelReview(llm review.Model, options review.Options, query review
 		fmt.Println("Processing file "+string(i+1)+"/"+string(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
 		
 		// check if prompts resepct input tokens limits for selected models
-		checkInputLimits := check.RunInputLimitsCheck(promptText, llm.Provider, llm.Model, llm.APIKey)
+		counter := tokens.RealTokenCounter{}
+		checkInputLimits := check.RunInputLimitsCheck(promptText, llm.Provider, llm.Model, llm.APIKey, counter)
 		if checkInputLimits != nil {
 			fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models.")
 			log.Printf("Error:\n%v", checkInputLimits)

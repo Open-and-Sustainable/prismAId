@@ -4,6 +4,13 @@ import (
 	"log"
 )
 
+type TokenCounter interface {
+    GetNumTokensFromPrompt(prompt string, provider string, model string, key string) int
+}
+
+// RealTokenCounter is the production implementation that uses the actual API.
+type RealTokenCounter struct{}
+
 // GetNumTokensFromPrompt determines the number of tokens in a given prompt based on the specified provider and model.
 // This function uses provider-specific logic to count tokens using the respective provider's API or SDK.
 //
@@ -15,20 +22,20 @@ import (
 //
 // Returns:
 // - An integer representing the number of tokens in the prompt.
-func GetNumTokensFromPrompt(prompt string, provider string, model string, key string) int {
-	var numTokens int
-	switch provider {
-	case "OpenAI":
-		numTokens = numTokensFromPromptOpenAI(prompt, model, key)
-	case "GoogleAI":
-		numTokens = numTokensFromPromptGoogleAI(prompt, model, key)
-	case "Cohere":
-		numTokens = numTokensFromPromptCohere(prompt, model, key)
-	case "Anthropic":
-		numTokens = numTokensFromPromptOpenAI(prompt, "gpt-4o", key)
-	default:
-		log.Println("Unsupported LLM provider: ", provider)
-		return 0
-	}
-	return numTokens
+func (rtc RealTokenCounter) GetNumTokensFromPrompt(prompt string, provider string, model string, key string) int {
+    var numTokens int
+    switch provider {
+    case "OpenAI":
+        numTokens = numTokensFromPromptOpenAI(prompt, model, key)
+    case "GoogleAI":
+        numTokens = numTokensFromPromptGoogleAI(prompt, model, key)
+    case "Cohere":
+        numTokens = numTokensFromPromptCohere(prompt, model, key)
+    case "Anthropic":
+        numTokens = numTokensFromPromptOpenAI(prompt, "gpt-4o", key)
+    default:
+        log.Println("Unsupported LLM provider: ", provider)
+        return 0
+    }
+    return numTokens
 }

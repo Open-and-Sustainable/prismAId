@@ -37,7 +37,8 @@ func ComputeCosts(prompts []string, provider string, model string, key string) s
 }
 
 func assessPromptCost(prompt string, provider string, model string, key string) (decimal.Decimal, error) {
-	numTokens := tokens.GetNumTokensFromPrompt(prompt, provider, model, key)
+	counter := tokens.RealTokenCounter{}
+	numTokens := counter.GetNumTokensFromPrompt(prompt, provider, model, key)
 	numCents := numCentsFromTokens(numTokens, model)
 	return numCents, nil
 }

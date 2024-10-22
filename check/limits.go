@@ -57,8 +57,8 @@ var ModelMaxTokens = map[string]int{
 // Returns:
 //   - A string indicating the problem if a token limit is exceeded or an error occurred, otherwise an empty string.
 //   - An error if any token limit is exceeded or if the model is not found.
-func RunInputLimitsCheck(prompt string, provider string, model string, key string) (error) {
-    nofTokens := tokens.GetNumTokensFromPrompt(prompt, provider, model, key)
+func RunInputLimitsCheck(prompt string, provider string, model string, key string, counter tokens.TokenCounter) error {
+    nofTokens := counter.GetNumTokensFromPrompt(prompt, provider, model, key)
     errOnLimits := checkIfTokensExceedsLimits(nofTokens, model)
     if errOnLimits != nil {
         return errOnLimits
