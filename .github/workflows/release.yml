@@ -28,7 +28,7 @@ jobs:
       - name: Set up Go environment
         uses: actions/setup-go@v4
         with:
-          go-version: "1.21" # specify your Go version
+          go-version: "1.21"
 
       - name: Build binary
         run: |
@@ -42,8 +42,8 @@ jobs:
       - name: Upload release assets
         uses: actions/upload-release-asset@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          release_id: ${{ github.event.release.id }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
           asset_name: prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
           asset_content_type: application/zip
+  
