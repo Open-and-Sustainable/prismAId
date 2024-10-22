@@ -46,7 +46,7 @@ var mutex sync.Mutex
 // - An error if there is a problem with the configuration or during the review execution.
 func RunReview(cfg_path string) error {
 	// load project configuration
-	config, err := config.LoadConfig(cfg_path)
+	config, err := config.LoadConfig(cfg_path, config.RealFileReader{}, config.RealEnvReader{})
 	if err != nil {
 		fmt.Println("Error loading project configuration:", err) // here the logging function is not implemented yet
 		return err
