@@ -10,10 +10,11 @@ Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
 
-## [0.6.0] - forthcoming
+## [0.5.4] - 2024-10-22
 ### Added
 - inline documentation for package and public functions
 - support for ensemble reviews
+- CI/CD workflow to generate and attach binaries for each platform on release creation
 ### Changed
 - deep code refactoring
 - multiple package reorganization
