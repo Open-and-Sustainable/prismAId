@@ -46,4 +46,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload ${{ github.event.release.tag_name }} bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip
+          gh release upload ${{ github.event.release.tag_name }} bin/prismAId_${{ matrix.goos }}_${{ matrix.goarch }}${{ matrix.extension }}.zip --clobber
