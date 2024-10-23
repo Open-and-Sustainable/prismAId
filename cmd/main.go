@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	terminal "prismAId/init"
-	"prismAId/workflow"
+	"prismAId/prismaid"
 )
 
 // Main function
@@ -31,7 +31,7 @@ func main() {
 
 	// Handle project logic if -project flag is provided
 	if *projectConfigPath != "" {
-		err := workflow.RunReview(*projectConfigPath)
+		err := prismaid.RunReview(*projectConfigPath)
 		if err != nil {
 			fmt.Println("Error running Review logic:", err)
 			os.Exit(1)

@@ -1,4 +1,4 @@
-package workflow
+package prismaid
 
 import (
 	"encoding/csv"

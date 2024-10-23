@@ -19,6 +19,13 @@
             "args": ["--project", "../projects/proj_test.toml"], // Relative path to the project config
             //"args": ["--init"],
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Debug Tests",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}" // Runs tests in the directory of the currently opened file
         }
     ]
 }
