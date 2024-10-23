@@ -1,4 +1,4 @@
-package prismaid
+package prismAId
 
 import (
 	"fmt"
