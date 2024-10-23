@@ -4,7 +4,7 @@ package model
 
 import (
 	"fmt"
-	"prismAId/review"
+	"prismaid/review"
 	"testing"
 )
 

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"prismAId/config"
+	"prismaid/config"
 )
 
 // Convert processes files from the input directory specified in the configuration and converts them into plain text files.

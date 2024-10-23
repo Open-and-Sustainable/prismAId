@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"prismAId/config"
+	"prismaid/config"
 	"strings"
 )
 

@@ -5,7 +5,7 @@ import (
     "path/filepath"
     "testing"
 
-    "prismAId/config"
+    "prismaid/config"
 )
 
 func TestParsePrompts(t *testing.T) {

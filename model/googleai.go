@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"prismAId/review"
+	"prismaid/review"
 
 	genai "github.com/google/generative-ai-go/genai"
 	option "google.golang.org/api/option"

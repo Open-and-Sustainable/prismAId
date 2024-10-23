@@ -1,4 +1,4 @@
-module prismAId
+module prismaid
 
 go 1.21.8
 

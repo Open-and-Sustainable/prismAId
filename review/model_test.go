@@ -1,7 +1,7 @@
 package review
 
 import (
-    "prismAId/config"
+    "prismaid/config"
     "reflect"
 	"sort"
     "testing"

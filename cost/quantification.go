@@ -2,7 +2,7 @@ package cost
 
 import (
 	"log"
-	"prismAId/tokens"
+	"prismaid/tokens"
 
 	"github.com/shopspring/decimal"
 )
