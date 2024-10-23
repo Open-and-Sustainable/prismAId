@@ -9,9 +9,17 @@ layout: default
 1. **AI Model Provider Account and API Key:**
     - Create an account at [OpenAI](https://www.openai.com/) or [GoogleAI](https://aistudio.google.com) or [Cohere](https://cohere.com/).
     - Generate an API key from the the provider dashboard.
-2. **Download Executable:**
+2. **Download Executable or Go Package:**
     - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the prismAId GitHub repository.
     - Download the appropriate executable for your operating system and platform.
+    - If you prefer, you can add the package to your software with
+    ```bash
+    go get "github.com/Open-and-Sustainable/prismAId"
+    ```
+    and then import it when needed with
+    ```go
+    import "github.com/Open-and-Sustainable/prismAId"
+    ```
 3. **Prepare Papers for Review:**
     - Ensure that all papers to be reviewed are in .txt format.
     - prismAId offers the ability to automatically convert files in PDF, DOCX, and HTML formats into plain text. To enable this conversion, use the `input_conversion` flag in the `[project.configuration]` section of the review project configuration. Once activated, files are converted to `.txt` format, allowing for further processing and inspection. Since the conversion results are saved as `.txt` files, there is no need to rerun the conversion multiple times.

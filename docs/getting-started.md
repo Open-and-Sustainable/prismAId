@@ -42,9 +42,21 @@ Most AI tools for systematic literature reviews focus on the literature search p
   - To facilitate cost management, prismAId tokenizes each single-shot prompt and estimates the execution cost, allowing users to understand the total review cost before proceeding.
 
 ## Installation
-To use prismAId, download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismAId/releases) page.
+To use prismAId, you have two options.
 
-## Running prismAId
+### Option 1. Binaries 
+Download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismAId/releases) page. Using executables does not require any coding skill.
+### Option 2. Go Package
+You cna download the prismAId Go package for developing your own software or review project. To add the package to yoru project:
+```bash
+go get "github.com/Open-and-Sustainable/prismAId"
+```
+Once added, it can be imported when needed with:
+```go
+import "github.com/Open-and-Sustainable/prismAId"
+```
+
+## Running prismAId binaries
 The tool uses humaly readable project configuration files (.toml) to configure and run the reviews.
 
 You can find a template and an example on the [GitHub repository](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects).
