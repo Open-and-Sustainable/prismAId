@@ -230,5 +230,42 @@ This feature allows to always automatically select the cheapest model for the jo
   - We strive to maintain up-to-date data for cost estimation, though our estimations currently pertain only to the input aspect of AI model usage. As such, we cannot guarantee precise assessments.
   - Tests should be conducted first, and costs should be estimated more precisely by analyzing the data from the OpenAI [dashboard](https://platform.openai.com/usage) or the Google AI [dashboard](https://console.cloud.google.com/billing/).
 
+## Ensemble Review
+By specifying more than one LLM you obtain multiple results and hence an 'ensemble' review in which you can validate results and quantify uncertainties. Multiple LLMs can be selected within the same provider or across providers and for each of them users can specify specific parameters. 
+
+Ensemble reviewing is configured in the `[project.llm]` section of the project configuration file. For instance, to get results from 4 models, each one from a different provider, users can specify as in the `template.toml` configuration provided with prismAId:
+```toml
+[project.llm]
+[project.llm.1]
+provider = "OpenAI"
+api_key = ""
+model = "gpt-4o-mini"
+temperature = 0.01
+tpm_limit = 0
+rpm_limit = 0
+[project.llm.2]
+provider = "GoogleAI"
+api_key = "" 
+model = "gemini-1.5-flash"
+temperature = 0.01 
+tpm_limit = 0 
+rpm_limit = 0
+[project.llm.3]
+provider = "Cohere"
+api_key = "" 
+model = "command-r"
+temperature = 0.01 
+tpm_limit = 0 
+rpm_limit = 0
+[project.llm.4]
+provider = "Anthropic"
+api_key = "" 
+model = "claude-3-haiku"
+temperature = 0.01 
+tpm_limit = 0 
+rpm_limit = 0
+```
+
+
 <div id="wcb" class="carbonbadge"></div>
 <script src="https://unpkg.com/website-carbon-badges@1.1.3/b.min.js" defer></script>

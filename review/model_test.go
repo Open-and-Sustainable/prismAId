@@ -1,7 +1,7 @@
 package review
 
 import (
-    "prismAId/config"
+    "github.com/Open-and-Sustainable/prismAId/config"
     "reflect"
 	"sort"
     "testing"

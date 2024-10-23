@@ -1,4 +1,4 @@
-package workflow
+package prismAId
 
 import (
 	"encoding/csv"
@@ -6,16 +6,16 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"prismAId/check"
-	"prismAId/config"
-	"prismAId/convert"
-	"prismAId/cost"
-	"prismAId/debug"
-	"prismAId/model"
-	"prismAId/prompt"
-	"prismAId/results"
-	"prismAId/review"
-	"prismAId/tokens"
+	"github.com/Open-and-Sustainable/prismAId/check"
+	"github.com/Open-and-Sustainable/prismAId/config"
+	"github.com/Open-and-Sustainable/prismAId/convert"
+	"github.com/Open-and-Sustainable/prismAId/cost"
+	"github.com/Open-and-Sustainable/prismAId/debug"
+	"github.com/Open-and-Sustainable/prismAId/model"
+	"github.com/Open-and-Sustainable/prismAId/prompt"
+	"github.com/Open-and-Sustainable/prismAId/results"
+	"github.com/Open-and-Sustainable/prismAId/review"
+	"github.com/Open-and-Sustainable/prismAId/tokens"
 	"sync"
 	"time"
 )

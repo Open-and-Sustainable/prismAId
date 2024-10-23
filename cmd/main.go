@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	terminal "prismAId/init"
-	"prismAId/workflow"
+	terminal "github.com/Open-and-Sustainable/prismAId/init"
+	"github.com/Open-and-Sustainable/prismAId"
 )
 
 // Main function
@@ -31,7 +31,7 @@ func main() {
 
 	// Handle project logic if -project flag is provided
 	if *projectConfigPath != "" {
-		err := workflow.RunReview(*projectConfigPath)
+		err := prismAId.RunReview(*projectConfigPath)
 		if err != nil {
 			fmt.Println("Error running Review logic:", err)
 			os.Exit(1)
