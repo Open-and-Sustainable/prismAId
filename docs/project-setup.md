@@ -20,6 +20,7 @@ layout: default
     ```go
     import "github.com/Open-and-Sustainable/prismAId"
     ```
+    Its documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismAId).
 3. **Prepare Papers for Review:**
     - Ensure that all papers to be reviewed are in .txt format.
     - prismAId offers the ability to automatically convert files in PDF, DOCX, and HTML formats into plain text. To enable this conversion, use the `input_conversion` flag in the `[project.configuration]` section of the review project configuration. Once activated, files are converted to `.txt` format, allowing for further processing and inspection. Since the conversion results are saved as `.txt` files, there is no need to rerun the conversion multiple times.

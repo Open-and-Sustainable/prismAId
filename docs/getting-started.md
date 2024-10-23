@@ -47,7 +47,7 @@ To use prismAId, you have two options.
 ### Option 1. Binaries 
 Download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismAId/releases) page. Using executables does not require any coding skill.
 ### Option 2. Go Package
-You cna download the prismAId Go package for developing your own software or review project. To add the package to yoru project:
+You can download the prismAId Go package for developing your own software or review project. To add the package to yoru project:
 ```bash
 go get "github.com/Open-and-Sustainable/prismAId"
 ```
@@ -55,7 +55,7 @@ Once added, it can be imported when needed with:
 ```go
 import "github.com/Open-and-Sustainable/prismAId"
 ```
-
+The package documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismAId).
 ## Running prismAId binaries
 The tool uses humaly readable project configuration files (.toml) to configure and run the reviews.
 
