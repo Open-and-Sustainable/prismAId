@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
-	"github.com/Open-and-Sustainable/prismaid/review"
+	"github.com/open-and-sustainable/prismaid/review"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	option "github.com/anthropics/anthropic-sdk-go/option"

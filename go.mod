@@ -1,4 +1,4 @@
-module github.com/Open-and-Sustainable/prismaid
+module github.com/open-and-sustainable/prismaid
 
 go 1.21.8
 

@@ -1,7 +1,7 @@
 package review
 
 import (
-	"github.com/Open-and-Sustainable/prismaid/config"
+	"github.com/open-and-sustainable/prismaid/config"
 )
 
 type Model struct {

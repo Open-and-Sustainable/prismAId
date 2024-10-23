@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"github.com/Open-and-Sustainable/prismaid/review"
+	"github.com/open-and-sustainable/prismaid/review"
 
 	cohere "github.com/cohere-ai/cohere-go/v2"
 	cohereclient "github.com/cohere-ai/cohere-go/v2/client"

@@ -3,7 +3,7 @@ package check
 import (
 	"fmt"
 
-    "github.com/Open-and-Sustainable/prismaid/tokens"
+    "github.com/open-and-sustainable/prismaid/tokens"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	openai "github.com/sashabaranov/go-openai"

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Open-and-Sustainable/prismaid/config"
+	"github.com/open-and-sustainable/prismaid/config"
 )
 
 // Convert processes files from the input directory specified in the configuration and converts them into plain text files.

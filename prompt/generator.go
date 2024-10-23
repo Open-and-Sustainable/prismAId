@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"github.com/Open-and-Sustainable/prismaid/config"
+	"github.com/open-and-sustainable/prismaid/config"
 	"sort"
 	"strings"
 )

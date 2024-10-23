@@ -6,7 +6,7 @@ import (
 	"strings"
     "testing"
 
-    "github.com/Open-and-Sustainable/prismaid/config"
+    "github.com/open-and-sustainable/prismaid/config"
 )
 
 func TestDuplicateInput(t *testing.T) {
