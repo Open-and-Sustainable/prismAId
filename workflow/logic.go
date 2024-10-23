@@ -272,7 +272,8 @@ func runSingleModelReview(llm review.Model, options review.Options, query review
 		}
 
 		// Query the LLM
-		response, justification, summary, err := model.QueryLLM(promptText, llm, options)
+		realQueryService := model.DefaultQueryService{}
+		response, justification, summary, err := realQueryService.QueryLLM(promptText, llm, options)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return err
