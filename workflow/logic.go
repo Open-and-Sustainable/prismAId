@@ -31,6 +31,12 @@ const (
 	ExitCodeInputTokenError = 4
 )
 
+var exitFunc = os.Exit
+
+func exit(code int) {
+	exitFunc(code)
+}
+
 // Global variable to store the timestamps of requests
 var requestTimestamps []time.Time
 var mutex sync.Mutex
@@ -46,7 +52,7 @@ var mutex sync.Mutex
 // - An error if there is a problem with the configuration or during the review execution.
 func RunReview(cfg_path string) error {
 	// load project configuration
-	config, err := config.LoadConfig(cfg_path)
+	config, err := config.LoadConfig(cfg_path, config.RealFileReader{}, config.RealEnvReader{})
 	if err != nil {
 		fmt.Println("Error loading project configuration:", err) // here the logging function is not implemented yet
 		return err
@@ -66,7 +72,7 @@ func RunReview(cfg_path string) error {
 		err := convert.Convert(config)
 		if err != nil {
 			log.Printf("Error:\n%v", err)
-			os.Exit(ExitCodeErrorInReviewLogic)
+			exit(ExitCodeErrorInReviewLogic)
 		}
 	}
 
@@ -87,7 +93,7 @@ func RunReview(cfg_path string) error {
 	}
 
 	// build query object
-	query, err := review.NewQuery(prompts, prompt.GetResultsKeys(config))
+	query, err := review.NewQuery(prompts, prompt.SortReviewKeysAlphabetically(config))
 	if err != nil {
 		log.Printf("Error:\n%v", err)
 		return err
@@ -157,7 +163,8 @@ func getWaitTime(prompt string, llm review.Model) int {
 	tpmLimit := llm.TPM
 	if tpmLimit > 0 {
 		// Get the number of tokens from the prompt
-		tokens := tokens.GetNumTokensFromPrompt(prompt, llm.Provider, llm.Model, llm.APIKey)
+		counter := tokens.RealTokenCounter{}
+		tokens := counter.GetNumTokensFromPrompt(prompt, llm.Provider, llm.Model, llm.APIKey)
 		tpm_wait_seconds = remainingSeconds
 		// Calculate the number of tokens per second allowed
 		tokensPerSecond := float64(tpmLimit) / 60.0
@@ -251,26 +258,28 @@ func runSingleModelReview(llm review.Model, options review.Options, query review
 
 		// clean model names
 		llm.Model = check.GetModel(promptText, llm.Provider, llm.Model, llm.APIKey)
-		fmt.Println("Processing file "+string(i+1)+"/"+string(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
+		fmt.Println("Processing file "+fmt.Sprint(i+1)+"/"+fmt.Sprint(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
 		
 		// check if prompts resepct input tokens limits for selected models
-		checkInputLimits := check.RunInputLimitsCheck(promptText, llm.Provider, llm.Model, llm.APIKey)
+		counter := tokens.RealTokenCounter{}
+		checkInputLimits := check.RunInputLimitsCheck(promptText, llm.Provider, llm.Model, llm.APIKey, counter)
 		if checkInputLimits != nil {
 			fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models.")
 			log.Printf("Error:\n%v", checkInputLimits)
-			os.Exit(ExitCodeInputTokenError)	
+			exit(ExitCodeInputTokenError)	
 		}
 		if llm.ID == "" {			
 			// ask if continuing given the total cost
 			check := check.RunUserCheck(cost.ComputeCosts(query.Prompts, llm.Provider, llm.Model, llm.APIKey), llm.Provider)
 			if check != nil {
 				log.Printf("Error:\n%v", check)
-				os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
+				exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
 			}
 		}
 
 		// Query the LLM
-		response, justification, summary, err := model.QueryLLM(promptText, llm, options)
+		realQueryService := model.DefaultQueryService{}
+		response, justification, summary, err := realQueryService.QueryLLM(promptText, llm, options)
 		if err != nil {
 			log.Println("Error querying LLM:", err)
 			return err

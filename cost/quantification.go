@@ -7,6 +7,9 @@ import (
 	"github.com/shopspring/decimal"
 )
 
+// Declare a package-level TokenCounter variable
+var tokenCounter tokens.TokenCounter = tokens.RealTokenCounter{}
+
 // ComputeCosts processes a list of input prompts and calculates the total cost based on the specified 
 // model and provider. The function uses predefined rates for each model and computes the cost by 
 // iterating through each prompt.
@@ -37,7 +40,7 @@ func ComputeCosts(prompts []string, provider string, model string, key string) s
 }
 
 func assessPromptCost(prompt string, provider string, model string, key string) (decimal.Decimal, error) {
-	numTokens := tokens.GetNumTokensFromPrompt(prompt, provider, model, key)
+	numTokens := tokenCounter.GetNumTokensFromPrompt(prompt, provider, model, key)
 	numCents := numCentsFromTokens(numTokens, model)
 	return numCents, nil
 }

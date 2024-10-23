@@ -1,4 +1,3 @@
-// Prompt generation
 package prompt
 
 import (
@@ -66,7 +65,7 @@ func ParsePrompts(config *config.Config) ([]string, []string) {
 
 func parseExpectedResults(config *config.Config) string {
 	expectedResult := config.Prompt.ExpectedResult
-	keys := GetResultsKeysOrdered(config)
+	keys := GetReviewKeysByEntryOrder(config)
 
 	// Build a map from sorted keys using descriptive keys
 	sortedReviewItems := make(map[string][]string)
@@ -86,38 +85,48 @@ func parseExpectedResults(config *config.Config) string {
 	return fullSummary
 }
 
-// GetResultsKeysOrdered retrieves the keys from the results configuration in a specific, sorted order.
-// This function ensures that the keys are returned in a consistent order, which is useful for generating 
-// organized outputs.
+// GetReviewKeysByEntryOrder retrieves the keys from the review configuration in the order they appear
+// in the configuration file. This function ensures that the keys are returned in a consistent order based
+// on their entry sequence, which is useful for processing that relies on the sequence of entries such as
+// when maintaining the original configuration order is necessary.
 //
 // Arguments:
-// - config: A pointer to the application's configuration that specifies the result keys to be retrieved.
+// - config: A pointer to the application's configuration, which specifies the review keys to be retrieved.
 //
 // Returns:
-// - A slice of strings containing the ordered result keys.
-func GetResultsKeysOrdered(config *config.Config) []string {
-	// Collect keys for sorting based on numeric keys to maintain order
+// - A slice of strings containing the ordered review keys based on their entry order in the configuration file.
+//
+// This function is particularly useful in scenarios where the order of review items as defined in the 
+// configuration impacts the workflow or results, such as generating reports or processing data in the 
+// sequence of configuration.
+func GetReviewKeysByEntryOrder(config *config.Config) []string {
 	keys := make([]string, 0, len(config.Review))
 	for key := range config.Review {
 		keys = append(keys, key)
 	}
-	sort.Strings(keys) // Sort keys to ensure order
+	sort.Strings(keys) // Sort keys to maintain the order of entries as in the configuration
 	return keys
 }
 
-// GetResultsKeys retrieves the keys from the results configuration without enforcing a specific order.
-// This function is useful when the order of the keys is not critical.
+// SortReviewKeysAlphabetically retrieves and sorts the descriptive keys (not the TOML entry keys) from the 
+// review configuration alphabetically. This sorting approach focuses on the descriptive aspects of the keys 
+// rather than their position in the configuration file, making it useful for user interfaces or outputs where 
+// alphabetical ordering facilitates better readability and accessibility.
 //
 // Arguments:
-// - config: A pointer to the application's configuration that specifies the result keys to be retrieved.
+// - config: A pointer to the application's configuration that contains the review items.
 //
 // Returns:
-// - A slice of strings containing the result keys.
-func GetResultsKeys(config *config.Config) []string {
-	var keys []string
+// - A slice of strings containing the review keys sorted alphabetically by their descriptive labels.
+//
+// This function is ideal for scenarios where the logical grouping or alphabetical presentation of review items 
+// is critical, such as in user interfaces, alphabetical listings in documentation, or any application where
+// the user benefits from sorting by topic names rather than the order of entries.
+func SortReviewKeysAlphabetically(config *config.Config) []string {
+	keys := make([]string, 0)
 	for _, item := range config.Review {
 		keys = append(keys, item.Key)
 	}
-	sort.Strings(keys) // Optional: Sort keys alphabetically for consistent output
+	sort.Strings(keys) // Sort keys alphabetically for consistent and logical output
 	return keys
 }

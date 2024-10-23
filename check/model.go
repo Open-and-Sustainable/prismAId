@@ -70,7 +70,8 @@ func getGoogleAIModel(prompt string, modelName string, key string) string {
 	model := "gemini-1.0-pro"
 	switch modelName {
 	case "": // cost optimization, input token limit values: gemini-1.0-pro 30720, gemini-1.5-flash 1048576, gemini-1.5-pro 2097152
-		numTokens := tokens.GetNumTokensFromPrompt(prompt, "GoogleAI", modelName, key)
+		counter := tokens.RealTokenCounter{}
+		numTokens := counter.GetNumTokensFromPrompt(prompt, "GoogleAI", modelName, key)
 		if numTokens > 30720 && numTokens <= 1048576 {
 			model = "gemini-1.5-flash"
 		} else if numTokens > 1048576 {

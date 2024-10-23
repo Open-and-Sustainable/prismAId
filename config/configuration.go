@@ -6,6 +6,28 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
+// FileReader is an interface for reading files.
+type FileReader interface {
+    ReadFile(path string) ([]byte, error)
+}
+
+// EnvReader is an interface for accessing environment variables.
+type EnvReader interface {
+    GetEnv(key string) string
+}
+
+type RealFileReader struct{}
+
+func (r RealFileReader) ReadFile(path string) ([]byte, error) {
+    return os.ReadFile(path)
+}
+
+type RealEnvReader struct{}
+
+func (r RealEnvReader) GetEnv(key string) string {
+    return os.Getenv(key)
+}
+
 // Config defines the top-level configuration structure, matching the TOML file layout.
 type Config struct {
 	Project ProjectConfig         `toml:"project"`
@@ -75,24 +97,32 @@ type ReviewItem struct {
 //   > if err != nil {
 //   >     log.Fatal("Failed to load config:", err)
 //   > }
-func LoadConfig(path string) (*Config, error) {
+//func LoadConfig(path string) (*Config, error) {
+func LoadConfig(path string, fileReader FileReader, envReader EnvReader) (*Config, error) {
 	var config Config
-	_, err := toml.DecodeFile(path, &config)
-	if err != nil {
-		return nil, err
-	}
+
+    // Read the file using the injected FileReader interface
+    data, err := fileReader.ReadFile(path)
+    if err != nil {
+        return nil, err
+    }
+
+    // Decode the TOML data
+    if _, err := toml.Decode(string(data), &config); err != nil {
+        return nil, err
+    }
 
 	for key, llm := range config.Project.LLM {
 		if llm.ApiKey == "" {  // If API key is empty, look for it in environment variables
 			switch llm.Provider {
 			case "OpenAI":
-				llm.ApiKey = os.Getenv("OPENAI_API_KEY")
+				llm.ApiKey = envReader.GetEnv("OPENAI_API_KEY")
 			case "GoogleAI":
-				llm.ApiKey = os.Getenv("GOOGLE_AI_API_KEY")
+				llm.ApiKey = envReader.GetEnv("GOOGLE_AI_API_KEY")
 			case "Cohere":
-				llm.ApiKey = os.Getenv("CO_API_KEY")
+				llm.ApiKey = envReader.GetEnv("CO_API_KEY")
 			case "Anthropic":
-				llm.ApiKey = os.Getenv("ANTHROPIC_API_KEY")
+				llm.ApiKey = envReader.GetEnv("ANTHROPIC_API_KEY")
 			}
 		}
 
