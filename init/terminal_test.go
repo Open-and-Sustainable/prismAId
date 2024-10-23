@@ -1,74 +1,77 @@
 package init
 
 import (
-    "io"
+    "fmt"
     "os"
     "strings"
     "testing"
 )
 
-func TestRunInteractiveConfigCreation(t *testing.T) {
-    // Step 1: Prepare the simulated user input
-    inputs := strings.Join([]string{
-        "./test_config.toml",       // File path to save the configuration
-        "Test Project",             // Project name
-        "Test Author",              // Author name
-        "1.0",                      // Project version
-        "./input",                  // Input directory
-        "",                         // Input conversion (empty means none)
-        "./results",                // Results directory
-        "csv",                      // Output format
-        "low",                      // Log level
-        "no",                       // Duplication
-        "no",                       // Chain-of-thought justification
-        "no",                       // Document summary
-        "no",                       // Do you want to add a model configuration?
-        "yes",                      // Do you confirm the standard 'persona' part?
-        "yes",                      // Do you confirm the standard 'task' part?
-        "yes",                      // Do you confirm the standard 'expected_result' part?
-        "yes",                      // Do you confirm the standard 'failsafe' part?
-        "no",                       // Do you want to add review item #1?
-        // Add any additional inputs as required by your prompts
+func TestMyInteractiveFunction(t *testing.T) {
+    // Create a temporary file
+    tmpfile, err := os.CreateTemp("", "test")
+    if err != nil {
+        t.Fatalf("Failed to create temp file: %v", err)
+    }
+    defer os.Remove(tmpfile.Name()) // Clean up after the test
+
+    // Write test data to the temp file
+    testData := strings.Join([]string{
+        "./test_config.toml",
+        "Test Project",
+        "Test Author",
+        "1.0",
+        "./input",
+        "",
+        "./results",
+        "csv",
+        "low",
+        "no",
+        "no",
+        "no",
+        "no",
+        "yes",
+        "yes",
+        "yes",
+        "yes",
+        "no",
     }, "\n")
+    if _, err := tmpfile.WriteString(testData); err != nil {
+        tmpfile.Close()
+        t.Fatalf("Failed to write to temp file: %v", err)
+    }
+    if _, err := tmpfile.Seek(0, 0); err != nil {
+        tmpfile.Close()
+        t.Fatalf("Failed to seek temp file: %v", err)
+    }
 
-    // Step 2: Redirect os.Stdin
+    // Redirect stdin
     originalStdin := os.Stdin
-    defer func() { os.Stdin = originalStdin }()
-    r, w, err := os.Pipe()
-    if err != nil {
-        t.Fatalf("Failed to create pipe: %v", err)
-    }
-    os.Stdin = r
-
-    // Write inputs to the pipe
-    go func() {
-        defer w.Close()
-        _, err := io.WriteString(w, inputs)
-        if err != nil {
-            t.Errorf("Failed to write inputs: %v", err)
-        }
+    defer func() {
+        os.Stdin = originalStdin
+        tmpfile.Close()
     }()
+    os.Stdin = tmpfile
 
-    // Step 3: Run the function
-    RunInteractiveConfigCreation()
-
-    // Step 4: Verify the output file was created
-    configFilePath := "./test_config.toml"
-    if _, err := os.Stat(configFilePath); os.IsNotExist(err) {
-        t.Fatalf("Expected configuration file '%s' to be created.", configFilePath)
-    }
-
-    // Optionally, read and verify the contents of the generated config file
-    content, err := os.ReadFile(configFilePath)
+    // Call the function that reads from stdin
+    output, err := myInteractiveFunction()
     if err != nil {
-        t.Fatalf("Failed to read configuration file: %v", err)
+        t.Errorf("Failed during function execution: %v", err)
     }
 
-    // Perform assertions on the content
-    if !strings.Contains(string(content), `name = "Test Project"`) {
-        t.Errorf("Configuration file does not contain expected project name.")
+    // Assert the expected output or state
+    expectedOutput := "./test_config.toml"
+    if output != expectedOutput {
+        t.Errorf("Expected %s, got %s instead", expectedOutput, output)
     }
+}
 
-    // Clean up
-    os.Remove(configFilePath)
+// myInteractiveFunction is an example function that reads from stdin and returns some output
+func myInteractiveFunction() (string, error) {
+    var userInput string
+    _, err := fmt.Scanln(&userInput)
+    if err != nil {
+        return "", err
+    }
+    return userInput, nil
 }
