@@ -7,9 +7,10 @@ import (
 )
 
 const justification_query = "For each one of the keys and answers you provided, provide a justification for your answer as a chain of thought. In particular, I want a textual description of the few stages of the chin of thought that lead you to the answer you provided and the sentences in the text you analyzes that support your decision. If the value of a key was 'no' or empty '' because of lack of information on that topic in the text analyzed, explicitly report this reason. Please provide only th einformation requested, neither introductory nor concluding remarks."
-const summary_query = "Summarize in very few sentences the text provided before for your review."
+const summary_query = "Summarize in very few sentences the text provided to you before for your review."
 
-// QueryService defines an interface for querying a Large Language Model.
+// QueryService defines an interface for querying Large Language Models (LLMs).
+// It allows for sending prompts to different LLMs and retrieving structured responses.
 type QueryService interface {
     QueryLLM(prompt string, llm review.Model, options review.Options) (justification string, summary string, fullResponse string, err error)
 }
