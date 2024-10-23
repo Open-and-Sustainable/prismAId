@@ -87,7 +87,7 @@ func RunReview(cfg_path string) error {
 	}
 
 	// build query object
-	query, err := review.NewQuery(prompts, prompt.GetResultsKeys(config))
+	query, err := review.NewQuery(prompts, prompt.SortReviewKeysAlphabetically(config))
 	if err != nil {
 		log.Printf("Error:\n%v", err)
 		return err
