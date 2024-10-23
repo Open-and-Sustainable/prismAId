@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 title: prismAId - Open Science AI Tools for Systematic, Protocol-Based Literature Reviews
 message: >-
-  v0.5.4 - added ensemble approach, fixed refactoring
-  Added approach for using ensemble of models from same and different providers, and deep code refactoring
+  v0.5.5 - added unit testing
+  Added unit testing of each package, CI/CD automation, and light code refactoring for API testing
 type: software
 doi: 10.5281/zenodo.11210796
 authors:
