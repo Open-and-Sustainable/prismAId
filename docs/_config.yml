@@ -1,11 +1,11 @@
 # Jekyll theme
-remote_theme: Open-and-Sustainable/greendoc_theme
+remote_theme: open-and-sustainable/greendoc_theme
 # title and description, URLs
 title: "prismAId"
 description: "Documentation of prismAId tools"
-baseurl: "/prismAId"
+baseurl: "/prismaid"
 url: "https://open-and-sustainable.github.io"
-github_repo: "https://github.com/Open-and-Sustainable/prismAId"
+github_repo: "https://github.com/open-and-sustainable/prismaid"
 # logo and favicon
 logo: "assets/images/prismaid-logo.png"
 favicon: "assets/images/prismaid-favicon.ico"
