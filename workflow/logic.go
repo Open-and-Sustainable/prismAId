@@ -31,6 +31,12 @@ const (
 	ExitCodeInputTokenError = 4
 )
 
+var exitFunc = os.Exit
+
+func exit(code int) {
+	exitFunc(code)
+}
+
 // Global variable to store the timestamps of requests
 var requestTimestamps []time.Time
 var mutex sync.Mutex
@@ -66,7 +72,7 @@ func RunReview(cfg_path string) error {
 		err := convert.Convert(config)
 		if err != nil {
 			log.Printf("Error:\n%v", err)
-			os.Exit(ExitCodeErrorInReviewLogic)
+			exit(ExitCodeErrorInReviewLogic)
 		}
 	}
 
@@ -252,7 +258,7 @@ func runSingleModelReview(llm review.Model, options review.Options, query review
 
 		// clean model names
 		llm.Model = check.GetModel(promptText, llm.Provider, llm.Model, llm.APIKey)
-		fmt.Println("Processing file "+string(i+1)+"/"+string(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
+		fmt.Println("Processing file "+fmt.Sprint(i+1)+"/"+fmt.Sprint(len(query.Prompts))+" "+filenames[i]+" with model "+llm.Model)
 		
 		// check if prompts resepct input tokens limits for selected models
 		counter := tokens.RealTokenCounter{}
@@ -260,14 +266,14 @@ func runSingleModelReview(llm review.Model, options review.Options, query review
 		if checkInputLimits != nil {
 			fmt.Println("Error resepecting the max input tokens limits for the following manuscripts and models.")
 			log.Printf("Error:\n%v", checkInputLimits)
-			os.Exit(ExitCodeInputTokenError)	
+			exit(ExitCodeInputTokenError)	
 		}
 		if llm.ID == "" {			
 			// ask if continuing given the total cost
 			check := check.RunUserCheck(cost.ComputeCosts(query.Prompts, llm.Provider, llm.Model, llm.APIKey), llm.Provider)
 			if check != nil {
 				log.Printf("Error:\n%v", check)
-				os.Exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
+				exit(0) // if the user stops the execution it is still a success run, hence exit code = 0, but the reason for the exit may be different hence is logged
 			}
 		}
 
