@@ -4,7 +4,7 @@ name: Go CI
 on:
   push:
     branches:
-      - 24-set-up-automated-unit-and-integration-testing-for-supported-providers
+      - main
   pull_request:
     branches:
       - main
