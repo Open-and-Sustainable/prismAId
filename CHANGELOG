@@ -9,6 +9,12 @@ Removed: For features removed in this release.
 Fixed: For any bug fixes.
 Security: For vulnerabilities.
 
+## [0.5.5] - 2024-10-23
+### Added
+- unit testing of each go package
+- automated testing through CI/CD 
+### Changed
+- light refactoring through interfaces for supporting testing without actual API access
 
 ## [0.5.4] - 2024-10-22
 ### Added
