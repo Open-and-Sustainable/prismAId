@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
-	"prismaid/review"
+	"github.com/Open-and-Sustainable/prismAId/review"
 
 	openai "github.com/sashabaranov/go-openai"
 )

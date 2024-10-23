@@ -6,7 +6,7 @@ import (
     "strings"
     "testing"
 
-    "prismaid/config"
+    "github.com/Open-and-Sustainable/prismAId/config"
 )
 
 func TestConvertHTML(t *testing.T) {

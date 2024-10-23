@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	terminal "prismaid/init"
-	"prismaid/prismaid"
+	terminal "github.com/Open-and-Sustainable/prismAId/init"
+	"github.com/Open-and-Sustainable/prismAId/prismaid"
 )
 
 // Main function
