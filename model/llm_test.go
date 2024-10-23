@@ -4,7 +4,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/Open-and-Sustainable/prismAId/review"
+	"github.com/Open-and-Sustainable/prismaid/review"
 	"testing"
 )
 

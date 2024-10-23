@@ -6,20 +6,9 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// FileReader is an interface for reading files.
-type FileReader interface {
-    ReadFile(path string) ([]byte, error)
-}
-
 // EnvReader is an interface for accessing environment variables.
 type EnvReader interface {
     GetEnv(key string) string
-}
-
-type RealFileReader struct{}
-
-func (r RealFileReader) ReadFile(path string) ([]byte, error) {
-    return os.ReadFile(path)
 }
 
 type RealEnvReader struct{}
@@ -82,33 +71,32 @@ type ReviewItem struct {
 	Values []string `toml:"values"`
 }
 
-// LoadConfig reads a TOML configuration file and returns a Config instance.
-// If the configuration file does not specify certain values, defaults are applied.
+// LoadConfig parses the given TOML configuration string and populates a Config structure. 
+// It also checks for missing API keys in the configuration and attempts to load them 
+// from environment variables using the provided EnvReader. Additionally, it sets 
+// default values for various configuration fields if they are not specified.
 //
 // Parameters:
-//   - path: A string representing the file path to the configuration file.
+//   - tomlConfiguration: A string containing the TOML configuration data.
+//   - envReader: An instance of EnvReader, used to read environment variables for API keys.
 //
 // Returns:
-//   - A pointer to a Config struct containing the loaded configuration.
-//   - An error if any issues occur while reading or parsing the configuration file.
+//   - A pointer to a Config structure populated with the parsed configuration data.
+//   - An error if the TOML data cannot be decoded or any other processing error occurs.
 //
-// Example:
-//   > config, err := LoadConfig("path/to/config.toml")
-//   > if err != nil {
-//   >     log.Fatal("Failed to load config:", err)
-//   > }
-//func LoadConfig(path string) (*Config, error) {
-func LoadConfig(path string, fileReader FileReader, envReader EnvReader) (*Config, error) {
+// The function handles the following:
+//   1. Decoding the TOML configuration into the Config structure.
+//   2. Checking for missing API keys and attempting to retrieve them from environment variables 
+//      based on the provider (OpenAI, GoogleAI, Cohere, Anthropic).
+//   3. Setting default values for missing or invalid configuration fields, such as 
+//      InputConversion, OutputFormat, LogLevel, CotJustification, Summary, and Duplication.
+//   4. Ensuring that LLM configuration parameters like Temperature, TpmLimit, and RpmLimit are 
+//      non-negative by applying minimum value constraints.
+func LoadConfig(tomlConfiguration string, envReader EnvReader) (*Config, error) {
 	var config Config
 
-    // Read the file using the injected FileReader interface
-    data, err := fileReader.ReadFile(path)
-    if err != nil {
-        return nil, err
-    }
-
     // Decode the TOML data
-    if _, err := toml.Decode(string(data), &config); err != nil {
+    if _, err := toml.Decode(tomlConfiguration, &config); err != nil {
         return nil, err
     }
 

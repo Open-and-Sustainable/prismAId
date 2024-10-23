@@ -2,7 +2,7 @@ package check
 
 import (
 	"log"
-	"github.com/Open-and-Sustainable/prismAId/tokens"
+	"github.com/Open-and-Sustainable/prismaid/tokens"
 
 	anthropic "github.com/anthropics/anthropic-sdk-go"
 	openai "github.com/sashabaranov/go-openai"

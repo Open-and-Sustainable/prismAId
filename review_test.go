@@ -1,4 +1,4 @@
-package prismAId
+package prismaid
 
 import (
 	"fmt"
@@ -37,17 +37,8 @@ func TestRunReviewWithTempFiles(t *testing.T) {
 	// Create a temporary directory for output files
 	tmpDir := t.TempDir()
 
-	// Create a mock config file
+	// Create a mock config string (TOML configuration)
 	mockConfig := fmt.Sprintf(mockConfigDataTemplate, tmpDir, tmpDir)
-	configFile, err := os.CreateTemp("", "config_*.toml")
-	if err != nil {
-		t.Fatalf("Failed to create temp config file: %v", err)
-	}
-	defer os.Remove(configFile.Name()) // Clean up the config file
-	_, err = configFile.WriteString(mockConfig)
-	if err != nil {
-		t.Fatalf("Failed to write to config file: %v", err)
-	}
 
 	// Create a temporary file to simulate stdin user input
 	inputFile, err := os.CreateTemp("", "input_*.txt")
@@ -76,8 +67,8 @@ func TestRunReviewWithTempFiles(t *testing.T) {
 		exitCode = code
 	}
 
-	// Run the workflow
-	err = RunReview(configFile.Name())
+	// Run the workflow by passing the TOML configuration string directly
+	err = RunReview(mockConfig)
 	if err != nil {
 		t.Fatalf("RunReview failed: %v", err)
 	}

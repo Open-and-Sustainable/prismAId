@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	terminal "github.com/Open-and-Sustainable/prismAId/init"
-	"github.com/Open-and-Sustainable/prismAId"
+	terminal "github.com/Open-and-Sustainable/prismaid/init"
+	"github.com/Open-and-Sustainable/prismaid"
 )
 
 // Main function
@@ -31,7 +31,14 @@ func main() {
 
 	// Handle project logic if -project flag is provided
 	if *projectConfigPath != "" {
-		err := prismAId.RunReview(*projectConfigPath)
+		// Read the file using the injected FileReader interface
+		data, err := os.ReadFile(*projectConfigPath)
+		if err != nil {
+			fmt.Println("Error reading Review configuration:", err)
+			os.Exit(1)
+		}
+
+		err = prismaid.RunReview(string(data))
 		if err != nil {
 			fmt.Println("Error running Review logic:", err)
 			os.Exit(1)

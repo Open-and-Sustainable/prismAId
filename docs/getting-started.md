@@ -49,13 +49,13 @@ Download the appropriate executable for your operating system and platform from 
 ### Option 2. Go Package
 You can download the prismAId Go package for developing your own software or review project. To add the package to yoru project:
 ```bash
-go get "github.com/Open-and-Sustainable/prismAId"
+go get "github.com/Open-and-Sustainable/prismaid"
 ```
 Once added, it can be imported when needed with:
 ```go
-import "github.com/Open-and-Sustainable/prismAId"
+import "github.com/Open-and-Sustainable/prismaid"
 ```
-The package documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismAId).
+The package documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismaid).
 ## Running prismAId binaries
 The tool uses humaly readable project configuration files (.toml) to configure and run the reviews.
 

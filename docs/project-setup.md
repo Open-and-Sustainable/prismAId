@@ -14,11 +14,11 @@ layout: default
     - Download the appropriate executable for your operating system and platform.
     - If you prefer, you can add the package to your software with
     ```bash
-    go get "github.com/Open-and-Sustainable/prismAId"
+    go get "github.com/Open-and-Sustainable/prismaid"
     ```
     and then import it when needed with
     ```go
-    import "github.com/Open-and-Sustainable/prismAId"
+    import "github.com/Open-and-Sustainable/prismaid"
     ```
     Its documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismAId).
 3. **Prepare Papers for Review:**

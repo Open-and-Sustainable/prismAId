@@ -1,4 +1,4 @@
-package prismAId
+package prismaid
 
 import (
 	"encoding/csv"
@@ -6,16 +6,16 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"github.com/Open-and-Sustainable/prismAId/check"
-	"github.com/Open-and-Sustainable/prismAId/config"
-	"github.com/Open-and-Sustainable/prismAId/convert"
-	"github.com/Open-and-Sustainable/prismAId/cost"
-	"github.com/Open-and-Sustainable/prismAId/debug"
-	"github.com/Open-and-Sustainable/prismAId/model"
-	"github.com/Open-and-Sustainable/prismAId/prompt"
-	"github.com/Open-and-Sustainable/prismAId/results"
-	"github.com/Open-and-Sustainable/prismAId/review"
-	"github.com/Open-and-Sustainable/prismAId/tokens"
+	"github.com/Open-and-Sustainable/prismaid/check"
+	"github.com/Open-and-Sustainable/prismaid/config"
+	"github.com/Open-and-Sustainable/prismaid/convert"
+	"github.com/Open-and-Sustainable/prismaid/cost"
+	"github.com/Open-and-Sustainable/prismaid/debug"
+	"github.com/Open-and-Sustainable/prismaid/model"
+	"github.com/Open-and-Sustainable/prismaid/prompt"
+	"github.com/Open-and-Sustainable/prismaid/results"
+	"github.com/Open-and-Sustainable/prismaid/review"
+	"github.com/Open-and-Sustainable/prismaid/tokens"
 	"sync"
 	"time"
 )
@@ -41,18 +41,79 @@ func exit(code int) {
 var requestTimestamps []time.Time
 var mutex sync.Mutex
 
-// RunReview executes the review process based on the provided configuration file path.
-// This function loads the configuration, manages prompts, and coordinates the various modules to complete 
-// the review workflow.
+// RunReview is the main function responsible for orchestrating the systematic review process.
+// It takes a TOML string as input, which defines the configuration for the review, and executes 
+// the steps to carry out the review process, including model setup, input conversion, prompt generation, 
+// and execution of the review logic.
 //
-// Arguments:
-// - cfg_path: A string representing the file path to the configuration file.
+// Parameters:
+//   - tomlConfiguration: A string containing the TOML configuration data for the review project.
 //
 // Returns:
-// - An error if there is a problem with the configuration or during the review execution.
-func RunReview(cfg_path string) error {
+//   - An error if any step in the review process fails, or nil if the process completes successfully.
+//
+// The function performs the following steps:
+//
+// 1. **Load Configuration**:
+//    - The TOML configuration string is passed to the LoadConfig function, which parses the TOML 
+//      and populates a Config structure.
+//    - The configuration contains details such as the project settings, LLM models, input/output settings, 
+//      logging levels, and debugging options.
+//    - If the TOML data is invalid or an error occurs during parsing, the function logs the error and returns it.
+//
+// 2. **Setup Logging**:
+//    - Based on the log level specified in the configuration (high, medium, or low), the function 
+//      sets up logging accordingly using the debug package.
+//    - Logging can be written to a file, stdout, or be silent, depending on the log level. Logs are saved 
+//      in the directory specified by the ResultsFileName.
+//
+// 3. **Input Conversion**:
+//    - If the configuration specifies that input conversion is needed (e.g., converting PDF, DOCX files to text), 
+//      the Convert function is called.
+//    - If the conversion fails, an error is logged, and the process exits with a predefined error code.
+//
+// 4. **Debugging Features Setup**:
+//    - If the Duplication feature is enabled (`Duplication == "yes"`), it duplicates the input files for debugging purposes, 
+//      allowing the system to run the model queries twice on the same data for testing and comparison purposes.
+//
+// 5. **Prompt Generation**:
+//    - Prompts are generated using the ParsePrompts function, based on the parameters defined in the TOML configuration. 
+//      These include the persona, task, and other components needed for the systematic review.
+//    - The function logs the number of files generated for review.
+//
+// 6. **Build Options Object**:
+//    - The function creates an options object using the NewOptions function, passing in parameters such as 
+//      the results file name, output format (e.g., CSV, JSON), and whether to include chain-of-thought justification 
+//      and summaries in the results.
+//    - If building the options fails, an error is returned.
+//
+// 7. **Build Query Object**:
+//    - A query object is built using the NewQuery function, which organizes the parsed prompts 
+//      and applies sorting logic based on the configuration (e.g., alphabetical order).
+//    - If building the query fails, the function logs and returns the error.
+//
+// 8. **Model Setup and Execution**:
+//    - The models object is built using the NewModels function, which loads the LLM models specified in the configuration.
+//    - If there are multiple models in the configuration, the process is recognized as an ensemble review.
+//    - The function runs each model individually by calling runSingleModelReview, passing in the model, options, query, and filenames.
+//
+// 9. **Ensemble Logic**:
+//    - If multiple models are used (ensemble), the function logs that cost estimates are only available for single model reviews.
+//    - For single models, it runs the review for each model, logging any errors encountered during the process.
+//
+// 10. **Cleanup**:
+//    - If the Duplication feature was enabled for debugging, the function removes the duplicated input files created earlier.
+//    - Finally, it logs "Done!" to indicate the successful completion of the review.
+//
+// 11. **Error Handling**:
+//    - If any step in the review process encounters an error (e.g., loading configuration, input conversion, or review execution), 
+//      the function logs the error and returns it to the caller.
+//
+// The RunReview function is the primary entry point for executing the entire review process, based on the user-provided TOML configuration string. 
+// It orchestrates the different stages of the review process, including input parsing, prompt generation, model interaction, and output management.
+func RunReview(tomlConfiguration string) error {
 	// load project configuration
-	config, err := config.LoadConfig(cfg_path, config.RealFileReader{}, config.RealEnvReader{})
+	config, err := config.LoadConfig(tomlConfiguration, config.RealEnvReader{})
 	if err != nil {
 		fmt.Println("Error loading project configuration:", err) // here the logging function is not implemented yet
 		return err
@@ -60,11 +121,11 @@ func RunReview(cfg_path string) error {
 
 	// setup logging
 	if config.Project.Configuration.LogLevel == "high" {
-		debug.SetupLogging(debug.File, cfg_path)
+		debug.SetupLogging(debug.File, config.Project.Configuration.ResultsFileName)
 	} else if config.Project.Configuration.LogLevel == "medium" {
-		debug.SetupLogging(debug.Stdout, cfg_path)
+		debug.SetupLogging(debug.Stdout, config.Project.Configuration.ResultsFileName)
 	} else {
-		debug.SetupLogging(debug.Silent, cfg_path) // default value
+		debug.SetupLogging(debug.Silent, config.Project.Configuration.ResultsFileName) // default value
 	}
 
 	// run input conversion if needed
