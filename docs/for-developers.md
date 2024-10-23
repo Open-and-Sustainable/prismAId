@@ -9,7 +9,7 @@ layout: default
 We value community contributions that help improve prismAId. Whether you're fixing bugs, adding features, or improving documentation, your input is welcome:
 - **Branching Strategy**: Please create a new branch for each set of related changes and submit a pull request through GitHub.
 - **Code Reviews**: All submissions undergo a thorough review process to maintain code quality and consistency.
-- **Community Engagement**: Engage with us through GitHub [issues](https://github.com/Open-and-Sustainable/prismAId/issues) and [discussions](https://github.com/Open-and-Sustainable/prismAId/discussions) for feature requests, suggestions, or any queries related to project development.
+- **Community Engagement**: Engage with us through GitHub [issues](https://github.com/open-and-sustainable/prismaid/issues) and [discussions](https://github.com/open-and-sustainable/prismaid/discussions) for feature requests, suggestions, or any queries related to project development.
 
 For detailed guidelines on contributing, please refer to our [`CONTRIBUTING.md`](CONTRIBUTING.md) and [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
 
@@ -18,7 +18,7 @@ prismAId is built using the Go programming language, known for its simplicity an
 
 ### Development Environment Setup
 To facilitate the development and testing of prismAId, templates for configuring VSCodium (or Visual Studio Code) are provided. These templates include predefined settings and extensions that enhance the development experience, ensuring consistency across different setups.
-- **Accessing Templates**: You can find the configuration templates in the [`cmd` directory](https://github.com/Open-and-Sustainable/prismAId/tree/main/cmd) of our source repository. 
+- **Accessing Templates**: You can find the configuration templates in the [`cmd` directory](https://github.com/open-and-sustainable/prismaid/tree/main/cmd) of our source repository. 
 
 #### Using the Templates
 1. **Clone the Repository**: Start by cloning the prismAId repository to your local machine.

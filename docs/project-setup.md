@@ -10,7 +10,7 @@ layout: default
     - Create an account at [OpenAI](https://www.openai.com/) or [GoogleAI](https://aistudio.google.com) or [Cohere](https://cohere.com/).
     - Generate an API key from the the provider dashboard.
 2. **Download Executable or Go Package:**
-    - Visit the [releases](https://github.com/Open-and-Sustainable/prismAId/releases) section of the prismAId GitHub repository.
+    - Visit the [releases](https://github.com/open-and-sustainable/prismaid/releases) section of the prismAId GitHub repository.
     - Download the appropriate executable for your operating system and platform.
     - If you prefer, you can add the package to your software with
     ```bash
@@ -20,7 +20,7 @@ layout: default
     ```go
     import "github.com/Open-and-Sustainable/prismaid"
     ```
-    Its documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismAId).
+    Its documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/open-and-sustainable/prismaid).
 3. **Prepare Papers for Review:**
     - Ensure that all papers to be reviewed are in .txt format.
     - prismAId offers the ability to automatically convert files in PDF, DOCX, and HTML formats into plain text. To enable this conversion, use the `input_conversion` flag in the `[project.configuration]` section of the review project configuration. Once activated, files are converted to `.txt` format, allowing for further processing and inspection. Since the conversion results are saved as `.txt` files, there is no need to rerun the conversion multiple times.
@@ -31,7 +31,7 @@ layout: default
 - Unnecessary parts of text waste resources and increase analysis costs without any additional value. Actually, uneccessary parts could [negatively affect](https://arxiv.org/abs/2404.08865) model performance.
 
 ## How to Configure a Review Project
-Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/template.toml) and here.
+Prepare a project configuration file in [TOML](https://toml.io/en/) following the 3-sections structure, explanations, and suggestions presented in the [template.toml](https://github.com/open-and-sustainable/prismaid/blob/main/projects/template.toml) and here.
 
 **Section 1** is introduced below focusing on the basic settings to configure a project. **Section 2 and 3** of the configuraiton file are discussed in [Prompt Design](prompt-design).
 

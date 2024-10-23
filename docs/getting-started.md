@@ -13,7 +13,7 @@ This tool is tailored to assist researchers by offering a simple-to-use, efficie
 By significantly reducing the time and effort needed for data collection and analysis, prismAId enhances research efficiency. Through the use of customized prompts, prismAId automates information extraction, ensuring high accuracy and reliability. By formalizing concepts and information extraction, prismAId allows for the first time ever 100% replicable systematic literature reviews.
 
 Most AI tools for systematic literature reviews focus on the literature search phase. While a few tools address the analysis phase, they do not fully leverage the capabilities of generative AI models. prismAId brings generative AI and Open Science where they matter most — in the analysis and data extraction phases.
-![workflow](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/prismAId_workflow.png)
+![workflow](https://raw.githubusercontent.com/ricboer0/prismaid/main/figures/prismAId_workflow.png)
 
 ### Scope
 - prismAId is a software tool designed to leverage the capabilities of Large Language Models (LLMs) or AI Foundation models in understanding text content for conducting systematic reviews of scientific literature.
@@ -45,21 +45,21 @@ Most AI tools for systematic literature reviews focus on the literature search p
 To use prismAId, you have two options.
 
 ### Option 1. Binaries 
-Download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismAId/releases) page. Using executables does not require any coding skill.
+Download the appropriate executable for your operating system and platform from our [GitHub Releases](https://github.com/open-and-sustainable/prismaid/releases) page. Using executables does not require any coding skill.
 ### Option 2. Go Package
 You can download the prismAId Go package for developing your own software or review project. To add the package to yoru project:
 ```bash
-go get "github.com/Open-and-Sustainable/prismaid"
+go get "github.com/open-and-sustainable/prismaid"
 ```
 Once added, it can be imported when needed with:
 ```go
-import "github.com/Open-and-Sustainable/prismaid"
+import "github.com/open-and-sustainable/prismaid"
 ```
-The package documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/Open-and-Sustainable/prismaid).
+The package documentation is available on [pkg.go.dev](https://pkg.go.dev/github.com/open-and-sustainable/prismaid).
 ## Running prismAId binaries
 The tool uses humaly readable project configuration files (.toml) to configure and run the reviews.
 
-You can find a template and an example on the [GitHub repository](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects).
+You can find a template and an example on the [GitHub repository](https://github.com/open-and-sustainable/prismaid/tree/main/projects).
 
 prismAId provides an interactive terminal application guiding users in the creation of draft configuration files. This function is activated by calling binaries with the '-init' flag, for instance: 
 
@@ -68,7 +68,7 @@ prismAId provides an interactive terminal application guiding users in the creat
 ./prismAId_linux_amd64 -init
 ```
 
-![Terminal app for drafting project configuration file](https://raw.githubusercontent.com/ricboer0/prismAId/main/figures/terminal.gif)
+![Terminal app for drafting project configuration file](https://raw.githubusercontent.com/ricboer0/prismaid/main/figures/terminal.gif)
 
 Once the project configuration (.toml) is ready, the project can be executed from your command line, e.g.:
 

@@ -9,13 +9,13 @@ layout: default
 - **Debugging Information**: The level of debugging information and its permanent storage can be easily activated within the project configuration.
 - **API Keys**: These may be loaded either through system variables or the project configuration. If multiple keys are provided, the latter will have priority.
 - **Partial Results**: Results presenting only the first few entries of a review containing many more contributions suggest an incorrect adherence to the Token Per Minute limits set in the project configuration.
-- **Software Bugs**: For troubleshooting software issues, submit an [issue on the GitHub repository](https://github.com/Open-and-Sustainable/prismAId/issues).
-- **Feature Requests**: To submit requests for new functionalities, participate in [GitHub Discussions](https://github.com/Open-and-Sustainable/prismAId/discussions).
+- **Software Bugs**: For troubleshooting software issues, submit an [issue on the GitHub repository](https://github.com/open-and-sustainable/prismaid/issues).
+- **Feature Requests**: To submit requests for new functionalities, participate in [GitHub Discussions](https://github.com/open-and-sustainable/prismaid/discussions).
 
 ## Tips and Tricks
 ### Mastering the Art of prismAId
 - Carefully read the [technical FAQs](faqs) to avoid misusing the tool and to access emerging scientific references on issues related to the use of generative AI similar to those you may encounter in prismAId.
-- We provide an additional example in the [projects](https://github.com/Open-and-Sustainable/prismAId/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/input/test) and [output files](https://github.com/Open-and-Sustainable/prismAId/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
+- We provide an additional example in the [projects](https://github.com/open-and-sustainable/prismaid/blob/main/projects/test.toml) directory. This includes not only the project configuration but also [input files](https://github.com/open-and-sustainable/prismaid/tree/main/projects/input/test) and [output files](https://github.com/open-and-sustainable/prismaid/tree/main/projects/output/test). The input text is extracted from a study we conducted [doi.org/10.3390/cli10020027](https://doi.org/10.3390/cli10020027).
 - Multiple protocols for reporting systematic literature reviews are supported by prismAId [https://doi.org/10.1186/s13643-023-02255-9](https://doi.org/10.1186/s13643-023-02255-9). Users are encouraged to experiment and define their own prismAId methodologies.
 
 ### The Golden Rules of prismAId
