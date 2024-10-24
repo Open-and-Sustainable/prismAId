@@ -25,7 +25,6 @@ func RunReviewPython(input *C.char) *C.char {
 
     // Convert the C string to a Go string
     goInput := C.GoString(input)
-    fmt.Println("Received input:", goInput)
 
     // Call your Go function
     err := prismaid.RunReview(goInput)
@@ -34,7 +33,6 @@ func RunReviewPython(input *C.char) *C.char {
         return C.CString(err.Error())
     }
 
-    fmt.Println("RunReview completed successfully")
     return nil
 }
 
