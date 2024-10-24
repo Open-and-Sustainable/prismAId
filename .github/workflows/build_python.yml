@@ -19,7 +19,7 @@ jobs:
           go-version: '1.21'
 
       - name: Build shared library for Linux
-        working-directory: ./pythonlib
+        working-directory: ./python
         run: |
           go build -buildmode=c-shared -o libprismaid_linux_amd64.so ./export.go
 
@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libprismaid_linux_amd64.so
-          path: pythonlib/libprismaid_linux_amd64.so
+          path: python/libprismaid_linux_amd64.so
 
   build-windows:
     name: Build Windows Shared Library
@@ -43,7 +43,7 @@ jobs:
           go-version: '1.21'
 
       - name: Build shared library for Windows
-        working-directory: ./pythonlib
+        working-directory: ./python
         shell: pwsh
         run: |
           go build -buildmode=c-shared -o libprismaid_windows_amd64.dll .\export.go
@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libprismaid_windows_amd64.dll
-          path: pythonlib\libprismaid_windows_amd64.dll
+          path: python\libprismaid_windows_amd64.dll
 
   build-macos:
     name: Build macOS Shared Library
@@ -68,7 +68,7 @@ jobs:
           go-version: '1.21'
 
       - name: Build shared library for macOS
-        working-directory: ./pythonlib
+        working-directory: ./python
         run: |
           go build -buildmode=c-shared -o libprismaid_darwin_amd64.dylib ./export.go
 
@@ -76,4 +76,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: libprismaid_darwin_amd64.dylib
-          path: pythonlib/libprismaid_darwin_amd64.dylib
+          path: python/libprismaid_darwin_amd64.dylib
