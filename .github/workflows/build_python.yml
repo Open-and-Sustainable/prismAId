@@ -11,23 +11,23 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
 
       - name: Build shared library for Linux
-        working-directory: ./python
+        working-directory: ./pythonlib
         run: |
           go build -buildmode=c-shared -o libprismaid_linux_amd64.so ./export.go
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libprismaid_linux_amd64.so
-          path: python/libprismaid_linux_amd64.so
+          path: pythonlib/libprismaid_linux_amd64.so
 
   build-windows:
     name: Build Windows Shared Library
@@ -35,24 +35,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
 
       - name: Build shared library for Windows
-        working-directory: ./python
+        working-directory: ./pythonlib
         shell: pwsh
         run: |
           go build -buildmode=c-shared -o libprismaid_windows_amd64.dll .\export.go
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libprismaid_windows_amd64.dll
-          path: python\libprismaid_windows_amd64.dll
+          path: pythonlib\libprismaid_windows_amd64.dll
 
   build-macos:
     name: Build macOS Shared Library
@@ -60,20 +60,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           go-version: '1.21'
 
       - name: Build shared library for macOS
-        working-directory: ./python
+        working-directory: ./pythonlib
         run: |
           go build -buildmode=c-shared -o libprismaid_darwin_amd64.dylib ./export.go
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: libprismaid_darwin_amd64.dylib
-          path: python/libprismaid_darwin_amd64.dylib
+          path: pythonlib/libprismaid_darwin_amd64.dylib
