@@ -7,7 +7,7 @@ package main
 import "C"
 
 import (
-    "github.com/open-and-sustainable/prismaid" // Adjust the import path
+    "github.com/open-and-sustainable/prismaid"
     "unsafe"
 )
 
