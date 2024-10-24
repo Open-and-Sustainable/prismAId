@@ -7,23 +7,34 @@ package main
 import "C"
 
 import (
+    "fmt"
     "github.com/open-and-sustainable/prismaid"
     "unsafe"
 )
 
 //export RunReviewPython
 func RunReviewPython(input *C.char) *C.char {
-    // Convert C string to Go string
-    goInput := C.GoString(input)
+    // Recover from panic, but do not return from defer
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered from panic:", r)
+            // Directly return the panic message
+            return // No need to return a C string here
+        }
+    }()
 
-    // Call your Go function with the input
+    // Convert the C string to a Go string
+    goInput := C.GoString(input)
+    fmt.Println("Received input:", goInput)
+
+    // Call your Go function
     err := prismaid.RunReview(goInput)
     if err != nil {
-        // Return the error message as a C string
+        fmt.Println("Error in RunReview:", err)
         return C.CString(err.Error())
     }
 
-    // No error, return NULL
+    fmt.Println("RunReview completed successfully")
     return nil
 }
 
