@@ -17,15 +17,14 @@ func RunReviewPython(input *C.char) *C.char {
     goInput := C.GoString(input)
 
     // Call your Go function with the input
-    output, err := prismaid.RunReview(goInput)
+    err := prismaid.RunReview(goInput)
     if err != nil {
-        // Handle the error, return an error message prefixed with "error:"
-        errorMsg := "error:" + err.Error()
-        return C.CString(errorMsg)
+        // Return the error message as a C string
+        return C.CString(err.Error())
     }
 
-    // Return the output as a C string
-    return C.CString(output)
+    // No error, return NULL
+    return nil
 }
 
 //export FreeCString
