@@ -1,0 +1,79 @@
+name: Build Shared Libraries
+
+on:
+  push:
+    branches: [ 42-add-pipeline-to-publish-prismaid-as-python-package ]
+
+jobs:
+  build-linux:
+    name: Build Linux Shared Library
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build shared library for Linux
+        working-directory: ./python
+        run: |
+          go build -buildmode=c-shared -o libprismaid_linux_amd64.so ./export.go
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libprismaid_linux_amd64.so
+          path: python/libprismaid_linux_amd64.so
+
+  build-windows:
+    name: Build Windows Shared Library
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build shared library for Windows
+        working-directory: ./python
+        shell: pwsh
+        run: |
+          go build -buildmode=c-shared -o libprismaid_windows_amd64.dll .\export.go
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libprismaid_windows_amd64.dll
+          path: python\libprismaid_windows_amd64.dll
+
+  build-macos:
+    name: Build macOS Shared Library
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Build shared library for macOS
+        working-directory: ./python
+        run: |
+          go build -buildmode=c-shared -o libprismaid_darwin_amd64.dylib ./export.go
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: libprismaid_darwin_amd64.dylib
+          path: python/libprismaid_darwin_amd64.dylib
